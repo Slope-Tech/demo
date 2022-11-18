@@ -10,7 +10,7 @@ import { formatCurrency } from '../utils/products';
 
 const PaymentMethods: React.FC<{ customerForm: Record<string, any>}> = ({ customerForm }) => {
   const [loading, setLoading] = useState(false);
-  const [limits, setLimits] = useState(null);
+  const [limits, setLimits] = useState<Record<string, any> | null>(null);
   const [error, setError] = useState(null);
 
   const onPreQualify = async () => {
