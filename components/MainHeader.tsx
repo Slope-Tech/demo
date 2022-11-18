@@ -159,7 +159,7 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
   );
 
   return (
-    <Header height={56} className={classes.header}>
+    <Header height={HEADER_HEIGHT} className={classes.header}>
       <Container>
         <div className={classes.inner}>
           <Text
@@ -174,14 +174,12 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
             fw={700}
           >
             <img alt="Slope Logo" src="/images/slope_logo_white.png" height={32} />
-            {'  '}
-            Slope Demo
+            &nbsp;&nbsp;Slope Demo
           </Text>
-          <Group spacing={10} className={classes.links}>
+          <Group spacing="sm" className={classes.links}>
             {controls}
             {items}
           </Group>
-
           <Burger
             opened={opened}
             onClick={() => setOpened(!opened)}
@@ -192,7 +190,7 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
           <Transition transition="pop-top-right" duration={200} mounted={opened}>
             {(styles) => (
               <Paper className={classes.dropdown} style={styles}>
-                <Group spacing={10}>
+                <Group spacing="sm">
                   {controls}
                   <Menu>{mItem}</Menu>
                 </Group>

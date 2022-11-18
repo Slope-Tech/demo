@@ -1,6 +1,7 @@
 import {
   createStyles, Text, Container, Group,
 } from '@mantine/core';
+import { IconBrandGithub, IconCode } from '@tabler/icons';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -43,12 +44,28 @@ const MainFooter = () => {
     <footer className={classes.footer}>
       <Container className={classes.afterFooter}>
         <Text<'a'> target="_blank" component="a" href="https://slope.so" className={classes.link} color="dimmed" size="sm">
-          © 2022 - Slope
+          <img src="/images/favicon.png" alt="Slope Logo" />
+          {' '}
+          ©
+          {new Date().getFullYear()}
+          {' '}
+          - Slope Tech, Inc.
         </Text>
 
-        <Group spacing={0} position="right" noWrap>
+        <Group spacing="lg" position="right" noWrap>
           <Text<'a'> target="_blank" component="a" href="https://developers.slope.so" className={classes.link} color="dimmed" size="sm">
-            Slope Developer Portal
+            <Group spacing={5}>
+              Developer Hub
+              {' '}
+              <IconCode size={16} />
+            </Group>
+          </Text>
+          <Text<'a'> target="_blank" component="a" href="https://github.com/Slope-Tech/demo" className={classes.link} color="dimmed" size="sm">
+            <Group spacing={5}>
+              GitHub
+              {' '}
+              <IconBrandGithub size={16} />
+            </Group>
           </Text>
         </Group>
       </Container>
