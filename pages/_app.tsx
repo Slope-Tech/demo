@@ -32,6 +32,11 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     }),
   };
 
+  if (typeof window !== 'undefined' && window.location.origin === 'checkout-demo-ten.vercel.app') {
+    window.location.href = 'https://demo.sandbox.slope.so/';
+    return;
+  }
+
   return (
     <div>
       <Head>
