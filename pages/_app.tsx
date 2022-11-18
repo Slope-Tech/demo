@@ -9,7 +9,7 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [customerForm, setCustomerForm] = useState({
     businessName: 'Slope Demo Customer',
     email: 'demo@slope.so',
-    phone: '+14156788582',
+    phone: '+16175551212',
     line1: '123 California St',
     city: 'San Francisco',
     state: 'CA',
