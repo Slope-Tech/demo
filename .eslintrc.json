@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals", "airbnb"],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "@next/next/no-img-element": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": "off",
+    "no-console": "off",
+    "import/extensions": "off",
+    "react/function-component-definition": ["error", { "namedComponents": "arrow-function" }],
+    "no-alert": "off",
+    "consistent-return": "off",
+    "react/jsx-props-no-spreading": "off"
+  }
+}
