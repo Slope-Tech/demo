@@ -1,16 +1,33 @@
 {
   "root": true,
-  "extends": ["next/core-web-vitals", "airbnb"],
+  "extends": ["next/core-web-vitals", "airbnb", "prettier"],
+  "plugins": ["unused-imports", "@typescript-eslint/eslint-plugin"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
+    "unused-imports/no-unused-imports": "error",
     "react-hooks/exhaustive-deps": "off",
-    "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-console": "error",
+    "semi": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": "off",
-    "no-console": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
     "import/extensions": "off",
-    "react/function-component-definition": ["error", { "namedComponents": "arrow-function" }],
-    "no-alert": "off",
-    "consistent-return": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": [2, {
+      "functions": "defaultArguments"
+    }],
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+    "max-len": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "react/no-children-prop": "off"
   }
 }
