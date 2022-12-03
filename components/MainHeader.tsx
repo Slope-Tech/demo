@@ -16,13 +16,21 @@ import {
 import { IconChevronDown, IconWallet } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { QUALIFIED_EMAIL_SUFFIX, getEmailValue, qualifiedEmail } from '../utils/email';
+import {
+  QUALIFIED_EMAIL_SUFFIX,
+  getEmailValue,
+  qualifiedEmail,
+  generateDemoEmail,
+} from '../utils/email';
 
 const HEADER_HEIGHT = 56;
 
 const useStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+    backgroundColor: theme.fn.variant({
+      variant: 'filled',
+      color: theme.primaryColor,
+    }).background,
     borderBottom: 0,
   },
 
@@ -35,7 +43,10 @@ const useStyles = createStyles((theme) => ({
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
-    backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+    backgroundColor: theme.fn.variant({
+      variant: 'filled',
+      color: theme.primaryColor,
+    }).background,
     overflow: 'hidden',
     padding: 8,
 
@@ -69,10 +80,33 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm: any}> = (
-  { customerForm, setCustomerForm },
-) => {
+// Duplicated from slope-checkout repo
+export enum ProductFlow {
+  // Flows that require order context and result in a placed order.
+  BNPL_ONLY = 'bnpl',
+  PAY_NOW_ONLY = 'pay_now',
+  BNPL_AND_PAY_NOW = 'bnpl_pay_now',
+  // Only goes through prequalification, and then closes. Requires no order context.
+  STANDALONE_PREQUAL = 'standalone_prequal',
+}
+
+export enum CustomerType {
+  NEW = 'new',
+  PREQUALIFIED = 'prequalified',
+  INELIGIBLE = 'ineligible', // to implement
+}
+
+const MainHeader: React.FC<{
+  customerForm: Record<string, any>;
+  setCustomerForm: any;
+}> = ({ customerForm, setCustomerForm }) => {
   const [opened, setOpened] = useState(false);
+  const [productFlow, setProductFlow] = useState<ProductFlow>(
+    ProductFlow.BNPL_AND_PAY_NOW
+  );
+  const [customerType, setCustomerType] = useState<CustomerType>(
+    CustomerType.NEW
+  );
   const { classes } = useStyles();
   const router = useRouter();
 
@@ -111,9 +145,7 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
           </Group>
         </UnstyledButton>
       </Menu.Target>
-      <Menu.Dropdown>
-        {mItem}
-      </Menu.Dropdown>
+      <Menu.Dropdown>{mItem}</Menu.Dropdown>
     </Menu>
   );
 
@@ -131,27 +163,42 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
         size="sm"
       />
       <SegmentedControl
-        data={[{ label: 'Pay Now & Later', value: 'on' }, { label: 'Pay Later', value: '' }]}
+        data={[
+          { label: 'Pay Now & Later', value: ProductFlow.BNPL_AND_PAY_NOW },
+          { label: 'Pay Later', value: ProductFlow.BNPL_ONLY },
+          { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
+        ]}
         size="sm"
-        value={customerForm.payNow ? 'on' : ''}
+        value={productFlow}
         onChange={(value) => {
+          const newProductFlow = value as ProductFlow;
+          setProductFlow(newProductFlow);
           setCustomerForm({
             ...customerForm,
             payNow: !!value,
+            email: generateDemoEmail({
+              productFlow: newProductFlow,
+              customerType,
+            }),
           });
         }}
       />
       <SegmentedControl
         data={[
-          { label: 'Qualified', value: QUALIFIED_EMAIL_SUFFIX },
-          { label: 'New', value: '' },
+          { label: 'Qualified', value: CustomerType.PREQUALIFIED },
+          { label: 'New', value: CustomerType.NEW },
         ]}
         size="sm"
-        value={getEmailValue(customerForm.email)}
+        value={customerType}
         onChange={(value) => {
+          const newCustomerType = value as CustomerType;
+          setCustomerType(newCustomerType);
           setCustomerForm({
             ...customerForm,
-            email: qualifiedEmail(customerForm.email, value),
+            email: generateDemoEmail({
+              productFlow,
+              customerType: newCustomerType,
+            }),
           });
         }}
       />
@@ -173,7 +220,11 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
             size="xl"
             fw={700}
           >
-            <img alt="Slope Logo" src="/images/slope_logo_white.png" height={32} />
+            <img
+              alt="Slope Logo"
+              src="/images/slope_logo_white.png"
+              height={32}
+            />
             &nbsp;&nbsp;Slope Demo
           </Text>
           <Group spacing="sm" className={classes.links}>
@@ -187,7 +238,11 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
             size="sm"
             color="white"
           />
-          <Transition transition="pop-top-right" duration={200} mounted={opened}>
+          <Transition
+            transition="pop-top-right"
+            duration={200}
+            mounted={opened}
+          >
             {(styles) => (
               <Paper className={classes.dropdown} style={styles}>
                 <Group spacing="sm">
@@ -197,7 +252,6 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
               </Paper>
             )}
           </Transition>
-
         </div>
       </Container>
     </Header>
