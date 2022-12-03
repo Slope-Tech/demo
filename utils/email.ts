@@ -5,66 +5,43 @@ export enum ProductFlow {
   PAY_NOW_ONLY = 'pay_now',
   BNPL_AND_PAY_NOW = 'bnpl_pay_now',
   // Only goes through prequalification, and then closes. Requires no order context.
-  STANDALONE_PREQUAL = 'standalone_prequal',
+  STANDALONE_PREQUAL = 'standalone_prequal'
 }
 
 export enum CustomerType {
   NEW = 'new',
   PREQUALIFIED = 'prequalified',
-  INELIGIBLE = 'ineligible', // to implement
+  INELIGIBLE = 'ineligible' // to implement
 }
 // TODO: Add support for ineligible state
-export const QUALIFIED_EMAIL_SUFFIX = '+skip-pre_qualify';
-
-export const getEmailValue = (email: string): string => {
-  if (email.includes(QUALIFIED_EMAIL_SUFFIX)) {
-    return QUALIFIED_EMAIL_SUFFIX;
-  }
-
-  return '';
-};
+export const QUALIFIED_EMAIL_SUFFIX = '+skip-pre_qualify'
 
 export const generateDemoEmail = ({
   productFlow,
-  customerType,
+  customerType
 }: {
-  productFlow: ProductFlow;
-  customerType: CustomerType;
+  productFlow: ProductFlow
+  customerType: CustomerType
 }) => {
-  let email = 'demo';
+  let email = 'demo'
   switch (productFlow) {
     case ProductFlow.PAY_NOW_ONLY:
-      email += '+terms-pay_now';
-      break;
+      email += '+terms-pay_now'
+      break
     case ProductFlow.BNPL_ONLY:
-      email += '+terms-bnpl';
-      break;
+      email += '+terms-bnpl'
+      break
     default:
-      break;
+      break
   }
 
   switch (customerType) {
     case CustomerType.PREQUALIFIED:
-      email += QUALIFIED_EMAIL_SUFFIX;
-      break;
+      email += QUALIFIED_EMAIL_SUFFIX
+      break
     default:
-      break;
+      break
   }
-  email += '@slope.so';
-  return email;
-};
-
-export const qualifiedEmail = (email: string, value: string) => {
-  if (!email) {
-    return '';
-  }
-
-  email = email.replaceAll(QUALIFIED_EMAIL_SUFFIX, '');
-
-  if (value) {
-    const parts = email.split('@');
-    return `${parts[0]}${value}@${parts[1]}`;
-  }
-
-  return email;
-};
+  email += '@slope.so'
+  return email
+}
