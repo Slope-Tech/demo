@@ -1,5 +1,18 @@
-import { CustomerType, ProductFlow } from '../components/MainHeader';
+// Duplicated from slope-checkout repo
+export enum ProductFlow {
+  // Flows that require order context and result in a placed order.
+  BNPL_ONLY = 'bnpl',
+  PAY_NOW_ONLY = 'pay_now',
+  BNPL_AND_PAY_NOW = 'bnpl_pay_now',
+  // Only goes through prequalification, and then closes. Requires no order context.
+  STANDALONE_PREQUAL = 'standalone_prequal',
+}
 
+export enum CustomerType {
+  NEW = 'new',
+  PREQUALIFIED = 'prequalified',
+  INELIGIBLE = 'ineligible', // to implement
+}
 // TODO: Add support for ineligible state
 export const QUALIFIED_EMAIL_SUFFIX = '+skip-pre_qualify';
 

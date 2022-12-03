@@ -16,12 +16,7 @@ import {
 import { IconChevronDown, IconWallet } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import {
-  QUALIFIED_EMAIL_SUFFIX,
-  getEmailValue,
-  qualifiedEmail,
-  generateDemoEmail,
-} from '../utils/email';
+import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email';
 
 const HEADER_HEIGHT = 56;
 
@@ -80,30 +75,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-// Duplicated from slope-checkout repo
-export enum ProductFlow {
-  // Flows that require order context and result in a placed order.
-  BNPL_ONLY = 'bnpl',
-  PAY_NOW_ONLY = 'pay_now',
-  BNPL_AND_PAY_NOW = 'bnpl_pay_now',
-  // Only goes through prequalification, and then closes. Requires no order context.
-  STANDALONE_PREQUAL = 'standalone_prequal',
-}
-
-export enum CustomerType {
-  NEW = 'new',
-  PREQUALIFIED = 'prequalified',
-  INELIGIBLE = 'ineligible', // to implement
-}
-
 const MainHeader: React.FC<{
   customerForm: Record<string, any>;
   setCustomerForm: any;
-}> = ({ customerForm, setCustomerForm }) => {
+  productFlow: ProductFlow;
+  setProductFlow: any;
+}> = ({ customerForm, setCustomerForm, productFlow, setProductFlow }) => {
   const [opened, setOpened] = useState(false);
-  const [productFlow, setProductFlow] = useState<ProductFlow>(
-    ProductFlow.BNPL_AND_PAY_NOW
-  );
   const [customerType, setCustomerType] = useState<CustomerType>(
     CustomerType.NEW
   );
@@ -165,8 +143,8 @@ const MainHeader: React.FC<{
       <SegmentedControl
         data={[
           { label: 'Pay Now & Later', value: ProductFlow.BNPL_AND_PAY_NOW },
-          { label: 'Pay Later', value: ProductFlow.BNPL_ONLY },
           { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
+          { label: 'Pay Later', value: ProductFlow.BNPL_ONLY },
         ]}
         size="sm"
         value={productFlow}
@@ -175,7 +153,6 @@ const MainHeader: React.FC<{
           setProductFlow(newProductFlow);
           setCustomerForm({
             ...customerForm,
-            payNow: !!value,
             email: generateDemoEmail({
               productFlow: newProductFlow,
               customerType,

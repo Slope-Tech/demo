@@ -4,6 +4,7 @@ import { AppShell, Container, MantineProvider } from '@mantine/core';
 import { useState } from 'react';
 import MainFooter from '../components/MainFooter';
 import MainHeader from '../components/MainHeader';
+import { ProductFlow } from '../utils/email';
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [customerForm, setCustomerForm] = useState({
@@ -16,10 +17,13 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     postalCode: '94105',
     country: 'US',
     currency: 'usd',
-    payNow: false,
     qualified: true,
     product: 'Socks',
   });
+
+  const [productFlow, setProductFlow] = useState<ProductFlow>(
+    ProductFlow.BNPL_AND_PAY_NOW
+  );
 
   const providerTheme = {
     globalStyles: (theme) => ({
@@ -32,7 +36,10 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     }),
   };
 
-  if (typeof window !== 'undefined' && window.location.origin === 'checkout-demo-ten.vercel.app') {
+  if (
+    typeof window !== 'undefined' &&
+    window.location.origin === 'checkout-demo-ten.vercel.app'
+  ) {
     window.location.href = 'https://demo.sandbox.slope.so/';
     return;
   }
@@ -47,13 +54,21 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
         <AppShell
           padding="xl"
-          header={<MainHeader customerForm={customerForm} setCustomerForm={setCustomerForm} />}
+          header={
+            <MainHeader
+              customerForm={customerForm}
+              setCustomerForm={setCustomerForm}
+              productFlow={productFlow}
+              setProductFlow={setProductFlow}
+            />
+          }
           footer={<MainFooter />}
         >
           <Container pb={20}>
             <Component
               customerForm={customerForm}
               setCustomerForm={setCustomerForm}
+              productFlow={productFlow}
               {...pageProps}
             />
           </Container>
