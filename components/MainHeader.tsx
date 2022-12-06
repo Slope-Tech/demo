@@ -11,19 +11,22 @@ import {
   UnstyledButton,
   SegmentedControl,
   Paper,
-  Transition,
-} from '@mantine/core';
-import { IconChevronDown, IconWallet } from '@tabler/icons';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { QUALIFIED_EMAIL_SUFFIX, getEmailValue, qualifiedEmail } from '../utils/email';
+  Transition
+} from '@mantine/core'
+import { IconChevronDown, IconWallet } from '@tabler/icons'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email'
 
-const HEADER_HEIGHT = 56;
+const HEADER_HEIGHT = 56
 
 const useStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
-    borderBottom: 0,
+    backgroundColor: theme.fn.variant({
+      variant: 'filled',
+      color: theme.primaryColor
+    }).background,
+    borderBottom: 0
   },
 
   dropdown: {
@@ -35,59 +38,68 @@ const useStyles = createStyles((theme) => ({
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
-    backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+    backgroundColor: theme.fn.variant({
+      variant: 'filled',
+      color: theme.primaryColor
+    }).background,
     overflow: 'hidden',
     padding: 8,
 
     [theme.fn.largerThan('sm')]: {
-      display: 'none',
-    },
+      display: 'none'
+    }
   },
 
   inner: {
     height: HEADER_HEIGHT,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
 
   burger: {
     [theme.fn.largerThan('sm')]: {
-      display: 'none',
-    },
+      display: 'none'
+    }
   },
 
   link: {
     textDecoration: 'none',
-    color: theme.white,
+    color: theme.white
   },
 
   links: {
     [theme.fn.smallerThan('sm')]: {
-      display: 'none',
-    },
-  },
-}));
+      display: 'none'
+    }
+  }
+}))
 
-const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm: any}> = (
-  { customerForm, setCustomerForm },
-) => {
-  const [opened, setOpened] = useState(false);
-  const { classes } = useStyles();
-  const router = useRouter();
+const MainHeader: React.FC<{
+  customerForm: Record<string, any>
+  setCustomerForm: any
+  productFlow: ProductFlow
+  setProductFlow: any
+}> = ({ customerForm, setCustomerForm, productFlow, setProductFlow }) => {
+  const [opened, setOpened] = useState(false)
+  const [customerType, setCustomerType] = useState<CustomerType>(
+    CustomerType.NEW
+  )
+  const { classes } = useStyles()
+  const router = useRouter()
 
   const item = {
     link: '/payment_methods',
-    label: 'Payment Methods',
-  };
+    label: 'Payment Methods'
+  }
 
   const mItem = (
     <Menu.Item>
       <Anchor
         href={item.link}
         onClick={(e) => {
-          e.preventDefault();
-          router.push(item.link);
+          e.preventDefault()
+          router.push(item.link)
         }}
       >
         <Group>
@@ -96,7 +108,7 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
         </Group>
       </Anchor>
     </Menu.Item>
-  );
+  )
 
   const items = (
     <Menu trigger="hover" exitTransitionDuration={0}>
@@ -111,11 +123,9 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
           </Group>
         </UnstyledButton>
       </Menu.Target>
-      <Menu.Dropdown>
-        {mItem}
-      </Menu.Dropdown>
+      <Menu.Dropdown>{mItem}</Menu.Dropdown>
     </Menu>
-  );
+  )
 
   const controls = (
     <>
@@ -125,38 +135,52 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
         onChange={(value) => {
           setCustomerForm({
             ...customerForm,
-            product: value,
-          });
+            product: value
+          })
         }}
         size="sm"
       />
       <SegmentedControl
-        data={[{ label: 'Pay Now & Later', value: 'on' }, { label: 'Pay Later', value: '' }]}
+        data={[
+          { label: 'Pay Now & Later', value: ProductFlow.BNPL_AND_PAY_NOW },
+          { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
+          { label: 'Pay Later', value: ProductFlow.BNPL_ONLY }
+        ]}
         size="sm"
-        value={customerForm.payNow ? 'on' : ''}
+        value={productFlow}
         onChange={(value) => {
+          const newProductFlow = value as ProductFlow
+          setProductFlow(newProductFlow)
           setCustomerForm({
             ...customerForm,
-            payNow: !!value,
-          });
+            email: generateDemoEmail({
+              productFlow: newProductFlow,
+              customerType
+            })
+          })
         }}
       />
       <SegmentedControl
         data={[
-          { label: 'Qualified', value: QUALIFIED_EMAIL_SUFFIX },
-          { label: 'New', value: '' },
+          { label: 'Qualified', value: CustomerType.PREQUALIFIED },
+          { label: 'New', value: CustomerType.NEW }
         ]}
         size="sm"
-        value={getEmailValue(customerForm.email)}
+        value={customerType}
         onChange={(value) => {
+          const newCustomerType = value as CustomerType
+          setCustomerType(newCustomerType)
           setCustomerForm({
             ...customerForm,
-            email: qualifiedEmail(customerForm.email, value),
-          });
+            email: generateDemoEmail({
+              productFlow,
+              customerType: newCustomerType
+            })
+          })
         }}
       />
     </>
-  );
+  )
 
   return (
     <Header height={HEADER_HEIGHT} className={classes.header}>
@@ -166,14 +190,18 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
             component="a"
             href="/"
             onClick={(e) => {
-              e.preventDefault();
-              router.push('/');
+              e.preventDefault()
+              router.push('/')
             }}
             color="white"
             size="xl"
             fw={700}
           >
-            <img alt="Slope Logo" src="/images/slope_logo_white.png" height={32} />
+            <img
+              alt="Slope Logo"
+              src="/images/slope_logo_white.png"
+              height={32}
+            />
             &nbsp;&nbsp;Slope Demo
           </Text>
           <Group spacing="sm" className={classes.links}>
@@ -187,7 +215,11 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
             size="sm"
             color="white"
           />
-          <Transition transition="pop-top-right" duration={200} mounted={opened}>
+          <Transition
+            transition="pop-top-right"
+            duration={200}
+            mounted={opened}
+          >
             {(styles) => (
               <Paper className={classes.dropdown} style={styles}>
                 <Group spacing="sm">
@@ -197,11 +229,10 @@ const MainHeader: React.FC<{ customerForm: Record<string, any>, setCustomerForm:
               </Paper>
             )}
           </Transition>
-
         </div>
       </Container>
     </Header>
-  );
-};
+  )
+}
 
-export default MainHeader;
+export default MainHeader
