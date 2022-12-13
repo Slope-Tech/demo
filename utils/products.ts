@@ -1,28 +1,28 @@
 const products = {
-  'Beer': [
+  Beer: [
     {
       id: 1,
-      quantity: 1800,
-      name: "Budweiser Beer - 6 pack - 16oz Cans",
+      quantity: 180,
+      name: 'Budweiser Beer - 6 pack - 16oz Cans',
       price: 639,
-      imageSrc: "/images/products/budweiser.jpg",
+      imageSrc: '/images/products/budweiser.jpg'
     },
     {
       id: 2,
-      quantity: 2100,
-      name: "Corona Extra - 24 pack - 12oz Bottle",
+      quantity: 210,
+      name: 'Corona Extra - 24 pack - 12oz Bottle',
       price: 2899,
-      imageSrc: "/images/products/corona.jpg",
-    },
+      imageSrc: '/images/products/corona.jpg'
+    }
   ],
-  'Socks': [
+  Socks: [
     {
       id: 1,
       quantity: 150,
-      name: "Slope Socks",
+      name: 'Slope Socks',
       price: 829,
-      imageSrc: "/images/products/socks.jpg",
-    },
+      imageSrc: '/images/products/socks.jpg'
+    }
   ]
 }
 
