@@ -154,7 +154,6 @@ const MainHeader: React.FC<{
           setCustomerForm({
             ...customerForm,
             email: generateDemoEmail({
-              productFlow: newProductFlow,
               customerType
             })
           })
@@ -173,7 +172,6 @@ const MainHeader: React.FC<{
           setCustomerForm({
             ...customerForm,
             email: generateDemoEmail({
-              productFlow,
               customerType: newCustomerType
             })
           })

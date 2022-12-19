@@ -41,13 +41,12 @@ export const getTotals = (products) => {
   return {
     subtotal,
     taxes,
-    total,
+    total
   }
 }
 
 export const formatCurrency = (number) => {
-  return new Intl.NumberFormat(
-    'en-US',
-    { style: 'currency', currency: 'USD' }).format(number / 100.0
-  ).toString();
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+    .format(number / 100.0)
+    .toString()
 }

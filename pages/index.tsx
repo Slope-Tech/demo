@@ -1,79 +1,90 @@
-import React, { useState } from 'react';
-import { Button, Grid, Title, Text, Group } from '@mantine/core';
-import { useRouter } from 'next/router';
-import { IconCreditCard, IconShoppingCart } from '@tabler/icons';
-import CustomerForm from '../components/CustomerForm';
-import OrderSummary from '../components/OrderSummary';
-import ErrorAlert from '../components/ErrorAlert';
-import { getProducts, getTotals } from '../utils/products';
-import { ProductFlow } from '../utils/email';
+import React, { useState } from 'react'
+import { Button, Grid, Title, Text, Group } from '@mantine/core'
+import { useRouter } from 'next/router'
+import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
+import CustomerForm from '../components/CustomerForm'
+import OrderSummary from '../components/OrderSummary'
+import ErrorAlert from '../components/ErrorAlert'
+import { getProducts, getTotals } from '../utils/products'
+import { ProductFlow } from '../utils/email'
 
 const Checkout: React.FC<{
-  customerForm: Record<string, any>;
-  setCustomerForm: any;
-  productFlow: ProductFlow;
+  customerForm: Record<string, any>
+  setCustomerForm: any
+  productFlow: ProductFlow
 }> = ({ customerForm, setCustomerForm, productFlow }) => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const onPay = async () => {
-    setLoading(true);
+    setLoading(true)
 
     const customerResp = await fetch('/api/create-customer', {
       method: 'POST',
-      body: JSON.stringify(customerForm),
-    });
+      body: JSON.stringify(customerForm)
+    })
 
-    const customerJson = await customerResp.json();
+    const customerJson = await customerResp.json()
 
     if (!customerJson.customer) {
-      setLoading(false);
-      return setError(customerJson);
+      setLoading(false)
+      return setError(customerJson)
     }
     console.log(
       'customerId & secret',
       customerJson.customer.id,
       customerJson.secret
-    );
+    )
 
-    const products = getProducts(customerForm.product);
-    const totals = getTotals(products);
+    const products = getProducts(customerForm.product)
+    const totals = getTotals(products)
 
     const orderRes = await fetch('/api/create-order', {
       method: 'POST',
       body: JSON.stringify({
         ...customerForm,
         customerId: customerJson.customer.id,
-        total: totals.total,
-      }),
-    });
+        total: totals.total
+      })
+    })
 
-    const { order, secret } = await orderRes.json();
-    console.log('orderId & secret', order.id, secret);
+    const { order, secret } = await orderRes.json()
+    console.log('orderId & secret', order.id, secret)
+
+    let offerType
+    switch (productFlow) {
+      case ProductFlow.BNPL_ONLY:
+      case ProductFlow.PAY_NOW_ONLY:
+        offerType = productFlow
+        break
+      default:
+        break
+    }
 
     // @ts-ignore
     window.initializeSlope({
       intentSecret: secret,
+      offerType,
       // TODO: add support for skipTerms field
       onSuccess: async (successResp) => {
         // TODO: fix dupe events
         if (successResp.order && successResp.order.id) {
-          router.push('/success');
+          router.push('/success')
         }
       },
       onFailure: (err) => {
-        console.error(err);
-        alert(err.message);
+        console.error(err)
+        alert(err.message)
       },
       onClose: () => {
-        setLoading(false);
+        setLoading(false)
       },
-      onEvent: console.log,
-    });
+      onEvent: console.log
+    })
     // @ts-ignore
-    window.Slope.open();
-  };
+    window.Slope.open()
+  }
 
   const slopeButton = (
     <Button
@@ -89,7 +100,7 @@ const Checkout: React.FC<{
         ? 'Pay later with Slope'
         : 'Pay with Slope'}
     </Button>
-  );
+  )
 
   return (
     <>
@@ -142,7 +153,7 @@ const Checkout: React.FC<{
         </Grid.Col>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default Checkout;
+export default Checkout
