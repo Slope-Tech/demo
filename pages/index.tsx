@@ -52,9 +52,20 @@ const Checkout: React.FC<{
     const { order, secret } = await orderRes.json()
     console.log('orderId & secret', order.id, secret)
 
+    let offerType
+    switch (productFlow) {
+      case ProductFlow.BNPL_ONLY:
+      case ProductFlow.PAY_NOW_ONLY:
+        offerType = productFlow
+        break
+      default:
+        break
+    }
+
     // @ts-ignore
     window.initializeSlope({
       intentSecret: secret,
+      offerType,
       // TODO: add support for skipTerms field
       onSuccess: async (successResp) => {
         // TODO: fix dupe events

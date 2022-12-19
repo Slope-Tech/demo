@@ -5,7 +5,9 @@ export enum ProductFlow {
   PAY_NOW_ONLY = 'pay_now',
   BNPL_AND_PAY_NOW = 'bnpl_pay_now',
   // Only goes through prequalification, and then closes. Requires no order context.
-  STANDALONE_PREQUAL = 'standalone_prequal'
+  STANDALONE_PREQUAL = 'standalone_prequal',
+  // Manage customer payment methods.
+  MANAGE_CUSTOMER_PAYMENT_METHODS = 'manage_customer_pymnt_methods'
 }
 
 export enum CustomerType {
@@ -17,23 +19,11 @@ export enum CustomerType {
 export const QUALIFIED_EMAIL_SUFFIX = '+skip-pre_qualify'
 
 export const generateDemoEmail = ({
-  productFlow,
   customerType
 }: {
-  productFlow: ProductFlow
   customerType: CustomerType
 }) => {
   let email = 'demo'
-  switch (productFlow) {
-    case ProductFlow.PAY_NOW_ONLY:
-      email += '+terms-pay_now'
-      break
-    case ProductFlow.BNPL_ONLY:
-      email += '+terms-bnpl'
-      break
-    default:
-      break
-  }
 
   switch (customerType) {
     case CustomerType.PREQUALIFIED:
