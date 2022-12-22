@@ -12,11 +12,13 @@ export enum ProductFlow {
 
 export enum CustomerType {
   NEW = 'new',
-  PREQUALIFIED = 'prequalified',
-  INELIGIBLE = 'ineligible' // to implement
+  PREQUALIFIED = '+skip-pre_qualify',
+  INELIGIBLE = '+ineligible',
+  ORDER_MAX = '+orders-total-max',
+  ORDER_MIN = '+orders-total-min',
+  OUTSTANDING = '+outstanding-orders',
+  OVERDUE = '+orders-overdue'
 }
-// TODO: Add support for ineligible state
-export const QUALIFIED_EMAIL_SUFFIX = '+skip-pre_qualify'
 
 export const generateDemoEmail = ({
   customerType
@@ -27,7 +29,12 @@ export const generateDemoEmail = ({
 
   switch (customerType) {
     case CustomerType.PREQUALIFIED:
-      email += QUALIFIED_EMAIL_SUFFIX
+    case CustomerType.INELIGIBLE:
+    case CustomerType.ORDER_MAX:
+    case CustomerType.ORDER_MIN:
+    case CustomerType.OUTSTANDING:
+    case CustomerType.OVERDUE:
+      email += customerType as string
       break
     default:
       break

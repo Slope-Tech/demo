@@ -11,9 +11,17 @@ import {
   UnstyledButton,
   SegmentedControl,
   Paper,
-  Transition
+  Transition,
+  Center,
+  Box,
+  Select
 } from '@mantine/core'
-import { IconChevronDown, IconWallet } from '@tabler/icons'
+import {
+  IconChevronDown,
+  IconCircleLetterX,
+  IconWallet,
+  IconX
+} from '@tabler/icons'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email'
@@ -93,6 +101,16 @@ const MainHeader: React.FC<{
     label: 'Payment Methods'
   }
 
+  let availableCustomerTypes = [
+    { label: 'Qualified', value: CustomerType.PREQUALIFIED },
+    { label: 'New', value: CustomerType.NEW },
+    { label: 'Ineligible', value: CustomerType.INELIGIBLE },
+    { label: 'Reject: Order max', value: CustomerType.ORDER_MAX },
+    { label: 'Reject: Order min', value: CustomerType.ORDER_MIN },
+    { label: 'Reject: Outstanding orders', value: CustomerType.OUTSTANDING },
+    { label: 'Reject: Overdue', value: CustomerType.OVERDUE }
+  ]
+
   const mItem = (
     <Menu.Item>
       <Anchor
@@ -159,11 +177,8 @@ const MainHeader: React.FC<{
           })
         }}
       />
-      <SegmentedControl
-        data={[
-          { label: 'Qualified', value: CustomerType.PREQUALIFIED },
-          { label: 'New', value: CustomerType.NEW }
-        ]}
+      <Select
+        data={availableCustomerTypes}
         size="sm"
         value={customerType}
         onChange={(value) => {
