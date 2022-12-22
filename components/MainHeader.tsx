@@ -13,7 +13,8 @@ import {
   Paper,
   Transition,
   Center,
-  Box
+  Box,
+  Select
 } from '@mantine/core'
 import {
   IconChevronDown,
@@ -34,10 +35,6 @@ const useStyles = createStyles((theme) => ({
       color: theme.primaryColor
     }).background,
     borderBottom: 0
-  },
-
-  dev: {
-    backgroundColor: theme.colors.orange[7]
   },
 
   dropdown: {
@@ -65,8 +62,7 @@ const useStyles = createStyles((theme) => ({
     height: HEADER_HEIGHT,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '90%'
+    alignItems: 'center'
   },
 
   burger: {
@@ -93,8 +89,6 @@ const MainHeader: React.FC<{
   productFlow: ProductFlow
   setProductFlow: any
 }> = ({ customerForm, setCustomerForm, productFlow, setProductFlow }) => {
-  const [devCounter, setDevCounter] = useState<number>(0)
-  const [enableDev, setEnableDev] = useState<boolean>(false)
   const [opened, setOpened] = useState(false)
   const [customerType, setCustomerType] = useState<CustomerType>(
     CustomerType.NEW
@@ -107,54 +101,15 @@ const MainHeader: React.FC<{
     label: 'Payment Methods'
   }
 
-  const baseCustomerTypes = [
+  let availableCustomerTypes = [
     { label: 'Qualified', value: CustomerType.PREQUALIFIED },
-    { label: 'New', value: CustomerType.NEW }
+    { label: 'New', value: CustomerType.NEW },
+    { label: 'Ineligible', value: CustomerType.INELIGIBLE },
+    { label: 'Reject: Order max', value: CustomerType.ORDER_MAX },
+    { label: 'Reject: Order min', value: CustomerType.ORDER_MIN },
+    { label: 'Reject: Outstanding orders', value: CustomerType.OUTSTANDING },
+    { label: 'Reject: Overdue', value: CustomerType.OVERDUE }
   ]
-
-  let availableCustomerTypes = enableDev
-    ? [
-        ...baseCustomerTypes,
-        { label: 'Ineligible', value: CustomerType.INELIGIBLE },
-        {
-          label: (
-            <Center>
-              <IconX size={12} color="red" />
-              <Box>Order Max</Box>
-            </Center>
-          ),
-          value: CustomerType.ORDER_MAX
-        },
-        {
-          label: (
-            <Center>
-              <IconX size={12} color="red" />
-              <Box>Order Min</Box>
-            </Center>
-          ),
-          value: CustomerType.ORDER_MIN
-        },
-        {
-          label: (
-            <Center>
-              <IconX size={12} color="red" />
-              <Box>Outstanding</Box>
-            </Center>
-          ),
-          value: CustomerType.OUTSTANDING
-        },
-        {
-          label: (
-            <Center>
-              <IconX size={12} color="red" />
-              <Box>Overdue</Box>
-            </Center>
-          ),
-
-          value: CustomerType.OVERDUE
-        }
-      ]
-    : baseCustomerTypes
 
   const mItem = (
     <Menu.Item>
@@ -201,7 +156,7 @@ const MainHeader: React.FC<{
             product: value
           })
         }}
-        size="xs"
+        size="sm"
       />
       <SegmentedControl
         data={[
@@ -209,7 +164,7 @@ const MainHeader: React.FC<{
           { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
           { label: 'Pay Later', value: ProductFlow.BNPL_ONLY }
         ]}
-        size="xs"
+        size="sm"
         value={productFlow}
         onChange={(value) => {
           const newProductFlow = value as ProductFlow
@@ -222,9 +177,9 @@ const MainHeader: React.FC<{
           })
         }}
       />
-      <SegmentedControl
+      <Select
         data={availableCustomerTypes}
-        size="xs"
+        size="sm"
         value={customerType}
         onChange={(value) => {
           const newCustomerType = value as CustomerType
@@ -241,74 +196,53 @@ const MainHeader: React.FC<{
   )
 
   return (
-    <Header
-      height={HEADER_HEIGHT}
-      className={`${classes.header} ${enableDev ? classes.dev : ''}`}
-    >
-      <Container className={classes.inner}>
-        <Text
-          component="a"
-          href="/"
-          onClick={(e) => {
-            setDevCounter(devCounter + 1)
-            if (enableDev) {
-              if (devCounter > 0) {
-                setEnableDev(false)
-                setDevCounter(0)
-                if (
-                  customerType !== CustomerType.NEW &&
-                  customerType !== CustomerType.PREQUALIFIED
-                ) {
-                  setCustomerType(CustomerType.NEW)
-                  setCustomerForm({
-                    ...customerForm,
-                    email: generateDemoEmail({
-                      customerType: CustomerType.NEW
-                    })
-                  })
-                }
-              }
-            } else {
-              if (devCounter > 3) {
-                setEnableDev(true)
-                setDevCounter(0)
-              }
-            }
-            e.preventDefault()
-            router.push('/')
-          }}
-          color="white"
-          size="xl"
-          fw={700}
-        >
-          <img
-            alt="Slope Logo"
-            src="/images/slope_logo_white.png"
-            height={32}
+    <Header height={HEADER_HEIGHT} className={classes.header}>
+      <Container>
+        <div className={classes.inner}>
+          <Text
+            component="a"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault()
+              router.push('/')
+            }}
+            color="white"
+            size="xl"
+            fw={700}
+          >
+            <img
+              alt="Slope Logo"
+              src="/images/slope_logo_white.png"
+              height={32}
+            />
+            &nbsp;&nbsp;Slope Demo
+          </Text>
+          <Group spacing="sm" className={classes.links}>
+            {controls}
+            {items}
+          </Group>
+          <Burger
+            opened={opened}
+            onClick={() => setOpened(!opened)}
+            className={classes.burger}
+            size="sm"
+            color="white"
           />
-          &nbsp;&nbsp;Slope De{enableDev ? 'v-' : ''}mo
-        </Text>
-        <Group spacing="sm" className={classes.links}>
-          {controls}
-          {items}
-        </Group>
-        <Burger
-          opened={opened}
-          onClick={() => setOpened(!opened)}
-          className={classes.burger}
-          size="sm"
-          color="white"
-        />
-        <Transition transition="pop-top-right" duration={200} mounted={opened}>
-          {(styles) => (
-            <Paper className={classes.dropdown} style={styles}>
-              <Group spacing="sm">
-                {controls}
-                <Menu>{mItem}</Menu>
-              </Group>
-            </Paper>
-          )}
-        </Transition>
+          <Transition
+            transition="pop-top-right"
+            duration={200}
+            mounted={opened}
+          >
+            {(styles) => (
+              <Paper className={classes.dropdown} style={styles}>
+                <Group spacing="sm">
+                  {controls}
+                  <Menu>{mItem}</Menu>
+                </Group>
+              </Paper>
+            )}
+          </Transition>
+        </div>
       </Container>
     </Header>
   )
