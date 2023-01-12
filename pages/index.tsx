@@ -66,12 +66,8 @@ const Checkout: React.FC<{
     window.initializeSlope({
       intentSecret: secret,
       offerType,
-      // TODO: add support for skipTerms field
-      onSuccess: async (successResp) => {
-        // TODO: fix dupe events
-        if (successResp.order && successResp.order.id) {
-          router.push('/success')
-        }
+      onSuccess: async () => {
+        router.push('/success')
       },
       onFailure: (err) => {
         console.error(err)

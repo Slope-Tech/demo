@@ -1,5 +1,5 @@
 import {
-  createStyles, Text, Container, Group,
+  createStyles, Text, Container, Group, Footer,
 } from '@mantine/core';
 import { IconBrandGithub, IconCode } from '@tabler/icons';
 
@@ -41,7 +41,7 @@ const MainFooter = () => {
   const { classes } = useStyles();
 
   return (
-    <footer className={classes.footer}>
+    <Footer height={120} className={classes.footer}>
       <Container className={classes.afterFooter}>
         <Text<'a'> target="_blank" component="a" href="https://slope.so" className={classes.link} color="dimmed" size="sm">
           <img src="/images/favicon.png" alt="Slope Logo" />
@@ -69,7 +69,7 @@ const MainFooter = () => {
           </Text>
         </Group>
       </Container>
-    </footer>
+    </Footer>
   );
 };
 
