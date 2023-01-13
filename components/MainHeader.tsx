@@ -105,10 +105,52 @@ const MainHeader: React.FC<{
     { label: 'Qualified', value: CustomerType.PREQUALIFIED },
     { label: 'New', value: CustomerType.NEW },
     { label: 'Ineligible', value: CustomerType.INELIGIBLE },
-    { label: 'Reject: Order max', value: CustomerType.ORDER_MAX },
-    { label: 'Reject: Order min', value: CustomerType.ORDER_MIN },
-    { label: 'Reject: Outstanding orders', value: CustomerType.OUTSTANDING },
-    { label: 'Reject: Overdue', value: CustomerType.OVERDUE }
+    { label: 'Prefilled Identity', value: CustomerType.MASK_KYB },
+    {
+      label: 'Order max',
+      value: CustomerType.ORDER_MAX,
+      group: 'Order rejection reasons'
+    },
+    {
+      label: 'Order min',
+      value: CustomerType.ORDER_MIN,
+      group: 'Order rejection reasons'
+    },
+    {
+      label: 'Outstanding orders',
+      value: CustomerType.OUTSTANDING,
+      group: 'Order rejection reasons'
+    },
+    {
+      label: 'Overdue',
+      value: CustomerType.OVERDUE,
+      group: 'Order rejection reasons'
+    },
+    {
+      label: 'Same limit',
+      value: CustomerType.FORCE_REEVAL,
+      group: 'Reevaluation possibilities'
+    },
+    {
+      label: 'Increased',
+      value: CustomerType.FORCE_REEVAL_INCREASED,
+      group: 'Reevaluation possibilities'
+    },
+    {
+      label: 'Decreased, approved',
+      value: CustomerType.FORCE_REEVAL_DECREASE_APPROVED,
+      group: 'Reevaluation possibilities'
+    },
+    {
+      label: 'Decrease, rejected',
+      value: CustomerType.FORCE_REEVAL_DECREASE_REJECTED,
+      group: 'Reevaluation possibilities'
+    },
+    {
+      label: 'Ineligible',
+      value: CustomerType.FORCE_REEVAL_INELIGIBLE,
+      group: 'Reevaluation possibilities'
+    }
   ]
 
   const mItem = (

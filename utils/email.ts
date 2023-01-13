@@ -17,7 +17,13 @@ export enum CustomerType {
   ORDER_MAX = '+orders-total-max',
   ORDER_MIN = '+orders-total-min',
   OUTSTANDING = '+outstanding-orders',
-  OVERDUE = '+orders-overdue'
+  OVERDUE = '+orders-overdue',
+  FORCE_REEVAL = '+force-reeval',
+  FORCE_REEVAL_INCREASED = '+force-reeval_increased',
+  FORCE_REEVAL_DECREASE_APPROVED = '+force-reeval_decrease_approved',
+  FORCE_REEVAL_DECREASE_REJECTED = '+force-reeval_decrease_rejected',
+  FORCE_REEVAL_INELIGIBLE = '+force-reeval_ineligible',
+  MASK_KYB = '+mask-kyb'
 }
 
 export const generateDemoEmail = ({
@@ -27,17 +33,8 @@ export const generateDemoEmail = ({
 }) => {
   let email = 'demo'
 
-  switch (customerType) {
-    case CustomerType.PREQUALIFIED:
-    case CustomerType.INELIGIBLE:
-    case CustomerType.ORDER_MAX:
-    case CustomerType.ORDER_MIN:
-    case CustomerType.OUTSTANDING:
-    case CustomerType.OVERDUE:
-      email += customerType as string
-      break
-    default:
-      break
+  if (Object.values(CustomerType).includes(customerType)) {
+    email += customerType as string
   }
   email += '@slope.so'
   return email
