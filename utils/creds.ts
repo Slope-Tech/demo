@@ -1,7 +1,7 @@
 export const getAuthHeaders = ({ qualified }) => {
   return {
     Authorization: `Basic ${process.env.BASIC_AUTH_TOKEN}`,
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   }
 }
 

@@ -1,34 +1,34 @@
-import { SimpleGrid, TextInput } from '@mantine/core';
-import React from 'react';
+import { SimpleGrid, TextInput } from '@mantine/core'
+import React from 'react'
 
 class CustomerForm extends React.Component<{
-  customerForm: any,
-  setCustomerForm: any,
+  customerForm: any
+  setCustomerForm: any
 }> {
   renderFormField(field, label) {
-    const { customerForm, setCustomerForm } = this.props;
-    const value = customerForm[field];
-    let error;
+    const { customerForm, setCustomerForm } = this.props
+    const value = customerForm[field]
+    let error
     if (field === 'state' && value.length !== 2) {
-      error = 'State must be 2 characters';
+      error = 'State must be 2 characters'
     } else if (!value) {
-      error = `${label} cant be blank`;
+      error = `${label} cant be blank`
     }
 
     return (
       <TextInput
         mb={10}
         onChange={(event) => {
-          const newForm = { ...customerForm };
-          newForm[field] = event.currentTarget.value;
-          setCustomerForm(newForm);
+          const newForm = { ...customerForm }
+          newForm[field] = event.currentTarget.value
+          setCustomerForm(newForm)
         }}
         value={value}
         label={label}
         withAsterisk
         error={error}
       />
-    );
+    )
   }
 
   render() {
@@ -48,8 +48,8 @@ class CustomerForm extends React.Component<{
           {this.renderFormField('postalCode', 'Postal Code')}
         </SimpleGrid>
       </>
-    );
+    )
   }
 }
 
-export default CustomerForm;
+export default CustomerForm

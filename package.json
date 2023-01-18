@@ -3,10 +3,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3004",
-    "dev:local": "NEXT_PUBLIC_SLOPE_JS_URL=http://localhost:3001/slope.min.js next dev -p 3004",
+    "dev:local": "NEXT_PUBLIC_CHECKOUT_HOST=http://localhost:3001 next dev -p 3004",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format:fix": "prettier --write ./ '!**/*.{json,md}'"
   },
   "dependencies": {
     "@babel/core": "^7.20.2",
@@ -26,10 +27,13 @@
     "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.0.9",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.8.4",
     "typescript": "4.5.5"
   }
 }

@@ -5,16 +5,16 @@ const unusedProducts = {
       quantity: 180,
       name: 'Budweiser Beer - 6 pack - 16oz Cans',
       price: 639,
-      imageSrc: '/images/products/budweiser.jpg'
+      imageSrc: '/images/products/budweiser.jpg',
     },
     {
       id: 2,
       quantity: 210,
       name: 'Corona Extra - 24 pack - 12oz Bottle',
       price: 2899,
-      imageSrc: '/images/products/corona.jpg'
-    }
-  ]
+      imageSrc: '/images/products/corona.jpg',
+    },
+  ],
 }
 
 const products = {
@@ -24,15 +24,15 @@ const products = {
       quantity: 150,
       name: 'Nitro Pepsi - Variety Pack',
       price: 999,
-      imageSrc: '/images/products/nitro-pepsi.png'
+      imageSrc: '/images/products/nitro-pepsi.png',
     },
     {
       id: 2,
       quantity: 1440,
       name: 'Mtn Dew Major Melon Watermelon -  12 Count',
       price: 799,
-      imageSrc: '/images/products/mtn-dew-major-melon.jpeg'
-    }
+      imageSrc: '/images/products/mtn-dew-major-melon.jpeg',
+    },
   ],
   Socks: [
     {
@@ -40,9 +40,9 @@ const products = {
       quantity: 150,
       name: 'Slope Socks',
       price: 829,
-      imageSrc: '/images/products/socks.jpg'
-    }
-  ]
+      imageSrc: '/images/products/socks.jpg',
+    },
+  ],
 }
 
 export const getProducts = (product) => {
@@ -60,7 +60,7 @@ export const getTotals = (products) => {
   return {
     subtotal,
     taxes,
-    total
+    total,
   }
 }
 

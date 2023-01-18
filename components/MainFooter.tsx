@@ -1,7 +1,5 @@
-import {
-  createStyles, Text, Container, Group, Footer,
-} from '@mantine/core';
-import { IconBrandGithub, IconCode } from '@tabler/icons';
+import { createStyles, Text, Container, Group, Footer } from '@mantine/core'
+import { IconBrandGithub, IconCode } from '@tabler/icons'
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -35,42 +33,55 @@ const useStyles = createStyles((theme) => ({
       flexDirection: 'column',
     },
   },
-}));
+}))
 
 const MainFooter = () => {
-  const { classes } = useStyles();
+  const { classes } = useStyles()
 
   return (
     <Footer height={120} className={classes.footer}>
       <Container className={classes.afterFooter}>
-        <Text<'a'> target="_blank" component="a" href="https://slope.so" className={classes.link} color="dimmed" size="sm">
-          <img src="/images/favicon.png" alt="Slope Logo" />
-          {' '}
-          ©
-          {new Date().getFullYear()}
-          {' '}
-          - Slope Tech, Inc.
+        <Text<'a'>
+          target="_blank"
+          component="a"
+          href="https://slope.so"
+          className={classes.link}
+          color="dimmed"
+          size="sm"
+        >
+          <img src="/images/favicon.png" alt="Slope Logo" /> ©{new Date().getFullYear()} - Slope
+          Tech, Inc.
         </Text>
 
         <Group spacing="lg" position="right" noWrap>
-          <Text<'a'> target="_blank" component="a" href="https://developers.slope.so" className={classes.link} color="dimmed" size="sm">
+          <Text<'a'>
+            target="_blank"
+            component="a"
+            href="https://developers.slope.so"
+            className={classes.link}
+            color="dimmed"
+            size="sm"
+          >
             <Group spacing={5}>
-              Developer Hub
-              {' '}
-              <IconCode size={16} />
+              Developer Hub <IconCode size={16} />
             </Group>
           </Text>
-          <Text<'a'> target="_blank" component="a" href="https://github.com/Slope-Tech/demo" className={classes.link} color="dimmed" size="sm">
+          <Text<'a'>
+            target="_blank"
+            component="a"
+            href="https://github.com/Slope-Tech/demo"
+            className={classes.link}
+            color="dimmed"
+            size="sm"
+          >
             <Group spacing={5}>
-              GitHub
-              {' '}
-              <IconBrandGithub size={16} />
+              GitHub <IconBrandGithub size={16} />
             </Group>
           </Text>
         </Group>
       </Container>
     </Footer>
-  );
-};
+  )
+}
 
-export default MainFooter;
+export default MainFooter

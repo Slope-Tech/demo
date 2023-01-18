@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Grid, Title, Text, Group } from '@mantine/core'
+import { Button, Grid, Title, Text, Group, Checkbox } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
 import CustomerForm from '../components/CustomerForm'
@@ -17,25 +17,25 @@ const Checkout: React.FC<{
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const onChangeRedirect = (event) => {
+    setCustomerForm({ ...customerForm, mode: event.currentTarget.checked ? 'redirect' : null })
+  }
+
   const onPay = async () => {
     setLoading(true)
 
     const customerResp = await fetch('/api/create-customer', {
       method: 'POST',
-      body: JSON.stringify(customerForm)
+      body: JSON.stringify(customerForm),
     })
 
     const customerJson = await customerResp.json()
 
     if (!customerJson.customer) {
       setLoading(false)
-      return setError(customerJson)
+      setError(customerJson)
+      return
     }
-    console.log(
-      'customerId & secret',
-      customerJson.customer.id,
-      customerJson.secret
-    )
 
     const products = getProducts(customerForm.product)
     const totals = getTotals(products)
@@ -45,12 +45,11 @@ const Checkout: React.FC<{
       body: JSON.stringify({
         ...customerForm,
         customerId: customerJson.customer.id,
-        total: totals.total
-      })
+        total: totals.total,
+      }),
     })
 
-    const { order, secret } = await orderRes.json()
-    console.log('orderId & secret', order.id, secret)
+    const { secret } = await orderRes.json()
 
     let offerType
     switch (productFlow) {
@@ -60,6 +59,20 @@ const Checkout: React.FC<{
         break
       default:
         break
+    }
+
+    if (customerForm.mode === 'redirect') {
+      // NOTE: The redirect API is still private and should not be used by developers. 
+      // Contact the Slope team if you're interested in using the redirect API.
+      const baseHost = `${window.location.protocol}//${window.location.host}`
+      const urlParams = new URLSearchParams({
+        secret,
+        mode: 'redirect',
+        cancelUrl: `${baseHost}/`,
+        successUrl: `${baseHost}/success`,
+      })
+      window.location.href = `${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/pay?${urlParams.toString()}`
+      return
     }
 
     // @ts-ignore
@@ -76,7 +89,7 @@ const Checkout: React.FC<{
       onClose: () => {
         setLoading(false)
       },
-      onEvent: console.log
+      onEvent: console.log,
     })
     // @ts-ignore
     window.Slope.open()
@@ -84,17 +97,13 @@ const Checkout: React.FC<{
 
   const slopeButton = (
     <Button
-      leftIcon={
-        <img alt="Slope Logo" src="/images/slope_logo_white.png" height={18} />
-      }
+      leftIcon={<img alt="Slope Logo" src="/images/slope_logo_white.png" height={18} />}
       fullWidth
       color="orange"
       loading={loading}
       onClick={onPay}
     >
-      {productFlow === ProductFlow.BNPL_ONLY
-        ? 'Pay later with Slope'
-        : 'Pay with Slope'}
+      {productFlow === ProductFlow.BNPL_ONLY ? 'Pay later with Slope' : 'Pay with Slope'}
     </Button>
   )
 
@@ -116,13 +125,17 @@ const Checkout: React.FC<{
             Customer
           </Title>
           <ErrorAlert error={error} setError={setError} />
-          <CustomerForm
-            customerForm={customerForm}
-            setCustomerForm={setCustomerForm}
-          />
+          <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
+
           <Title mt="lg" mb="sm" order={3}>
             Payment
           </Title>
+          <Checkbox
+            onChange={onChangeRedirect}
+            checked={customerForm.mode === 'redirect'}
+            label="Perform a full-screen redirect"
+            mb="md"
+          />
           {productFlow !== ProductFlow.BNPL_ONLY ? (
             slopeButton
           ) : (
