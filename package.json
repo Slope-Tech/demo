@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3004",
+    "dev:local": "NEXT_PUBLIC_SLOPE_JS_URL=http://localhost:3001/slope.min.js next dev -p 3004",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
