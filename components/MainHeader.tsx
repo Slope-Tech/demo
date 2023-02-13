@@ -190,7 +190,7 @@ const MainHeader: React.FC<{
   const controls = (
     <>
       <SegmentedControl
-        data={['Socks', 'Beer']}
+        data={['Soda', 'Socks']}
         value={customerForm.product}
         onChange={(value) => {
           setCustomerForm({

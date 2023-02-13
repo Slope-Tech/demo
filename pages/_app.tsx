@@ -1,10 +1,10 @@
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
-import { AppShell, Container, MantineProvider } from '@mantine/core';
-import { useState } from 'react';
-import MainFooter from '../components/MainFooter';
-import MainHeader from '../components/MainHeader';
-import { ProductFlow } from '../utils/email';
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import { AppShell, Container, MantineProvider } from '@mantine/core'
+import { useState } from 'react'
+import MainFooter from '../components/MainFooter'
+import MainHeader from '../components/MainHeader'
+import { ProductFlow } from '../utils/email'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [customerForm, setCustomerForm] = useState({
@@ -18,30 +18,30 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     country: 'US',
     currency: 'usd',
     qualified: true,
-    product: 'Socks',
-  });
+    product: 'Soda'
+  })
 
   const [productFlow, setProductFlow] = useState<ProductFlow>(
     ProductFlow.BNPL_AND_PAY_NOW
-  );
+  )
 
   const providerTheme = {
     globalStyles: (theme) => ({
       body: {
-        backgroundColor: theme.colors.gray[0],
+        backgroundColor: theme.colors.gray[0]
       },
       main: {
-        backgroundColor: 'white',
-      },
-    }),
-  };
+        backgroundColor: 'white'
+      }
+    })
+  }
 
   if (
     typeof window !== 'undefined' &&
     window.location.origin === 'checkout-demo-ten.vercel.app'
   ) {
-    window.location.href = 'https://demo.sandbox.slope.so/';
-    return;
+    window.location.href = 'https://demo.sandbox.slope.so/'
+    return
   }
 
   return (
@@ -75,7 +75,7 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
         </AppShell>
       </MantineProvider>
     </div>
-  );
-};
+  )
+}
 
-export default SlopeDemo;
+export default SlopeDemo
