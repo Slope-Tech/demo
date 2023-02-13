@@ -1,4 +1,4 @@
-const products = {
+const unusedProducts = {
   Beer: [
     {
       id: 1,
@@ -14,10 +14,29 @@ const products = {
       price: 2899,
       imageSrc: '/images/products/corona.jpg'
     }
+  ]
+}
+
+const products = {
+  Soda: [
+    {
+      id: 1,
+      quantity: 150,
+      name: 'Nitro Pepsi - Variety Pack',
+      price: 999,
+      imageSrc: '/images/products/nitro-pepsi.png'
+    },
+    {
+      id: 2,
+      quantity: 1440,
+      name: 'Mtn Dew Major Melon Watermelon -  12 Count',
+      price: 799,
+      imageSrc: '/images/products/mtn-dew-major-melon.jpeg'
+    }
   ],
   Socks: [
     {
-      id: 1,
+      id: 3,
       quantity: 150,
       name: 'Slope Socks',
       price: 829,
@@ -32,7 +51,7 @@ export const getProducts = (product) => {
 
 export const getTotals = (products) => {
   const subtotal = products.reduce((acc, curr) => {
-    return acc + (curr.price * curr.quantity)
+    return acc + curr.price * curr.quantity
   }, 0)
 
   const taxes = Math.round(subtotal * 0.09)
