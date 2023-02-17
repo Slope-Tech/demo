@@ -12,16 +12,9 @@ import {
   SegmentedControl,
   Paper,
   Transition,
-  Center,
-  Box,
-  Select
+  Select,
 } from '@mantine/core'
-import {
-  IconChevronDown,
-  IconCircleLetterX,
-  IconWallet,
-  IconX
-} from '@tabler/icons'
+import { IconChevronDown, IconWallet } from '@tabler/icons'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email'
@@ -32,9 +25,9 @@ const useStyles = createStyles((theme) => ({
   header: {
     backgroundColor: theme.fn.variant({
       variant: 'filled',
-      color: theme.primaryColor
+      color: theme.primaryColor,
     }).background,
-    borderBottom: 0
+    borderBottom: 0,
   },
 
   dropdown: {
@@ -48,39 +41,39 @@ const useStyles = createStyles((theme) => ({
     borderTopWidth: 0,
     backgroundColor: theme.fn.variant({
       variant: 'filled',
-      color: theme.primaryColor
+      color: theme.primaryColor,
     }).background,
     overflow: 'hidden',
     padding: 8,
 
     [theme.fn.largerThan('sm')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   inner: {
     height: HEADER_HEIGHT,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   burger: {
     [theme.fn.largerThan('sm')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   link: {
     textDecoration: 'none',
-    color: theme.white
+    color: theme.white,
   },
 
   links: {
     [theme.fn.smallerThan('sm')]: {
-      display: 'none'
-    }
-  }
+      display: 'none',
+    },
+  },
 }))
 
 const MainHeader: React.FC<{
@@ -90,18 +83,16 @@ const MainHeader: React.FC<{
   setProductFlow: any
 }> = ({ customerForm, setCustomerForm, productFlow, setProductFlow }) => {
   const [opened, setOpened] = useState(false)
-  const [customerType, setCustomerType] = useState<CustomerType>(
-    CustomerType.NEW
-  )
+  const [customerType, setCustomerType] = useState<CustomerType>(CustomerType.NEW)
   const { classes } = useStyles()
   const router = useRouter()
 
   const item = {
     link: '/payment_methods',
-    label: 'Payment Methods'
+    label: 'Payment Methods',
   }
 
-  let availableCustomerTypes = [
+  const availableCustomerTypes = [
     { label: 'Qualified', value: CustomerType.PREQUALIFIED },
     { label: 'New', value: CustomerType.NEW },
     { label: 'Ineligible', value: CustomerType.INELIGIBLE },
@@ -109,48 +100,48 @@ const MainHeader: React.FC<{
     {
       label: 'Order max',
       value: CustomerType.ORDER_MAX,
-      group: 'Order rejection reasons'
+      group: 'Order rejection reasons',
     },
     {
       label: 'Order min',
       value: CustomerType.ORDER_MIN,
-      group: 'Order rejection reasons'
+      group: 'Order rejection reasons',
     },
     {
       label: 'Outstanding orders',
       value: CustomerType.OUTSTANDING,
-      group: 'Order rejection reasons'
+      group: 'Order rejection reasons',
     },
     {
       label: 'Overdue',
       value: CustomerType.OVERDUE,
-      group: 'Order rejection reasons'
+      group: 'Order rejection reasons',
     },
     {
       label: 'Same limit',
       value: CustomerType.FORCE_REEVAL,
-      group: 'Reevaluation possibilities'
+      group: 'Reevaluation possibilities',
     },
     {
       label: 'Increased',
       value: CustomerType.FORCE_REEVAL_INCREASED,
-      group: 'Reevaluation possibilities'
+      group: 'Reevaluation possibilities',
     },
     {
       label: 'Decreased, approved',
       value: CustomerType.FORCE_REEVAL_DECREASE_APPROVED,
-      group: 'Reevaluation possibilities'
+      group: 'Reevaluation possibilities',
     },
     {
       label: 'Decrease, rejected',
       value: CustomerType.FORCE_REEVAL_DECREASE_REJECTED,
-      group: 'Reevaluation possibilities'
+      group: 'Reevaluation possibilities',
     },
     {
       label: 'Ineligible',
       value: CustomerType.FORCE_REEVAL_INELIGIBLE,
-      group: 'Reevaluation possibilities'
-    }
+      group: 'Reevaluation possibilities',
+    },
   ]
 
   const mItem = (
@@ -195,7 +186,7 @@ const MainHeader: React.FC<{
         onChange={(value) => {
           setCustomerForm({
             ...customerForm,
-            product: value
+            product: value,
           })
         }}
         size="sm"
@@ -204,7 +195,7 @@ const MainHeader: React.FC<{
         data={[
           { label: 'Pay Now & Later', value: ProductFlow.BNPL_AND_PAY_NOW },
           { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
-          { label: 'Pay Later', value: ProductFlow.BNPL_ONLY }
+          { label: 'Pay Later', value: ProductFlow.BNPL_ONLY },
         ]}
         size="sm"
         value={productFlow}
@@ -214,8 +205,8 @@ const MainHeader: React.FC<{
           setCustomerForm({
             ...customerForm,
             email: generateDemoEmail({
-              customerType
-            })
+              customerType,
+            }),
           })
         }}
       />
@@ -229,8 +220,8 @@ const MainHeader: React.FC<{
           setCustomerForm({
             ...customerForm,
             email: generateDemoEmail({
-              customerType: newCustomerType
-            })
+              customerType: newCustomerType,
+            }),
           })
         }}
       />
@@ -252,11 +243,7 @@ const MainHeader: React.FC<{
             size="xl"
             fw={700}
           >
-            <img
-              alt="Slope Logo"
-              src="/images/slope_logo_white.png"
-              height={32}
-            />
+            <img alt="Slope Logo" src="/images/slope_logo_white.png" height={32} />
             &nbsp;&nbsp;Slope Demo
           </Text>
           <Group spacing="sm" className={classes.links}>
@@ -270,11 +257,7 @@ const MainHeader: React.FC<{
             size="sm"
             color="white"
           />
-          <Transition
-            transition="pop-top-right"
-            duration={200}
-            mounted={opened}
-          >
+          <Transition transition="pop-top-right" duration={200} mounted={opened}>
             {(styles) => (
               <Paper className={classes.dropdown} style={styles}>
                 <Group spacing="sm">

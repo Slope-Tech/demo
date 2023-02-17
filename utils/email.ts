@@ -7,7 +7,7 @@ export enum ProductFlow {
   // Only goes through prequalification, and then closes. Requires no order context.
   STANDALONE_PREQUAL = 'standalone_prequal',
   // Manage customer payment methods.
-  MANAGE_CUSTOMER_PAYMENT_METHODS = 'manage_customer_pymnt_methods'
+  MANAGE_CUSTOMER_PAYMENT_METHODS = 'manage_customer_pymnt_methods',
 }
 
 export enum CustomerType {
@@ -23,14 +23,10 @@ export enum CustomerType {
   FORCE_REEVAL_DECREASE_APPROVED = '+force-reeval_decrease_approved',
   FORCE_REEVAL_DECREASE_REJECTED = '+force-reeval_decrease_rejected',
   FORCE_REEVAL_INELIGIBLE = '+force-reeval_ineligible',
-  MASK_KYB = '+mask-kyb'
+  MASK_KYB = '+mask-kyb',
 }
 
-export const generateDemoEmail = ({
-  customerType
-}: {
-  customerType: CustomerType
-}) => {
+export const generateDemoEmail = ({ customerType }: { customerType: CustomerType }) => {
   let email = 'demo'
 
   if (Object.values(CustomerType).includes(customerType)) {

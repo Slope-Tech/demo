@@ -1,9 +1,7 @@
-import {
-  Title, Button, Text, Container, createStyles, Group,
-} from '@mantine/core';
-import { IconDiscountCheck } from '@tabler/icons';
-import { useRouter } from 'next/router';
-import React from 'react';
+import { Title, Button, Text, Container, createStyles, Group } from '@mantine/core'
+import { IconDiscountCheck } from '@tabler/icons'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -28,21 +26,23 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.xl,
     marginBottom: theme.spacing.xl * 1.5,
   },
-}));
+}))
 
 const Success: React.FC = () => {
-  const { classes } = useStyles();
-  const router = useRouter();
+  const { classes } = useStyles()
+  const router = useRouter()
 
   return (
     <Container className={classes.root}>
-      <Text sx={{ textAlign: 'center' }} color="green.2"><IconDiscountCheck size={400} /></Text>
+      <Text sx={{ textAlign: 'center' }} color="green.2">
+        <IconDiscountCheck size={400} />
+      </Text>
       <Title className={classes.title}>Thank you for your purchase!</Title>
       <Text color="dimmed" size="lg" align="center" className={classes.description}>
-        You&apos;re order number
-        {' '}
-        <Text span fw={700}>#12345</Text>
-        {' '}
+        You&apos;re order number{' '}
+        <Text span fw={700}>
+          #12345
+        </Text>{' '}
         is expected to be be shipped within 1-3 business days!
       </Text>
       <Group position="center">
@@ -51,7 +51,7 @@ const Success: React.FC = () => {
         </Button>
       </Group>
     </Container>
-  );
-};
+  )
+}
 
-export default Success;
+export default Success
