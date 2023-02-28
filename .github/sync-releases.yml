@@ -1,0 +1,32 @@
+name: Sync Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Get current date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Get short sha
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Merge main -> stage
+        uses: devmasx/merge-branch@master
+        with:
+          message: v3.0.0-${{ steps.date.outputs.date }}.${{github.run_number}}+${{ steps.vars.outputs.sha_short }}
+          type: now
+          from_branch: main
+          target_branch: stage
+          github_token: ${{ github.token }}
+      - name: Merge main -> production
+        uses: devmasx/merge-branch@master
+        with:
+          message: v3.0.0-${{ steps.date.outputs.date }}.${{github.run_number}}+${{ steps.vars.outputs.sha_short }}
+          type: now
+          from_branch: main
+          target_branch: production
+          github_token: ${{ github.token }}
