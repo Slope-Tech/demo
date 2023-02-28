@@ -79,7 +79,7 @@ const PaymentMethods: React.FC<{ customerForm: Record<string, any> }> = ({ custo
               <Title order={5}>Slope: Buy Now, Pay Later</Title>
             </Group>
             <Button
-              leftIcon={<img alt="Slope Logo" src="/images/slope_logo_white.png" height={18} />}
+              leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={18} />}
               loading={loading}
               color="orange"
               onClick={onPreQualify}

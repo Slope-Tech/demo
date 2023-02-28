@@ -5,15 +5,13 @@ const useStyles = createStyles((theme) => ({
   footer: {
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl * 2,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-    borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
+    backgroundColor: theme.colors.fog[1],
+    borderTop: `1px solid ${theme.colors.fog[3]}`,
   },
 
   link: {
     display: 'block',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    color: theme.colors.fog[6],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
@@ -49,8 +47,7 @@ const MainFooter = () => {
           color="dimmed"
           size="sm"
         >
-          <img src="/images/favicon.png" alt="Slope Logo" /> ©{new Date().getFullYear()} - Slope
-          Tech, Inc.
+          © {new Date().getFullYear()} - Slope Tech, Inc.
         </Text>
 
         <Group spacing="lg" position="right" noWrap>
