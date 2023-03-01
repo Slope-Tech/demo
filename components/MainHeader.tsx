@@ -23,11 +23,7 @@ const HEADER_HEIGHT = 56
 
 const useStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: theme.fn.variant({
-      variant: 'filled',
-      color: theme.primaryColor,
-    }).background,
-    borderBottom: 0,
+    backgroundColor: '#47546C',
   },
 
   dropdown: {
@@ -92,57 +88,62 @@ const MainHeader: React.FC<{
     label: 'Payment Methods',
   }
 
-  const availableCustomerTypes = [
-    { label: 'Qualified', value: CustomerType.PREQUALIFIED },
-    { label: 'New', value: CustomerType.NEW },
-    { label: 'Ineligible', value: CustomerType.INELIGIBLE },
-    { label: 'Prefilled Identity', value: CustomerType.MASK_KYB },
-    {
-      label: 'Order max',
-      value: CustomerType.ORDER_MAX,
-      group: 'Order rejection reasons',
-    },
-    {
-      label: 'Order min',
-      value: CustomerType.ORDER_MIN,
-      group: 'Order rejection reasons',
-    },
-    {
-      label: 'Outstanding orders',
-      value: CustomerType.OUTSTANDING,
-      group: 'Order rejection reasons',
-    },
-    {
-      label: 'Overdue',
-      value: CustomerType.OVERDUE,
-      group: 'Order rejection reasons',
-    },
-    {
-      label: 'Same limit',
-      value: CustomerType.FORCE_REEVAL,
-      group: 'Reevaluation possibilities',
-    },
-    {
-      label: 'Increased',
-      value: CustomerType.FORCE_REEVAL_INCREASED,
-      group: 'Reevaluation possibilities',
-    },
-    {
-      label: 'Decreased, approved',
-      value: CustomerType.FORCE_REEVAL_DECREASE_APPROVED,
-      group: 'Reevaluation possibilities',
-    },
-    {
-      label: 'Decrease, rejected',
-      value: CustomerType.FORCE_REEVAL_DECREASE_REJECTED,
-      group: 'Reevaluation possibilities',
-    },
-    {
-      label: 'Ineligible',
-      value: CustomerType.FORCE_REEVAL_INELIGIBLE,
-      group: 'Reevaluation possibilities',
-    },
-  ]
+  let availableCustomerTypes = [{ label: 'New', value: CustomerType.NEW, group: '' }]
+  // Shortcuts for non-production environment
+  if (process.env.API_HOST !== 'https://api.slope.so') {
+    availableCustomerTypes = [
+      ...availableCustomerTypes,
+      { label: 'Qualified', value: CustomerType.PREQUALIFIED, group: '' },
+
+      { label: 'Ineligible', value: CustomerType.INELIGIBLE, group: '' },
+      { label: 'Prefilled Identity', value: CustomerType.MASK_KYB, group: '' },
+      {
+        label: 'Order max',
+        value: CustomerType.ORDER_MAX,
+        group: 'Order rejection reasons',
+      },
+      {
+        label: 'Order min',
+        value: CustomerType.ORDER_MIN,
+        group: 'Order rejection reasons',
+      },
+      {
+        label: 'Outstanding orders',
+        value: CustomerType.OUTSTANDING,
+        group: 'Order rejection reasons',
+      },
+      {
+        label: 'Overdue',
+        value: CustomerType.OVERDUE,
+        group: 'Order rejection reasons',
+      },
+      {
+        label: 'Same limit',
+        value: CustomerType.FORCE_REEVAL,
+        group: 'Reevaluation possibilities',
+      },
+      {
+        label: 'Increased',
+        value: CustomerType.FORCE_REEVAL_INCREASED,
+        group: 'Reevaluation possibilities',
+      },
+      {
+        label: 'Decreased, approved',
+        value: CustomerType.FORCE_REEVAL_DECREASE_APPROVED,
+        group: 'Reevaluation possibilities',
+      },
+      {
+        label: 'Decrease, rejected',
+        value: CustomerType.FORCE_REEVAL_DECREASE_REJECTED,
+        group: 'Reevaluation possibilities',
+      },
+      {
+        label: 'Ineligible',
+        value: CustomerType.FORCE_REEVAL_INELIGIBLE,
+        group: 'Reevaluation possibilities',
+      },
+    ]
+  }
 
   const mItem = (
     <Menu.Item>
@@ -193,9 +194,9 @@ const MainHeader: React.FC<{
       />
       <SegmentedControl
         data={[
-          { label: 'Pay Now & Later', value: ProductFlow.BNPL_AND_PAY_NOW },
           { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
           { label: 'Pay Later', value: ProductFlow.BNPL_ONLY },
+          { label: 'Both', value: ProductFlow.BNPL_AND_PAY_NOW },
         ]}
         size="sm"
         value={productFlow}
@@ -213,6 +214,9 @@ const MainHeader: React.FC<{
       <Select
         data={availableCustomerTypes}
         size="sm"
+        sx={{
+          width: 200,
+        }}
         value={customerType}
         onChange={(value) => {
           const newCustomerType = value as CustomerType
@@ -240,11 +244,11 @@ const MainHeader: React.FC<{
               router.push('/')
             }}
             color="white"
-            size="xl"
+            size={25}
             fw={700}
           >
-            <img alt="Slope Logo" src="/images/slope_logo_white.png" height={32} />
-            &nbsp;&nbsp;Slope Demo
+            <img alt="Slope Logo" src="/images/slope_logo.svg" height={32} />
+            &nbsp;| Demo
           </Text>
           <Group spacing="sm" className={classes.links}>
             {controls}
