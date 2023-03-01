@@ -41,7 +41,7 @@ const Success: React.FC = () => {
       <Text color="dimmed" size="lg" align="center" className={classes.description}>
         You&apos;re order number{' '}
         <Text span fw={700}>
-          #12345
+          #{router.query.orderNumber}
         </Text>{' '}
         is expected to be be shipped within 1-3 business days!
       </Text>

@@ -49,7 +49,7 @@ const Checkout: React.FC<{
       }),
     })
 
-    const { secret } = await orderRes.json()
+    const { secret, order } = await orderRes.json()
 
     let offerType
     switch (productFlow) {
@@ -61,15 +61,17 @@ const Checkout: React.FC<{
         break
     }
 
+    const successPath = `/success?orderNumber=${order.number}`
+
     if (customerForm.mode === 'redirect') {
-      // NOTE: The redirect API is still private and should not be used by developers. 
+      // NOTE: The redirect API is still private and should not be used by developers.
       // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
       const urlParams = new URLSearchParams({
         secret,
         mode: 'redirect',
         cancelUrl: `${baseHost}/`,
-        successUrl: `${baseHost}/success`,
+        successUrl: `${baseHost}${successPath}`,
       })
       window.location.href = `${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/pay?${urlParams.toString()}`
       return
@@ -80,7 +82,7 @@ const Checkout: React.FC<{
       intentSecret: secret,
       offerType,
       onSuccess: async () => {
-        router.push('/success')
+        router.push(successPath)
       },
       onFailure: (err) => {
         console.error(err)
@@ -97,7 +99,7 @@ const Checkout: React.FC<{
 
   const slopeButton = (
     <Button
-      leftIcon={<img alt="Slope Logo" src="/images/slope_logo_white.png" height={18} />}
+      leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={22} />}
       fullWidth
       color="orange"
       loading={loading}

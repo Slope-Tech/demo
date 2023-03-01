@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { AppShell, Container, MantineProvider } from '@mantine/core'
+import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { useState } from 'react'
 import MainFooter from '../components/MainFooter'
 import MainHeader from '../components/MainHeader'
@@ -23,7 +23,22 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
 
   const [productFlow, setProductFlow] = useState<ProductFlow>(ProductFlow.BNPL_AND_PAY_NOW)
 
-  const providerTheme = {
+  const providerTheme: MantineThemeOverride = {
+    colors: {
+      fog: [
+        '#F8FAFF',
+        '#F6F9FF',
+        '#F2F6FE',
+        '#EDF3FE',
+        '#E9F0FE',
+        '#BBC3D4',
+        '#8D97AB',
+        '#5E6A81',
+        '#47546C',
+        '#303E58',
+      ],
+    },
+    primaryColor: 'fog',
     globalStyles: (theme) => ({
       body: {
         backgroundColor: theme.colors.gray[0],
@@ -37,7 +52,7 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   return (
     <div>
       <Head>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
         <title>Slope Checkout Demo</title>
         <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js`} />
       </Head>
