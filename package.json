@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3004",
-    "dev:local": "NEXT_PUBLIC_CHECKOUT_HOST=http://localhost:3001 next dev -p 3004",
+    "dev:local": "NEXT_PUBLIC_CHECKOUT_HOST=http://localhost:4203 next dev -p 3004",
     "build": "next build",
     "start": "next start",
     "lint:fix": "next lint --fix",
