@@ -6,8 +6,8 @@
     "dev:local": "NEXT_PUBLIC_CHECKOUT_HOST=http://localhost:4203 next dev -p 3004",
     "build": "next build",
     "start": "next start",
-    "lint:fix": "next lint --fix",
-    "format:fix": "prettier --write ./ '!**/*.{json,md}'"
+    "lint": "next lint --fix",
+    "format": "prettier --write ./ '!**/*.{json,md}'"
   },
   "dependencies": {
     "@babel/core": "^7.20.2",

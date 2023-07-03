@@ -16,9 +16,17 @@ const Checkout: React.FC<{
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [localeSelectorChecked, setLocaleSelector] = useState(false)
+
+  const localeSelector =
+    productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
 
   const onChangeRedirect = (event) => {
     setCustomerForm({ ...customerForm, mode: event.currentTarget.checked ? 'redirect' : null })
+  }
+
+  const onChangeLocaleSelector = (event) => {
+    setLocaleSelector(event.currentTarget.checked)
   }
 
   const onPay = async () => {
@@ -68,17 +76,21 @@ const Checkout: React.FC<{
       // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
       const urlParams = new URLSearchParams({
+        localeSelector,
         secret,
         mode: 'redirect',
         cancelUrl: `${baseHost}/`,
         successUrl: `${baseHost}${successPath}`,
       })
-      window.location.href = `${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/pay?${urlParams.toString()}`
+      window.location.href = `${
+        process.env.NEXT_PUBLIC_CHECKOUT_HOST
+      }/en/pay?${urlParams.toString()}`
       return
     }
 
     // @ts-ignore
     window.initializeSlope({
+      localeSelector,
       intentSecret: secret,
       offerType,
       onSuccess: async () => {
@@ -86,7 +98,6 @@ const Checkout: React.FC<{
       },
       onFailure: (err) => {
         console.error(err)
-        alert(err.message)
       },
       onClose: () => {
         setLoading(false)
@@ -130,14 +141,27 @@ const Checkout: React.FC<{
           <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
 
           <Title mt="lg" mb="sm" order={3}>
-            Payment
+            Options
           </Title>
+
           <Checkbox
             onChange={onChangeRedirect}
             checked={customerForm.mode === 'redirect'}
             label="Perform a full-screen redirect"
             mb="md"
           />
+          <Checkbox
+            onChange={onChangeLocaleSelector}
+            checked={!!localeSelector}
+            disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
+            label="Display language slector (Pay Now only)"
+            mb="md"
+          />
+
+          <Title mt="lg" mb="sm" order={3}>
+            Payment
+          </Title>
+
           {productFlow !== ProductFlow.BNPL_ONLY ? (
             slopeButton
           ) : (
