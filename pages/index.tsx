@@ -17,6 +17,7 @@ const Checkout: React.FC<{
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [localeSelectorChecked, setLocaleSelector] = useState(false)
+  const [isGuest, setIsGuest] = useState(false)
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
@@ -29,20 +30,29 @@ const Checkout: React.FC<{
     setLocaleSelector(event.currentTarget.checked)
   }
 
+  const onChangeGuest = (event) => {
+    setIsGuest(event.currentTarget.checked)
+  }
+
+  const guestMode = isGuest && productFlow === ProductFlow.PAY_NOW_ONLY
+
   const onPay = async () => {
     setLoading(true)
 
-    const customerResp = await fetch('/api/create-customer', {
-      method: 'POST',
-      body: JSON.stringify(customerForm),
-    })
-
-    const customerJson = await customerResp.json()
-
-    if (!customerJson.customer) {
-      setLoading(false)
-      setError(customerJson)
-      return
+    let customerJson
+    if (!guestMode) {
+      const customerResp = await fetch('/api/create-customer', {
+        method: 'POST',
+        body: JSON.stringify(customerForm),
+      })
+  
+      customerJson = await customerResp.json()
+  
+      if (!customerJson.customer) {
+        setLoading(false)
+        setError(customerJson)
+        return
+      }
     }
 
     const products = getProducts(customerForm.product)
@@ -52,7 +62,7 @@ const Checkout: React.FC<{
       method: 'POST',
       body: JSON.stringify({
         ...customerForm,
-        customerId: customerJson.customer.id,
+        customerId: guestMode ? undefined : customerJson.customer.id,
         total: totals.total,
       }),
     })
@@ -137,8 +147,20 @@ const Checkout: React.FC<{
           <Title order={3} mb="xs">
             Customer
           </Title>
+
+  
+          <Checkbox
+            onChange={onChangeGuest}
+            checked={guestMode}
+            disabled={productFlow !== ProductFlow.PAY_NOW_ONLY }
+            label="Guest checkout mode"
+            mb="md"
+          />
+
           <ErrorAlert error={error} setError={setError} />
-          <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
+          {!guestMode && (
+            <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
+          )}
 
           <Title mt="lg" mb="sm" order={3}>
             Options
