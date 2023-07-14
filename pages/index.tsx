@@ -28,7 +28,7 @@ const Checkout: React.FC<{
   const [error, setError] = useState(null)
   const [localeSelectorChecked, setLocaleSelector] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
-  const [primaryColor, setPrimaryColor] = useState()
+  const [primaryColor, setPrimaryColor] = useState('#FD611A')
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
@@ -114,7 +114,7 @@ const Checkout: React.FC<{
       localeSelector,
       intentSecret: secret,
       offerType,
-      primaryColor: primaryColor ? ((primaryColor as string).slice(1)) : null,
+      primaryColor: primaryColor ? (primaryColor as string).slice(1) : null,
       onSuccess: async () => {
         router.push(successPath)
       },
@@ -182,12 +182,12 @@ const Checkout: React.FC<{
 
             <TextInput
               value={primaryColor}
-              defaultValue="#FD611A"
               label="Widget theme"
               mb="xs"
               labelProps={{
                 style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
               }}
+              readOnly
             />
             <ColorPicker
               mb="xs"
