@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
-import { Button, Grid, Title, Text, Group, Checkbox } from '@mantine/core'
+import {
+  Button,
+  Grid,
+  Title,
+  Text,
+  Group,
+  Checkbox,
+  Container,
+  ColorPicker,
+  TextInput,
+} from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
 import CustomerForm from '../components/CustomerForm'
@@ -18,6 +28,7 @@ const Checkout: React.FC<{
   const [error, setError] = useState(null)
   const [localeSelectorChecked, setLocaleSelector] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
+  const [primaryColor, setPrimaryColor] = useState()
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
@@ -103,6 +114,7 @@ const Checkout: React.FC<{
       localeSelector,
       intentSecret: secret,
       offerType,
+      primaryColor: primaryColor ? (primaryColor.slice(1) as string) : null,
       onSuccess: async () => {
         router.push(successPath)
       },
@@ -142,48 +154,72 @@ const Checkout: React.FC<{
       <Grid gutter="xl">
         <Grid.Col md={12} lg={4}>
           <OrderSummary product={customerForm.product} />
+          <Container bg="gray.1" py="xs" mt="sm">
+            <Title mt="lg" mb="sm" order={4}>
+              Widget Options
+            </Title>
+
+            <Checkbox
+              onChange={onChangeRedirect}
+              checked={customerForm.mode === 'redirect'}
+              label="Perform a full-screen redirect"
+              mb="xs"
+            />
+            <Checkbox
+              onChange={onChangeLocaleSelector}
+              checked={!!localeSelector}
+              disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
+              label="Display language selector"
+              mb="xs"
+            />
+            <Checkbox
+              onChange={onChangeGuest}
+              checked={guestMode}
+              disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
+              label="Guest checkout mode"
+              mb="xs"
+            />
+
+            <TextInput
+              value={primaryColor}
+              defaultValue="#FD611A"
+              label="Widget theme"
+              mb="xs"
+              labelProps={{
+                style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
+              }}
+            />
+            <ColorPicker
+              mb="xs"
+              format="hex"
+              swatches={[
+                '#FD611A',
+                '#868e96',
+                '#be4bdb',
+                '#4c6ef5',
+                '#228be6',
+                '#12b886',
+                '#fab005',
+              ]}
+              value={primaryColor}
+              onChange={(e) => setPrimaryColor(e)}
+            />
+          </Container>
         </Grid.Col>
         <Grid.Col md={12} lg={8}>
-          <Title order={3} mb="xs">
+          <ErrorAlert error={error} setError={setError} />
+          <Title order={3} mb="sm">
             Customer
           </Title>
-
-  
-          <Checkbox
-            onChange={onChangeGuest}
-            checked={guestMode}
-            disabled={productFlow !== ProductFlow.PAY_NOW_ONLY }
-            label="Guest checkout mode"
-            mb="md"
+          <CustomerForm
+            customerForm={customerForm}
+            setCustomerForm={setCustomerForm}
+            isDisabled={guestMode}
           />
 
-          <ErrorAlert error={error} setError={setError} />
-          {!guestMode && (
-            <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
-          )}
-
-          <Title mt="lg" mb="sm" order={3}>
-            Options
-          </Title>
-
-          <Checkbox
-            onChange={onChangeRedirect}
-            checked={customerForm.mode === 'redirect'}
-            label="Perform a full-screen redirect"
-            mb="md"
-          />
-          <Checkbox
-            onChange={onChangeLocaleSelector}
-            checked={!!localeSelector}
-            disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-            label="Display language slector (Pay Now only)"
-            mb="md"
-          />
-
-          <Title mt="lg" mb="sm" order={3}>
+          <Title order={3} mb="sm">
             Payment
           </Title>
-
           {productFlow !== ProductFlow.BNPL_ONLY ? (
             slopeButton
           ) : (
