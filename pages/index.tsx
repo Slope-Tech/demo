@@ -114,7 +114,7 @@ const Checkout: React.FC<{
       localeSelector,
       intentSecret: secret,
       offerType,
-      primaryColor: primaryColor ? (primaryColor.slice(1) as string) : null,
+      primaryColor: primaryColor ? ((primaryColor as string).slice(1)) : null,
       onSuccess: async () => {
         router.push(successPath)
       },
