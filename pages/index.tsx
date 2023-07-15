@@ -28,7 +28,7 @@ const Checkout: React.FC<{
   const [error, setError] = useState(null)
   const [localeSelectorChecked, setLocaleSelector] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
-  const [primaryColor, setPrimaryColor] = useState('#FD611A')
+  const [primaryColor, setPrimaryColor] = useState('')
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
@@ -109,12 +109,15 @@ const Checkout: React.FC<{
       return
     }
 
+    const primaryColorObject = primaryColor
+      ? { primaryColor: (primaryColor as string).slice(1) }
+      : {}
     // @ts-ignore
     window.initializeSlope({
+      ...primaryColorObject,
       localeSelector,
       intentSecret: secret,
       offerType,
-      primaryColor: primaryColor ? (primaryColor as string).slice(1) : null,
       onSuccess: async () => {
         router.push(successPath)
       },
@@ -156,7 +159,7 @@ const Checkout: React.FC<{
           <OrderSummary product={customerForm.product} />
           <Container bg="gray.1" py="xs" mt="sm">
             <Title mt="lg" mb="sm" order={4}>
-              Widget Options
+              Slope Options
             </Title>
 
             <Checkbox
@@ -180,30 +183,34 @@ const Checkout: React.FC<{
               mb="xs"
             />
 
-            <TextInput
-              value={primaryColor}
-              label="Widget theme"
-              mb="xs"
-              labelProps={{
-                style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
-              }}
-              readOnly
-            />
-            <ColorPicker
-              mb="xs"
-              format="hex"
-              swatches={[
-                '#FD611A',
-                '#868e96',
-                '#be4bdb',
-                '#4c6ef5',
-                '#228be6',
-                '#12b886',
-                '#fab005',
-              ]}
-              value={primaryColor}
-              onChange={(e) => setPrimaryColor(e)}
-            />
+            {customerForm.mode !== 'redirect' && (
+              <>
+                <TextInput
+                  value={primaryColor}
+                  label="Widget theme"
+                  mb="xs"
+                  labelProps={{
+                    style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
+                  }}
+                  readOnly
+                />
+                <ColorPicker
+                  mb="xs"
+                  format="hex"
+                  swatches={[
+                    '#FD611A',
+                    '#868e96',
+                    '#be4bdb',
+                    '#4c6ef5',
+                    '#228be6',
+                    '#12b886',
+                    '#fab005',
+                  ]}
+                  value={primaryColor}
+                  onChange={setPrimaryColor}
+                />
+              </>
+            )}
           </Container>
         </Grid.Col>
         <Grid.Col md={12} lg={8}>
