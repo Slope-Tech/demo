@@ -4,9 +4,10 @@ import React from 'react'
 class CustomerForm extends React.Component<{
   customerForm: any
   setCustomerForm: any
+  isDisabled?: boolean
 }> {
   renderFormField(field, label) {
-    const { customerForm, setCustomerForm } = this.props
+    const { customerForm, setCustomerForm, isDisabled = false } = this.props
     const value = customerForm[field]
     let error
     if (field === 'state' && value.length !== 2) {
@@ -17,6 +18,7 @@ class CustomerForm extends React.Component<{
 
     return (
       <TextInput
+        disabled={isDisabled}
         mb={10}
         onChange={(event) => {
           const newForm = { ...customerForm }
