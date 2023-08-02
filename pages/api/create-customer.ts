@@ -23,6 +23,7 @@ export default async function handler(
       businessName,
       email,
       phone,
+      externalId: (Math.random() + 1).toString(36),
       address: {
         line1,
         city,
