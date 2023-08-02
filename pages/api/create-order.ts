@@ -23,6 +23,7 @@ export default async function handler(
       currency,
       total,
       customerId,
+      externalId: (Math.random() + 1).toString(36),
       billingAddress: {
         line1,
         city,
