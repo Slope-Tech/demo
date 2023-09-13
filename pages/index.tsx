@@ -127,6 +127,9 @@ const Checkout: React.FC<{
       onClose: () => {
         setLoading(false)
       },
+      onOrderOpen: (payload) => {
+        console.log('Slope order open', payload)
+      },
       onEvent: console.log,
     })
     // @ts-ignore
