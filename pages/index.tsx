@@ -75,6 +75,15 @@ const Checkout: React.FC<{
         ...customerForm,
         customerId: guestMode ? undefined : customerJson.customer.id,
         total: totals.total,
+        items: products.map((product) => ({
+          sku: product.sku,
+          name: product.name,
+          description: product.name,
+          unitPrice: product.price,
+          price: product.price * product.quantity,
+          type: 'lineItem',
+          quantity: product.quantity,
+        })),
       }),
     })
 
