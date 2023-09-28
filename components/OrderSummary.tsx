@@ -12,7 +12,7 @@ const OrderSummary: React.FC<{ product: string }> = ({ product }) => {
       </Title>
       <List listStyleType="none" mb={20}>
         {products.map((productItem) => (
-          <List.Item key={productItem.id} mb="md">
+          <List.Item key={productItem.sku} mb="md">
             <Grid>
               <Grid.Col span={3}>
                 <img width="100%" src={productItem.imageSrc} alt={productItem.name} />
@@ -30,6 +30,12 @@ const OrderSummary: React.FC<{ product: string }> = ({ product }) => {
                     Quantity:
                   </Text>{' '}
                   {productItem.quantity}
+                </Text>
+                <Text size="sm" fw={700}>
+                  <Text span color="dimmed">
+                    SKU:
+                  </Text>{' '}
+                  {productItem.sku}
                 </Text>
               </Grid.Col>
             </Grid>
@@ -50,7 +56,7 @@ const OrderSummary: React.FC<{ product: string }> = ({ product }) => {
           Taxes
         </Text>
         <Text size="sm" fw={700}>
-          {formatCurrency(totals.taxes)}
+          {formatCurrency(0)}
         </Text>
       </Group>
       <Divider my="sm" variant="dotted" />
