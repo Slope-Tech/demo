@@ -13,7 +13,7 @@ export default async function handler(
     return
   }
 
-  const { qualified, customerId, line1, city, state, postalCode, country, currency, total } =
+  const { qualified, customerId, items, line1, city, state, postalCode, country, currency, total } =
     JSON.parse(req.body)
 
   const orderRes = await fetch(`${getApiHost()}/v3/orders`, {
@@ -22,6 +22,7 @@ export default async function handler(
     body: JSON.stringify({
       currency,
       total,
+      items,
       customerId,
       externalId: (Math.random() + 1).toString(36),
       billingAddress: {
