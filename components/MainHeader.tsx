@@ -94,7 +94,7 @@ const MainHeader: React.FC<{
     availableCustomerTypes = [
       ...availableCustomerTypes,
       { label: 'Qualified', value: CustomerType.PREQUALIFIED, group: '' },
-
+      { label: 'Compliance Onboarding', value: CustomerType.COMPLIANCE_ONBOARDING, group: '' },
       { label: 'Ineligible', value: CustomerType.INELIGIBLE, group: '' },
       { label: 'Prefilled Identity', value: CustomerType.MASK_KYB, group: '' },
       {
