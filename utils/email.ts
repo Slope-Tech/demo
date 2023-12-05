@@ -12,6 +12,7 @@ export enum ProductFlow {
 
 export enum CustomerType {
   NEW = 'new',
+  COMPLIANCE_ONBOARDING = '+compliance-onboarding-required',
   PREQUALIFIED = '+skip-pre_qualify',
   INELIGIBLE = '+ineligible',
   ORDER_MAX = '+orders-total-max',
