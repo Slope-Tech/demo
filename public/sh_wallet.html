@@ -12,12 +12,12 @@
 <script src="https://checkout.sandbox.slope.so/slope.min.js"></script>
 <script>
     window.initializeSlope({
-      flow: 'pre_qualify',
+      flow: 'payment_methods',
         primaryColor: '#0158a3',
         intentSecret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicm9sZTptZXJjaGFudF9jdXN0b21lciIsImN1c3RvbWVySWQiOiJjdXN0XzJTT1l4eW9kODJyRHJYdWJkU2c2NlduYWM1YyIsIm1lcmNoYW50SWQiOiJtY2hfMjRER2s2YlRORDBQSFIyeUVEa3luY1JucmpPIiwiY3VzdG9tZXJOYW1lIjoiU2xvcGUgVGVzdGluZyBTIENvcnAiLCJjdXN0b21lckVtYWlsIjoiYWxpY2UubGluK3Rlc3RAc2xvcGUuc28iLCJpbXBlcnNvbmF0b3JFbWFpbCI6ImFsaWNlLmxpbkBzbG9wZS5zbyIsImlhdCI6MTcwNTEwNDQ3NywiZXhwIjoxNzA1MzYzNjc3fQ.4gyUlO2A-_Y13-EsrsIw6BJwplh34P40BECXZvQdpLQ',
         onSuccess: async () => {
           console.log('slope done')
-          window.location.href = '/sh_acct.html'
+          window.location.href = '/sh_wallet.html'
         },
         onFailure: (err) => {
           console.error(err)
@@ -732,6 +732,9 @@
         </div>
         <div>
          San Francisco, CA 94107
+        </div>
+        <div class="dashboard_title">
+        <button class="btn button-blue" onclick="window.Slope.open()">Manage payment methods</button>
         </div>
       </div>
     </section>
