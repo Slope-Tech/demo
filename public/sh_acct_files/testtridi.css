@@ -1,0 +1,209 @@
+/*
+  Minimum viable styles for Tridi
+*/
+
+._lqEjs {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+._2kfM8 {
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+._f-Ry5 {
+    cursor: cell !important;
+}
+
+._2VqNg {
+    width: 100%;
+    margin: auto;
+}
+._3zqPm {
+    display: block;
+}
+._1WW7u {
+    display: none;
+}
+
+/* Hint */
+
+._3Ohj5 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(237, 237, 237, 0.3);
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+._1Wsta {
+    width: 80px;
+    height: 80px;
+    background: #333;
+    opacity: 1;
+    color: #fff;
+    border-radius: 50%; /* Safari */
+    transition: box-shadow 0.1s;
+    position: relative;
+}
+
+._1Wsta:before,
+._1Wsta:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+._1Wsta:before {
+    border-width: 15px 15px 15px 0;
+    border-color: transparent #fff transparent transparent;
+    left: 9px;
+}
+
+._1Wsta:after {
+    border-width: 15px 0 15px 15px;
+    border-color: transparent transparent transparent #fff;
+    right: 9px;
+}
+
+._14UgB {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    margin-top: 8px;
+}
+
+._3Ohj5:hover ._1Wsta,
+._3Ohj5:focus ._1Wsta {
+    box-shadow: 0 0 16px 1px #333;
+}
+
+/* Loading state */
+
+._JdKYk {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 101;
+}
+
+/* Animations */
+
+@-webkit-keyframes _IpOvS {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes _IpOvS {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes _3uImN {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes _3uImN {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+._3jUN- {
+    height: 40px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+._gReMg {
+    width: 40px;
+    height: 40px;
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Tridi Dot */
+._1TrFD,
+._1QXU8 {
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+}
+
+._1TrFD:before {
+    content: ' ';
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4200;
+    border-radius: 50%;
+}
+
+._1TrFD:after {
+    content: ' ';
+    position: absolute;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4200;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
+}
+
+._2_pZm {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
