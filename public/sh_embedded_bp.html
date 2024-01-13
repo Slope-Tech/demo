@@ -9,13 +9,15 @@
 
     
 <script type="text/javascript" async="" src="./sh_acct_files/main.MTc3MGUxMzJiMQ.js" data-id="C1UULH9LRI5O97LIN2UG"></script><script type="text/javascript" async="" src="./sh_acct_files/events.js"></script><script src="./sh_acct_files/235932639947594" async=""></script><script type="text/javascript" async="" src="./sh_acct_files/fbevents.js"></script><script type="text/javascript" async="" src="./sh_acct_files/fbevents.js"></script><script type="text/javascript" src="./sh_acct_files/analytics.js-middleware-braze-deduplicate.js.gz" async="" status="loaded"></script><script async="" src="./sh_acct_files/0.7.20"></script><script type="text/javascript" src="./sh_acct_files/commons.c42222c4cb2f8913500f.js.gz" async="" status="loaded"></script><script type="text/javascript" src="./sh_acct_files/js" async="" status="loaded"></script><script type="text/javascript" src="./sh_acct_files/facebook-pixel.dynamic.js.gz" async="" status="loaded"></script><script type="text/javascript" src="./sh_acct_files/optimizely.dynamic.js.gz" async="" status="loaded"></script><script async="" src="./sh_acct_files/4031533"></script><script type="text/javascript" async="" src="./sh_acct_files/js(1)"></script><script async="" src="./sh_acct_files/insight.beta.min.js"></script><script type="text/javascript" async="" src="./sh_acct_files/js(2)"></script><script type="text/javascript" async="" src="./sh_acct_files/main.MTc3MGUxMzJiMQ.js" data-id="C1UULH9LRI5O97LIN2UG"></script><script type="text/javascript" async="" src="./sh_acct_files/insight.min.js"></script><script async="" src="./sh_acct_files/main.43c0095c.js"></script><script type="text/javascript" src="./sh_acct_files/8f12d1b4d7e7076c4f68.js" async="" status="loaded"></script><script type="text/javascript" src="./sh_acct_files/d1620cdcb7784e45f380.js" async="" status="loaded"></script><script type="text/javascript" src="./sh_acct_files/0c44686d70aae66313c8.js" async="" status="loaded"></script><script type="text/javascript" async="" src="./sh_acct_files/ec.js"></script><script src="./sh_acct_files/bat.js" async=""></script><script async="" src="./sh_acct_files/core.js"></script><script type="text/javascript" async="" src="./sh_acct_files/br-trk-6420.js"></script><script async="" src="./sh_acct_files/analytics.js"></script><script async="" src="./sh_acct_files/analytics.js"></script><script type="text/javascript" async="" src="./sh_acct_files/events.js"></script><script type="text/javascript" src="./sh_acct_files/braze.min.js" async=""></script><script type="text/javascript" async="" src="./sh_acct_files/analytics.min.js"></script><script defer="" src="./sh_acct_files/js(3)"></script>
+<script src="https://checkout.sandbox.slope.so/slope.min.js"></script>
 <script>
     window.initializeSlope({
+      flow: 'pre_qualify',
         primaryColor: '#0158a3',
-        intentSecret: 'ORDER INTENT GOES HERE',
+        intentSecret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicm9sZTptZXJjaGFudF9jdXN0b21lciIsImN1c3RvbWVySWQiOiJjdXN0XzJTT1l4eW9kODJyRHJYdWJkU2c2NlduYWM1YyIsIm1lcmNoYW50SWQiOiJtY2hfMjRER2s2YlRORDBQSFIyeUVEa3luY1JucmpPIiwiY3VzdG9tZXJOYW1lIjoiU2xvcGUgVGVzdGluZyBTIENvcnAiLCJjdXN0b21lckVtYWlsIjoiYWxpY2UubGluK3Rlc3RAc2xvcGUuc28iLCJpbXBlcnNvbmF0b3JFbWFpbCI6ImFsaWNlLmxpbkBzbG9wZS5zbyIsImlhdCI6MTcwNTEwNDQ3NywiZXhwIjoxNzA1MzYzNjc3fQ.4gyUlO2A-_Y13-EsrsIw6BJwplh34P40BECXZvQdpLQ',
         onSuccess: async () => {
           console.log('slope done')
-          window.location.href = '/ikea_complete.html'
+          window.location.href = '/sh_acct.html'
         },
         onFailure: (err) => {
           console.error(err)
@@ -359,7 +361,7 @@
 			<li><a href="https://www.supplyhouse.com/sh/control/tradeMasterProgram">TradeMaster Program</a></li>
 
 			
-		<li><a onclick="window.Slope.open()"">Pay over time with Slope</a></li></ul>
+		<li><a onclick="window.Slope.open()">Pre-qualify with Slope</a></li></ul>
 	</div>
 
 	<div class="links">
@@ -405,11 +407,12 @@
       <div id="breadcrumbs">
         <ol>
           <li><a data-target-name="Home" href="https://www.supplyhouse.com/"></a></li>
-            <li><a data-target-name="Account Home"></a></li>
+          <li><a data-target-name="Account" href="https://www.supplyhouse.com/sh/control/myAccount"></a></li>
+            <li><a data-target-name="Slope Wallet"></a></li>
         </ol>
       </div>
     </div>
-    <h1>Account Home</h1>
+    <h1>Slope Wallet</h1>
   </div>
     <div id="cus" class="visible-md visible-lg">
       <div id="cusService" class="align-items-center">
@@ -696,11 +699,9 @@
           </div>
       </div>
       <div class="dashboard_title">
-        <h2>Saved Carts</h2>
-        <div class="viewSaveCart">
-        </div>
+        <h2>Line Utilization</h2>
       </div>
-      <div class="saveCartBody">
+      <div class="recentOrdersbodyContentContainer">
         <div id="items_content">
 
           You do not have any carts saved in your account.
@@ -716,6 +717,25 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="dashboard_title">
+        <h2>Account Details</h2>
+        <div class="viewSaveCart">
+        </div>
+      </div>
+      <div class="recentOrdersbodyContentContainer">
+        <div id="items_content" class="bold">
+          Billing Address
+        </div>
+        <div>
+          Alice Lin
+        </div>
+        <div>
+         7 Freelon St 
+        </div>
+        <div>
+         San Francisco, CA 94107
         </div>
       </div>
     </section>

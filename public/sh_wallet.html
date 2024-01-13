@@ -361,7 +361,7 @@
 			<li><a href="https://www.supplyhouse.com/sh/control/tradeMasterProgram">TradeMaster Program</a></li>
 
 			
-		<li><a href="./sh_wallet.html">Slope Wallet</a></li></ul>
+		<li><a onclick="window.Slope.open()">Pre-qualify with Slope</a></li></ul>
 	</div>
 
 	<div class="links">
@@ -407,11 +407,15 @@
       <div id="breadcrumbs">
         <ol>
           <li><a data-target-name="Home" href="https://www.supplyhouse.com/"></a></li>
-            <li><a data-target-name="Account Home"></a></li>
+          <li><a data-target-name="Account" href="https://www.supplyhouse.com/sh/control/myAccount"></a></li>
+            <li><a data-target-name="Slope Wallet"></a></li>
         </ol>
       </div>
     </div>
-    <h1>Account Home</h1>
+    <h1>
+      <img src="./images/slope_logo.svg" height="32" style="margin-bottom: 6px; margin-right: -72px"/>
+        Slope Wallet
+    </h1>
   </div>
     <div id="cus" class="visible-md visible-lg">
       <div id="cusService" class="align-items-center">
@@ -692,32 +696,41 @@
         </div>
       </div>
       <div class="recentOrdersbodyContentContainer">
-          <div class="table_listing_dashboard">
-            <div> No orders have been made on this account. If you feel this is an error or need any assistance,
-            please call us at <a href="tel:+18887574774">1-888-757-4774.</a></div>
-          </div>
+            <div id="items_content" class="bold">
+              Slope Order #1234567
+            </div>
+            <div>
+              Total: $140,000.00
+            </div>
+            <div>
+              Net 30 Terms
+            </div>
       </div>
       <div class="dashboard_title">
-        <h2>Saved Carts</h2>
+        <h2>Line Utilization</h2>
+      </div>
+      <div class="recentOrdersbodyContentContainer">
+        <div id="items_content">
+          $140,000.00 / $1,500,000.00
+        </div>
+      </div>
+      <div class="dashboard_title">
+        <h2>Account Details</h2>
         <div class="viewSaveCart">
         </div>
       </div>
-      <div class="saveCartBody">
-        <div id="items_content">
-
-          You do not have any carts saved in your account.
-          <a href="javascript:void(0);" id="trigger_how_to_save_cart_browse" data-toggle="popover" data-placement="bottom" data-title="How to Save Your Cart" data-content="&lt;ul style=&quot;color: #333; margin-top: -5px; line-height: 21px;&quot;&gt; &lt;li&gt;1. Add Items to your cart&lt;/li&gt; &lt;li&gt;2. Click The &quot;Save Cart&quot; button&lt;/li&gt; &lt;li&gt;3. Name your cart&lt;/li&gt; &lt;/ul&gt;" data-original-title="" title="">Learn More</a>
-
-          <div id="overlay_how_to_save_cart_browse">
-            <div class="popover save-cart-info">
-              <div class="arrow"></div>
-              <a href="javascript:void(0);" class="close">×</a>
-              <div class="content">
-                <div class="popover-header"></div>
-                <div class="popover-body"></div>
-              </div>
-            </div>
-          </div>
+      <div class="recentOrdersbodyContentContainer">
+        <div id="items_content" class="bold">
+          Billing Address
+        </div>
+        <div>
+          Alice Lin
+        </div>
+        <div>
+         7 Freelon St 
+        </div>
+        <div>
+         San Francisco, CA 94107
         </div>
       </div>
     </section>
