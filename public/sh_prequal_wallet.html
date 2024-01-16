@@ -46,18 +46,15 @@
     <script>
         window.initializeSlope({
             flow: 'pre_qualify',
-            primaryColor: '#0158a3',
-            intentSecret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicm9sZTptZXJjaGFudF9jdXN0b21lciIsImN1c3RvbWVySWQiOiJjdXN0XzJTT1l4eW9kODJyRHJYdWJkU2c2NlduYWM1YyIsIm1lcmNoYW50SWQiOiJtY2hfMjRER2s2YlRORDBQSFIyeUVEa3luY1JucmpPIiwiY3VzdG9tZXJOYW1lIjoiU2xvcGUgVGVzdGluZyBTIENvcnAiLCJjdXN0b21lckVtYWlsIjoiYWxpY2UubGluK3Rlc3RAc2xvcGUuc28iLCJpbXBlcnNvbmF0b3JFbWFpbCI6ImFsaWNlLmxpbkBzbG9wZS5zbyIsImlhdCI6MTcwNTEwNDQ3NywiZXhwIjoxNzA1MzYzNjc3fQ.4gyUlO2A-_Y13-EsrsIw6BJwplh34P40BECXZvQdpLQ',
+            primaryColor: '#4186ad',
+            intentSecret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicm9sZTptZXJjaGFudF9jdXN0b21lciIsImN1c3RvbWVySWQiOiJjdXN0XzJiMnV6TjJZZ0I5aDFncnc3clpibHdEd1BPNCIsIm1lcmNoYW50SWQiOiJtY2hfMjRER2s2YlRORDBQSFIyeUVEa3luY1JucmpPIiwiY3VzdG9tZXJOYW1lIjoiU3VwcGx5IEhvdXNlIExMQyIsImN1c3RvbWVyRW1haWwiOiJhbGljZS5saW4rc3VwcGx5LWhvdXNlQHNsb3BlLnNvIiwiaW1wZXJzb25hdG9yRW1haWwiOiJhbGljZS5saW5Ac2xvcGUuc28iLCJpYXQiOjE3MDU0MjU3NjgsImV4cCI6MTcwNTY4NDk2OH0.LR1sjthPczQllrVxqlfpxws6VPpuZ1hYx6uddpNk-Fs',
             onSuccess: async() => {
                 console.log('slope done')
-                window.location.href = '/sh_acct.html'
             },
             onFailure: (err) => {
                 console.error(err)
             },
-            onClose: () => {
-                setLoading(false)
-            },
+            onClose: () => {},
             onOrderOpen: (payload) => {
                 console.log('Slope order open', payload)
             },
@@ -119,6 +116,21 @@
                     // analytics.page();
                 }
         }();
+    </script>
+    <script>
+        var loadDeferredStyles = function() {
+            var addStylesNode = document.getElementById("deferred-styles");
+            var replacement = document.createElement("div");
+            replacement.innerHTML = addStylesNode.textContent;
+            document.body.appendChild(replacement)
+            addStylesNode.parentElement.removeChild(addStylesNode);
+        };
+        var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        if (raf) raf(function() {
+            window.setTimeout(loadDeferredStyles, 0);
+        });
+        else window.addEventListener('load', loadDeferredStyles);
     </script>
 
     <script>
@@ -397,6 +409,34 @@
         var pexsupplyPro = 'N';
         var showAddToListPopup = false;
     </script>
+    <script>
+        window.addEventListener('load', function(event) {
+            ! function(w, d, t) {
+                w.TiktokAnalyticsObject = t;
+                var ttq = w[t] = w[t] || [];
+                ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"], ttq.setAndDefer = function(t, e) {
+                    t[e] = function() {
+                        t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                    }
+                };
+                for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+                ttq.instance = function(t) {
+                    for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]);
+                    return e
+                }, ttq.load = function(e, n) {
+                    var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+                    ttq._i = ttq._i || {}, ttq._i[e] = [], ttq._i[e]._u = i, ttq._t = ttq._t || {}, ttq._t[e] = +new Date, ttq._o = ttq._o || {}, ttq._o[e] = n || {};
+                    var o = document.createElement("script");
+                    o.type = "text/javascript", o.async = !0, o.src = i + "?sdkid=" + e + "&lib=" + t;
+                    var a = document.getElementsByTagName("script")[0];
+                    a.parentNode.insertBefore(o, a)
+                };
+                ttq.load('C1UULH9LRI5O97LIN2UG');
+                ttq.page();
+            }(window, document, 'ttq');
+        });
+    </script>
+    <script src="./sh_acct_files/21177900890.js"></script>
 
     <link rel="apple-touch-icon" sizes="144x144" href="https://d3501hjdis3g5w.cloudfront.net/html/img/iosBookmarkIcons/Ipad_retina_144x144.jpg">
     <link rel="apple-touch-icon" sizes="114x114" href="https://d3501hjdis3g5w.cloudfront.net/html/img/iosBookmarkIcons/Iphone_retina_114x114.jpg">
@@ -787,7 +827,7 @@
     <main role="main">
         <div class="btn" onclick="location.href = './supply-house.html'" style="position: absolute; left: 15px; top: 55px; height: 65px; width: 350px; z-index: 9999"></div>
         <div class="btn" onclick="location.href = './sh_acct.html'" style="position: absolute; left:1370px; top: 55px; height: 65px; width: 55px; z-index: 9999"></div>
-        <div class="btn" onclick="location.href = './sh_cart.html'" style="position: absolute; left:1450px; top: 55px; height: 65px; width: 50px; z-index: 9999"></div>
+        <div class="btn" onclick="location.href = './sh_cart.html'" style="position: absolute; left:1445px; top: 50px; height: 55px; width: 48px; z-index: 9999"></div>
         <div class="container-fluid">
             <div class="row">
                 <div class="wrapper" id="accountLeftBar">
@@ -822,7 +862,7 @@
 
 
                                     <li>
-                                        <a href="./sh_prequal_wallet.html"><img src="./images/slope_icon.png" height="24" style="margin-bottom: 4px; margin-left: -4px" /> Pre-qualify with Slope</a>
+                                        <a href="./sh_prequal_wallet.html"><img src="./images/slope_icon.png" height="24" style="margin-bottom: 4px; margin-left: -4px" />Pre-qualify with Slope</a>
                                     </li>
                                 </ul>
                             </div>
@@ -873,12 +913,17 @@
                                                     <a data-target-name="Home" href="https://www.supplyhouse.com/"></a>
                                                 </li>
                                                 <li>
-                                                    <a data-target-name="Account Home"></a>
+                                                    <a data-target-name="Account" href="https://www.supplyhouse.com/sh/control/myAccount"></a>
+                                                </li>
+                                                <li>
+                                                    <a data-target-name="Slope Wallet"></a>
                                                 </li>
                                             </ol>
                                         </div>
                                     </div>
-                                    <h1>Account Home</h1>
+                                    <h1>
+                                        <img src="./images/slope_icon.png" height="32" style="margin-bottom: 6px; margin-right: -4px" /> Slope Wallet
+                                    </h1>
                                 </div>
                                 <div id="cus" class="visible-md visible-lg">
                                     <div id="cusService" class="align-items-center">
@@ -1152,56 +1197,18 @@
                         <div id="largeScreen" class="visible-md visible-lg">
                             <section id="main-my-account-content">
                                 <div class="dashboard_title">
-                                    <h2>Recent Orders</h2>
-                                    <div class="searchForOrder">
-
-                                        <link rel="preload" href="https://d3501hjdis3g5w.cloudfront.net/html/css/fonts/daniel/danielbd.woff2" as="font" type="font/woff2" crossorigin="">
-                                        <link rel="preload" href="https://d3501hjdis3g5w.cloudfront.net/html/css/fonts/maison-neue/MaisonNeueWEB-Bold.woff2" as="font" type="font/woff2" crossorigin="">
-                                        <link rel="preload" href="https://d3501hjdis3g5w.cloudfront.net/html/css/fonts/maison-neue/MaisonNeueWEB-Book.woff2" as="font" type="font/woff2" crossorigin="">
-                                        <link rel="stylesheet" type="text/css" href="./sh_acct_files/account.searchorder.css" media="screen, projection, tty, print">
-
-                                        <div class="searchOrder clearfix">
-                                            <div class="order-top-search">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon hidden-lg hidden-md"><span class="glyphicon glyphicon-search"></span></div>
-                                                    <input type="text" name="searchText" class="order-search-input-sm form-control hidden-lg hidden-md order-search-input" placeholder="Search all orders">
-                                                    <input type="text" name="searchText" class="order-search-input-lg form-control visible-lg visible-md order-search-input" placeholder="Search for item, PO#, or order#">
-                                                    <span class="input-group-btn visible-lg-block visible-md-block">
-            <button type="submit" class="order-search-btn btn button-blue"><span class="glyphicon glyphicon-search"></span></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    <h2></h2>
                                 </div>
                                 <div class="recentOrdersbodyContentContainer">
-                                    <div class="table_listing_dashboard">
-                                        <div> No orders have been made on this account. If you feel this is an error or need any assistance, please call us at <a href="tel:+18887574774">1-888-757-4774.</a></div>
+                                    <div id="items_content" class="bold">
+                                        You currently do not have an account with Slope.
                                     </div>
-                                </div>
-                                <div class="dashboard_title">
-                                    <h2>Saved Carts</h2>
-                                    <div class="viewSaveCart">
+                                    <div>
+                                        Slope offers quick and reliable access to pay over time terms for your business needs.
+                                        <a href="">Learn more</a>
                                     </div>
-                                </div>
-                                <div class="saveCartBody">
-                                    <div id="items_content">
-
-                                        You do not have any carts saved in your account.
-                                        <a href="javascript:void(0);" id="trigger_how_to_save_cart_browse" data-toggle="popover" data-placement="bottom" data-title="How to Save Your Cart" data-content="&lt;ul style=&quot;color: #333; margin-top: -5px; line-height: 21px;&quot;&gt; &lt;li&gt;1. Add Items to your cart&lt;/li&gt; &lt;li&gt;2. Click The &quot;Save Cart&quot; button&lt;/li&gt; &lt;li&gt;3. Name your cart&lt;/li&gt; &lt;/ul&gt;"
-                                            data-original-title="" title="">Learn More</a>
-
-                                        <div id="overlay_how_to_save_cart_browse">
-                                            <div class="popover save-cart-info">
-                                                <div class="arrow"></div>
-                                                <a href="javascript:void(0);" class="close">×</a>
-                                                <div class="content">
-                                                    <div class="popover-header"></div>
-                                                    <div class="popover-body"></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="dashboard_title recentOrdersbodyContentContainer">
+                                        <button class="btn button-orange" onclick="window.Slope.open()">Pre-qualify now</button>
                                     </div>
                                 </div>
                             </section>
@@ -2868,21 +2875,7 @@ function sendFacebookAddToCartEvent(productId, productName, price) {
 
 
 
-    <script>
-        var loadDeferredStyles = function() {
-            var addStylesNode = document.getElementById("deferred-styles");
-            var replacement = document.createElement("div");
-            replacement.innerHTML = addStylesNode.textContent;
-            document.body.appendChild(replacement)
-            addStylesNode.parentElement.removeChild(addStylesNode);
-        };
-        var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-        if (raf) raf(function() {
-            window.setTimeout(loadDeferredStyles, 0);
-        });
-        else window.addEventListener('load', loadDeferredStyles);
-    </script>
+
     <script type="text/javascript" src="./sh_acct_files/common.customerSupportBadge.js"></script>
     <div>
         <link rel="stylesheet" type="text/css" href="./sh_acct_files/jquery.typeahead.css">
@@ -2923,34 +2916,8 @@ function sendFacebookAddToCartEvent(productId, productName, price) {
 
 
 
-    <script>
-        window.addEventListener('load', function(event) {
-            ! function(w, d, t) {
-                w.TiktokAnalyticsObject = t;
-                var ttq = w[t] = w[t] || [];
-                ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"], ttq.setAndDefer = function(t, e) {
-                    t[e] = function() {
-                        t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
-                    }
-                };
-                for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
-                ttq.instance = function(t) {
-                    for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]);
-                    return e
-                }, ttq.load = function(e, n) {
-                    var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
-                    ttq._i = ttq._i || {}, ttq._i[e] = [], ttq._i[e]._u = i, ttq._t = ttq._t || {}, ttq._t[e] = +new Date, ttq._o = ttq._o || {}, ttq._o[e] = n || {};
-                    var o = document.createElement("script");
-                    o.type = "text/javascript", o.async = !0, o.src = i + "?sdkid=" + e + "&lib=" + t;
-                    var a = document.getElementsByTagName("script")[0];
-                    a.parentNode.insertBefore(o, a)
-                };
-                ttq.load('C1UULH9LRI5O97LIN2UG');
-                ttq.page();
-            }(window, document, 'ttq');
-        });
-    </script>
-    <script src="./sh_acct_files/21177900890.js"></script><iframe src="./sh_acct_files/a21119720093.html" hidden="" tabindex="-1" title="Optimizely Internal Frame" height="0" width="0" style="display: none;"></iframe>
+
+    <iframe src="./sh_acct_files/a21119720093.html" hidden="" tabindex="-1" title="Optimizely Internal Frame" height="0" width="0" style="display: none;"></iframe>
 
 
 
