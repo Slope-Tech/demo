@@ -1,0 +1,1 @@
+window.onload=function(){const o=new URL(window.location.href);o.searchParams.get("closeWindow")&&window.opener.postMessage("close window","*")};
