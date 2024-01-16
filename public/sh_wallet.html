@@ -50,14 +50,11 @@
             intentSecret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicm9sZTptZXJjaGFudF9jdXN0b21lciIsImN1c3RvbWVySWQiOiJjdXN0XzJTT1l4eW9kODJyRHJYdWJkU2c2NlduYWM1YyIsIm1lcmNoYW50SWQiOiJtY2hfMjRER2s2YlRORDBQSFIyeUVEa3luY1JucmpPIiwiY3VzdG9tZXJOYW1lIjoiU2xvcGUgVGVzdGluZyBTIENvcnAiLCJjdXN0b21lckVtYWlsIjoiYWxpY2UubGluK3Rlc3RAc2xvcGUuc28iLCJpbXBlcnNvbmF0b3JFbWFpbCI6ImFsaWNlLmxpbkBzbG9wZS5zbyIsImlhdCI6MTcwNTM2OTQyNSwiZXhwIjoxNzA1NjI4NjI1fQ.cxmxBJW4PAHiiVKak_zE3SSYbtzlzWMBVg973igk-WQ',
             onSuccess: async() => {
                 console.log('slope done')
-                window.location.href = '/sh_wallet.html'
             },
             onFailure: (err) => {
                 console.error(err)
             },
-            onClose: () => {
-                window.location.href = '/sh_wallet.html'
-            },
+            onClose: () => {},
             onOrderOpen: (payload) => {
                 console.log('Slope order open', payload)
             },
