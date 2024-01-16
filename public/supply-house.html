@@ -68,14 +68,14 @@
             intentSecret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicm9sZTptZXJjaGFudF9vcmRlciIsImN1c3RvbWVySWQiOiJjdXN0XzJTT1l4eW9kODJyRHJYdWJkU2c2NlduYWM1YyIsIm9yZGVySWQiOiJvcmRfMmIwenJ5U0o4aHI0Q3dtMDJFWWhkOGJ0bUFzIiwibWVyY2hhbnRJZCI6Im1jaF8yNERHazZiVE5EMFBIUjJ5RURreW5jUm5yak8iLCJvcmRlckN1cnJlbmN5IjoidXNkIiwiaXNHdWVzdCI6ZmFsc2UsImlhdCI6MTcwNTM2NzM5OCwiZXhwIjoxNzExMzY3Mzk4fQ.jxlHdvS4FyNFm4E3dT2ZdGgAbmJI4k5N39AcKtjXHx0',
             onSuccess: async() => {
                 console.log('slope done')
-                window.location.href = '/sh_wallet.html'
+                window.location.href = '/sh_confirmation.html'
             },
             onFailure: (err) => {
                 console.error(err)
             },
             onClose: () => {
                 console.log('closed')
-                window.location.href = '/sh_wallet.html'
+                window.location.href = '/sh_confirmation.html'
             },
             onOrderOpen: (payload) => {
                 console.log('Slope order open', payload)
@@ -530,8 +530,9 @@
 <body class="typeahead-search">
     <div id="where-am-i" style="display:none;">[pool9]</div>
     <main role="main">
-        <div class="btn" onclick="window.Slope.open()" style="position: absolute; left:180px; top: 630px; height: 40px; width: 260px; z-index: 9999"></div>
-        <img src="./images/sh_checkout.png">
+        <div class="btn" onclick="location.href = './sh_acct.html'" style="position: absolute; left:1370px; top: 55px; height: 65px; width: 55px; z-index: 9999"></div>
+        <div class="btn" onclick="location.href = './sh_cart.html'" style="position: absolute; left:1445px; top: 50px; height: 55px; width: 48px; z-index: 9999"></div>
+        <img src="./images/sh_home.png">
     </main>
 
     <input type="hidden" name="system-timestamp" id="system-timestamp" value="1705363487784">
