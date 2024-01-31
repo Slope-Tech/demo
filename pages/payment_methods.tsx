@@ -34,7 +34,6 @@ const PaymentMethods: React.FC<{ customerForm: Record<string, any> }> = ({ custo
       },
       onFailure: (err) => {
         console.error(err)
-        alert(err.message)
       },
       onClose: () => {
         setLoading(false)
