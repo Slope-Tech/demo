@@ -93,54 +93,24 @@ const MainHeader: React.FC<{
   if (process.env.API_HOST !== 'https://api.slope.so') {
     availableCustomerTypes = [
       ...availableCustomerTypes,
-      { label: 'Qualified', value: CustomerType.PREQUALIFIED, group: '' },
-      { label: 'Compliance Onboarding', value: CustomerType.COMPLIANCE_ONBOARDING, group: '' },
-      { label: 'Ineligible', value: CustomerType.INELIGIBLE, group: '' },
-      { label: 'Prefilled Identity', value: CustomerType.MASK_KYB, group: '' },
+      { label: 'Qualified', value: CustomerType.SKIP_PRE_QUALIFY, group: '' },
+      { label: 'Skip Compliance', value: CustomerType.SKIP_COMPLIANCE, group: '' },
+      { label: 'Skip Banking', value: CustomerType.SKIP_BANKING, group: '' },
       {
-        label: 'Order max',
-        value: CustomerType.ORDER_MAX,
-        group: 'Order rejection reasons',
+        label: 'Skip Compliance & Banking',
+        value: CustomerType.SKIP_COMPLIANCE_AND_BANKING,
+        group: '',
+      },
+      { label: 'Skip Consumer Credit', value: CustomerType.SKIP_CONSUMER_CREDIT, group: '' },
+      {
+        label: 'Skip Compliance & Consumer Credit',
+        value: CustomerType.SKIP_COMPLIANCE_AND_CONSUMER_CREDIT,
+        group: '',
       },
       {
-        label: 'Order min',
-        value: CustomerType.ORDER_MIN,
-        group: 'Order rejection reasons',
-      },
-      {
-        label: 'Outstanding orders',
-        value: CustomerType.OUTSTANDING,
-        group: 'Order rejection reasons',
-      },
-      {
-        label: 'Overdue',
-        value: CustomerType.OVERDUE,
-        group: 'Order rejection reasons',
-      },
-      {
-        label: 'Same limit',
-        value: CustomerType.FORCE_REEVAL,
-        group: 'Reevaluation possibilities',
-      },
-      {
-        label: 'Increased',
-        value: CustomerType.FORCE_REEVAL_INCREASED,
-        group: 'Reevaluation possibilities',
-      },
-      {
-        label: 'Decreased, approved',
-        value: CustomerType.FORCE_REEVAL_DECREASE_APPROVED,
-        group: 'Reevaluation possibilities',
-      },
-      {
-        label: 'Decrease, rejected',
-        value: CustomerType.FORCE_REEVAL_DECREASE_REJECTED,
-        group: 'Reevaluation possibilities',
-      },
-      {
-        label: 'Ineligible',
-        value: CustomerType.FORCE_REEVAL_INELIGIBLE,
-        group: 'Reevaluation possibilities',
+        label: 'Skip Compliance & Banking & Consumer Credit',
+        value: CustomerType.SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT,
+        group: '',
       },
     ]
   }

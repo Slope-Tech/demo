@@ -36,9 +36,9 @@ const products = {
   ],
   Socks: [
     {
-      quantity: 150,
+      quantity: 67,
       name: 'Slope Socks',
-      price: 829,
+      price: 1997,
       imageSrc: '/images/products/socks.jpg',
       sku: 'slope-socks-sku-1',
     },
