@@ -11,20 +11,14 @@ export enum ProductFlow {
 }
 
 export enum CustomerType {
-  NEW = 'new',
-  COMPLIANCE_ONBOARDING = '+compliance-onboarding-required',
-  PREQUALIFIED = '+skip-pre_qualify',
-  INELIGIBLE = '+ineligible',
-  ORDER_MAX = '+orders-total-max',
-  ORDER_MIN = '+orders-total-min',
-  OUTSTANDING = '+outstanding-orders',
-  OVERDUE = '+orders-overdue',
-  FORCE_REEVAL = '+force-reeval',
-  FORCE_REEVAL_INCREASED = '+force-reeval_increased',
-  FORCE_REEVAL_DECREASE_APPROVED = '+force-reeval_decrease_approved',
-  FORCE_REEVAL_DECREASE_REJECTED = '+force-reeval_decrease_rejected',
-  FORCE_REEVAL_INELIGIBLE = '+force-reeval_ineligible',
-  MASK_KYB = '+mask-kyb',
+  NEW = '',
+  SKIP_PRE_QUALIFY = '+skip-pre_qualify',
+  SKIP_COMPLIANCE = '+skip-compliance',
+  SKIP_BANKING = '+skip-banking',
+  SKIP_COMPLIANCE_AND_BANKING = '+skip-compliance+skip-banking',
+  SKIP_CONSUMER_CREDIT = '+skip-consumer_credit',
+  SKIP_COMPLIANCE_AND_CONSUMER_CREDIT = '+skip-compliance+skip-consumer_credit',
+  SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT = '+skip-compliance+skip-banking+skip-consumer_credit',
 }
 
 export const generateDemoEmail = ({ customerType }: { customerType: CustomerType }) => {
