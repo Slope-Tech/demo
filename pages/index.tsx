@@ -29,6 +29,10 @@ const Checkout: React.FC<{
   const [localeSelectorChecked, setLocaleSelector] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
   const [primaryColor, setPrimaryColor] = useState('')
+  const [product, setProduct] = useState('Soda')
+  const products = getProducts(product)
+  const totals = getTotals(products)
+  const [total, setTotal] = useState(totals.total)
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
@@ -66,23 +70,21 @@ const Checkout: React.FC<{
       }
     }
 
-    const products = getProducts(customerForm.product)
-    const totals = getTotals(products)
 
     const orderRes = await fetch('/api/create-order', {
       method: 'POST',
       body: JSON.stringify({
         ...customerForm,
         customerId: guestMode ? undefined : customerJson.customer.id,
-        total: totals.total,
-        items: products.map((product) => ({
-          sku: product.sku,
-          name: product.name,
-          description: product.name,
-          unitPrice: product.price,
-          price: product.price * product.quantity,
+        total, 
+        items: products.map((p) => ({
+          sku: p.sku,
+          name: p.name,
+          description: p.name,
+          unitPrice: p.price,
+          price: p.price * p.quantity,
           type: 'lineItem',
-          quantity: product.quantity,
+          quantity: p.quantity,
         })),
       }),
     })
@@ -168,7 +170,7 @@ const Checkout: React.FC<{
 
       <Grid gutter="xl">
         <Grid.Col md={12} lg={4}>
-          <OrderSummary product={customerForm.product} />
+          <OrderSummary product={product} setProduct={setProduct} total={total} setTotal={setTotal} />
           <Container bg="gray.1" py="xs" mt="sm">
             <Title mt="lg" mb="sm" order={4}>
               Slope Options
