@@ -152,17 +152,6 @@ const MainHeader: React.FC<{
   const controls = (
     <>
       <SegmentedControl
-        data={['Soda', 'Socks']}
-        value={customerForm.product}
-        onChange={(value) => {
-          setCustomerForm({
-            ...customerForm,
-            product: value,
-          })
-        }}
-        size="sm"
-      />
-      <SegmentedControl
         data={[
           { label: 'Pay Now', value: ProductFlow.PAY_NOW_ONLY },
           { label: 'Pay Later', value: ProductFlow.BNPL_ONLY },
@@ -173,19 +162,13 @@ const MainHeader: React.FC<{
         onChange={(value) => {
           const newProductFlow = value as ProductFlow
           setProductFlow(newProductFlow)
-          setCustomerForm({
-            ...customerForm,
-            email: generateDemoEmail({
-              customerType,
-            }),
-          })
         }}
       />
       <Select
         data={availableCustomerTypes}
         size="sm"
         sx={{
-          width: 200,
+          width: 300,
         }}
         value={customerType}
         onChange={(value) => {
