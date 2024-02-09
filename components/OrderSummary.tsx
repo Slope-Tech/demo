@@ -1,15 +1,42 @@
-import { Divider, Grid, Group, List, Text, Title } from '@mantine/core'
+import {
+  Divider,
+  Grid,
+  Group,
+  List,
+  NumberInput,
+  SegmentedControl,
+  Text,
+  Title,
+} from '@mantine/core'
 import React from 'react'
 import { formatCurrency, getProducts, getTotals } from '../utils/products'
 
-const OrderSummary: React.FC<{ product: string }> = ({ product }) => {
+const OrderSummary: React.FC<{
+  product: string
+  setProduct: any
+  total: number
+  setTotal: any
+}> = ({ product, setProduct, total, setTotal }) => {
   const products = getProducts(product)
   const totals = getTotals(products)
+
   return (
     <>
-      <Title order={3} mb="sm">
-        Order
-      </Title>
+      <Group position='apart' mb="md">
+        <Title order={3}>
+          Order
+        </Title>
+        <SegmentedControl
+          data={['Soda', 'Socks']}
+          value={product}
+          onChange={(value) => {
+            setTotal(getTotals(getProducts(value)).total)
+            setProduct(value)
+          }}
+          size="sm"
+        />
+      </Group>
+
       <List listStyleType="none" mb={20}>
         {products.map((productItem) => (
           <List.Item key={productItem.sku} mb="md">
@@ -65,7 +92,13 @@ const OrderSummary: React.FC<{ product: string }> = ({ product }) => {
           Total
         </Text>
         <Text size="sm" fw={700}>
-          {formatCurrency(totals.total)}
+          <NumberInput
+            hideControls
+            value={total}
+            onChange={setTotal}
+            parser={(str) => parseInt((str || '').replace(/\D/g, ''), 10).toString()}
+            formatter={formatCurrency}
+          />
         </Text>
       </Group>
     </>
