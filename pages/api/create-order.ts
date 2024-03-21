@@ -25,13 +25,13 @@ export default async function handler(
       items,
       customerId,
       externalId: (Math.random() + 1).toString(36),
-      billingAddress: {
+      billingAddress: line1 ? {
         line1,
         city,
         state,
         postalCode,
         country,
-      },
+      } : undefined,
     }),
   })
 
