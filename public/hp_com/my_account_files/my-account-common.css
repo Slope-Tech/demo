@@ -1,0 +1,117 @@
+/* ***REMOVE ALL COMMENTS BEFORE PUBLISHING*/
+body{margin:0}
+
+/* COMMON MY ACCOUNT & LEFT NAV STYLES */
+.myaccount {height:100%; position:relative; width:100%; font-family: 'Montserrat', sans-serif!important; font-weight: 600;color:#2C3038;}
+.myaccount-nav {height: 100vh; width: 0; position: absolute; top: 0; left: auto; background-color: #2C3038; overflow-x: hidden; transition: 0.3s; z-index:102;}
+.myaccount-nav__menu {
+	padding:52px 20px 35px 20px;
+
+}
+.myaccount-nav__list {margin:0; padding:0;}
+.myaccount-nav__list li {
+	list-style:none; 
+	padding:6px 0px; 
+	line-height:normal;}
+.myaccount-nav__list li a {
+	font: normal normal normal 14px/22px Montserrat; 
+	color:#aaa; 
+	text-decoration: none;
+	}
+.myaccount-nav__list li a.active {color: #fff !important; text-decoration:none !important;}
+.myaccount-nav__list li a:hover {color: #f1f1f1; text-decoration: underline;}
+.myaccount-nav__open {display:block; font: normal normal 600 14px/20px Montserrat; color:#2C3038; background-color:#E8E8E8; padding: 10px 0 10px 20px;; cursor:pointer; text-transform: uppercase;}
+.myaccount-nav__open img{padding:0 14.5px 0 0;}
+.myaccount-nav__close {position:inherit; top: 6px; right:100%; font: normal normal normal 42px/42px Times New Roman; color:#fff; padding:0; text-decoration: none;}
+.myaccount-nav__overlay { position: fixed; display: none; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color:#2C3038; opacity:0.6; z-index:102;}
+.myaccount-nav__head {font: normal normal 600 16px/24px Montserrat; color: #fff; text-decoration: none; text-transform: uppercase; padding: 8px 0 6px 0 !important;}
+.sbtn.sign-out{width:100%; max-width:150px; height:36px; padding:9px 20px; text-align:center; margin-top:8px;}
+.nav__line {
+	border-width:.05px; 
+	background-color:#fff; 
+	margin:16px 0;
+	}
+
+ /* MY ACCOUNT MAIN WRAPPER CONTAINER STYLES */
+ .myaccount-main {display:block; padding:0 16px; background-color: #f4f4f4; min-height:auto; transition: margin .3s;}
+ .myaccount-content {display:inline-block; width:100%; padding: 40px 20px 0;}
+																				
+ .myaccount-content__title{font: normal normal 600 24px/32px Montserrat; color:#2C3038; margin:0; text-transform: uppercase;}
+
+ /* MY ACCOUNT BREAKPOINTS STYLES */
+ @media screen and (min-width:50px){
+   .myaccount-nav__menu{padding:52px 16px 14px 16px;}
+ }
+
+  @media screen and (min-width:375px){
+  .myaccount-main{padding:0 0px;}
+  .myaccount-nav__menu{padding:52px 16px 0 16px;}
+  .myaccount-nav__head {padding: 8px 25px 6px 0 !important;}   
+  .my-susbscriptions-back {
+    padding-left: 16px !important;
+   }
+ }
+ 
+  /* HPEDT-16726 Fix for Left menu */
+ @media screen and (min-width: 1024px) and (max-width: 1365px) {
+    .myaccount-nav__head {
+        padding: 8px 20px 6px 0 !important;
+    }
+ }
+ 
+ @media screen and (max-width:375px){  
+  .my-susbscriptions-back {
+    padding-left: 16px !important;
+   }
+ }
+
+ @media screen and (min-width:768px){
+   .myaccount-main{padding:0 20px;}
+   .myaccount-nav__menu{padding:52px 20px 0 20px;}
+   .my-susbscriptions-back {
+    padding-left: 20px !important;
+   }
+ }
+
+ /* MY ACCOUNT MOBILE BREAKPOINT */
+ @media screen and (min-width:1024px){
+   .myaccount-main{margin-left:226px !important; min-height:798px; padding:0 20px;}
+   .my-susbscriptions-back {
+    padding-left: 20px !important;
+   }
+   .myaccount-nav{position:absolute !important; width:226px !important; right:auto !important; height:100%;}
+   .myaccount-nav__menu{padding:80px 0 0 20px;}
+   .myaccount-nav__open {display:none;}  
+   .myaccount-nav__overlay{display:none !important;}
+   .myaccount-nav__close {right:100% !important;}
+   .myaccount-content {padding: 88px 0 0;}
+ }
+
+ @media screen and (min-width:1366px){
+   .myaccount-main{margin-left:227px !important; min-height:798px; padding:0 29px 0 24px;}
+   .my-susbscriptions-back {
+    padding-left: 24px !important;
+   }
+   .myaccount-nav{width:226px !important; right:auto !important; height:100%;}
+   .myaccount-nav__menu{padding: 80px 0 0 28px;}
+   .system-message-pop {
+      /* margin-left: -24px; */
+      margin-left: -28px;
+      margin-right: -29px;
+      /* width: calc(100% + 110px) !important; */
+      width: calc(100% + 144px) !important;
+   }
+ }
+
+ @media screen and (min-width:1920px){
+   .myaccount-main{margin-left:374px !important; min-height:798px; padding:0 116px 0 28px;}
+   .my-susbscriptions-back {
+    padding-left: 28px !important;
+   }
+   .myaccount-nav{width:374px !important; right:auto !important; height:100%;}
+   .myaccount-nav__menu{   padding: 80px 0 0 116px; width: 320px;}
+ }
+ 
+ @media screen and (max-width: 767px){
+.myaccount-nav {height: 100%;}
+}

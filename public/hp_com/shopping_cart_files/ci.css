@@ -1,0 +1,597 @@
+/*
+ *-----------------------------------------------------------------
+ * Licensed Materials - Property of IBM
+ *
+ * WebSphere Commerce
+ *
+ * (C) Copyright IBM Corp. 2015 All Rights Reserved.
+ *
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+ *-----------------------------------------------------------------
+ */
+
+.ci_overlay_root {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+.ci_overlay_root div {
+	pointer-events: auto;
+}
+.list_mode .ci_overlay_root {
+	max-height: 248px;
+}
+.ci_overlay {
+	background: rgba(74, 74, 74, 0.9);
+	position: absolute;
+	z-index: 1;
+	font-size:10px;
+}
+.ci_overlay:hover{
+	cursor: pointer;
+}
+.ci_overlay_square {
+}
+
+.ci_overlay.ci_inventory_overlay {
+    display: none;
+}
+
+.ci_overlay.ci_overlay_tall_rect_small {
+	bottom: 0;
+	height: 30%;
+	width: 100%;
+	cursor: pointer;
+}
+
+.ci_overlay.ci_overlay_tall_rect_medium {
+	bottom: 0;
+	height: 30%;
+	width: 100%;
+	cursor: pointer;
+}
+.ci_overlay.ci_overlay_tall_rect_large {
+	bottom: 0;
+	height: 30%;
+	width: 100%;
+	cursor: pointer;
+}
+.ci_inventory .ci_overlay {
+	display: none;
+}
+.ci_inventory .ci_overlay.ci_inventory_overlay,
+.ci_inventory .ci_overlay.ci_sub_overlay_top_large,
+.ci_inventory .ci_overlay.ci_sub_overlay_top_small,
+.ci_inventory .ci_overlay.ci_sub_overlay_top_medium {
+	display:block;
+	height:50%;
+}
+.ci_inventory .ci_overlay.ci_sub_overlay_top_small,
+.ci_inventory .ci_overlay.ci_sub_overlay_top_large,
+.ci_inventory .ci_overlay.ci_sub_overlay_top_medium {
+	top:0;
+}
+.ci_overlay.ci_overlay_tall_rect_large .ci_left_arrow, .ci_overlay.ci_overlay_tall_rect_large .ci_right_arrow {
+	font-size: 48px;
+}
+.ci_overlay.ci_overlay_tall_rect_large .ci_overlay_row {
+	font-size: 16px;
+}
+.ci_overlay.ci_overlay_full_wide {
+	float: left;
+	cursor: pointer;
+	position: absolute;
+	color: white;
+	width: 100%;
+	line-height: 40px;
+}
+.ci_overlay.ci_overlay_full_wide .ci_overlay_row {
+	line-height:80%;
+}
+.ci_overlay.ci_overlay_full_wide .ci_overlay_row .ci_overlay_desc {
+	width: 50%;
+}
+.ci_overlay.ci_overlay_full_wide .ci_overlay_row .ci_overlay_value {
+	width: 40%;
+}
+
+.ci_overlay.ci_overlay_wide_rect_small {
+	bottom: 0;
+	left: 0;
+	height: 80%;
+	width: 100%;
+	max-height: 150px;
+}
+.ci_overlay.ci_overlay_wide_rect_medium {
+	bottom: 0;
+	left: 0;
+	height: 80%;
+	width: 100%;
+}
+.ci_overlay_wide_rect_large {
+}
+.ci_overlay.ci_sub_overlay_top_wide {
+	min-height: calc(100% - 150px);
+	width: 100%;
+	/* font-size: 1.2em; */
+}
+
+
+.ci_overlay.ci_sub_overlay_top_small {
+	top: 0;
+	height: 70%;
+	width: 100%;
+}
+.ci_overlay.ci_sub_overlay_top_medium {
+	top: 0;
+	height: 70%;
+	width: 100%;
+}
+.ci_overlay.ci_sub_overlay_top_large {
+	top: 0;
+	height: 70%;
+	width: 100%;
+}
+
+.ci_overlay.ci_sub_overlay_stack {
+	background: rgba(0, 0, 0, 1);
+	z-index: 2;
+	left: 0;
+	height: 40px;
+}
+
+.ci_overlay > .ci_actions {
+	color: rgb(255,255,255);
+}
+
+.ci_overlay .ci_actions a{
+	display: inline-block;
+	font-size: 1.2em;
+}
+.ci_overlay .ci_actions a:last-child{
+}
+
+.ci_overlay > .ci_actions.product {
+	text-align: center;
+}
+
+.ci_overlay > .ci_actions ul {
+	list-style: none;
+	padding: 0;
+	display: inline-block;
+	margin-top: 30px;
+}
+
+.ci_overlay > .ci_actions ul li{
+	float: left;
+	position: relative;
+	width: 100%;
+	padding: 0 25px;
+	text-align: left;
+}
+
+.ci_overlay > .ci_actions a .action_icons{
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+
+.ci_overlay > .ci_actions a img + span {
+	margin-left: 10px;
+}
+.ci_overlay > .ci_actions a .watch_icon{
+	background: url("../images/ci/icon30_watch.png") no-repeat center;
+	background-size: cover;
+	/* float: left; */
+}
+
+.ci_overlay > .ci_actions a .info_icon{
+	background: url("../images/ci/icon20_info.png") no-repeat center;
+	background-size: contain;
+	vertical-align: top;
+}
+
+.ci_overlay > .ci_actions a .edit_icon{
+	background: url("../images/ci/icon20_edit_white.png") no-repeat center;
+	background-size: cover;
+}
+
+.ci_overlay > .ci_actions a .reorder_icon{
+	background: url("../images/ci/icon20_reorder.png") no-repeat center;
+	background-size: cover;
+}
+.ci_not_visible {
+	visibility: hidden;
+}
+.ci_hidden {
+	display: none;
+}
+
+.ci_overlay .ci_data {
+	height: auto;
+	float: left;
+	/* font-size: 10px; */
+	position: relative;
+	color: white;
+	width: 100%;
+	list-style: none;
+}
+
+.ci_overlay .ci_data ul{
+	list-style: none;
+	padding:0;
+}
+.ci_overlay .ci_data ul li{
+	float:left;
+}
+.category.ci_overlay .ci_data ul{
+	position: relative;
+	float:left;
+	margin: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	/* width: 100%; */
+	width: calc(100% - 40px);
+}
+.category.ci_overlay .ci_data ul li{
+	float:left;
+	width:auto;
+	font-size: 1.2em;
+	margin-right: 45px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.category.ci_overlay > .ci_actions{
+	float:left;
+	position: relative;
+  	padding-right: 40px;
+}
+.category.ci_overlay > .ci_actions a{
+	margin-left:40px;
+	margin-top: 10px;
+	line-height:20px;
+}
+.category.ci_overlay > .ci_actions a span{
+	margin-left:10px;
+}
+.activities.ci_overlay .ci_actions{
+    position: relative;
+    float: left;
+    margin: 10px 20px;
+}
+.activities.ci_overlay .ci_actions a div{
+	margin-right:10px;
+}
+.activities.ci_overlay .ci_actions a span{
+	line-height:20px;
+}
+
+.activities.ci_overlay .ci_data > ul{
+	float:left;
+	position:relative;
+	width: calc(100% - 50px);
+	margin: 10px 25px;
+}
+.activities.ci_overlay .ci_data ul li{
+    float: left;
+    
+}
+.activities.ci_overlay .ci_data ul li.activity-slide{
+	max-width: calc(35% - 10px);
+	margin-right:65px;
+}
+
+.activities.ci_overlay .ci_data ul li span{
+	margin:0;
+	padding:0;
+}
+.activities.ci_overlay .ci_data ul li span:nth-child(odd){
+	width: 70px;
+}
+.activities.ci_overlay .ci_data ul li span:nth-child(even){
+	width: 50px;
+	text-align: right;
+}
+.activities.ci_overlay .ci_data ul li span.heading{
+	position:relative;
+	display:inline-block;
+	float:left;
+	width: 100%;
+	font-size: 1.5em;
+	margin-bottom:10px;
+}
+.activitie.ci_overlay .ci_data ul li ul{
+	position:relative;
+	float:left;
+	width: 100%;
+}
+.activities.ci_overlay .ci_data ul li ul li{
+	position:relative;
+	float:left;
+	width: 100%;
+	line-height: 18px;
+	font-size: 1.2em;
+}
+.products.ci_overlay.ci_sub_overlay_top_small{
+	max-height:calc(100% - 85px);
+}
+.products.ci_overlay.ci_overlay_tall_rect_small{
+	min-height:85px;
+}
+.products.ci_overlay .ci_actions{
+	float:left;
+	position: relative;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	padding: 0;
+}
+.products.ci_overlay .ci_actions a{
+	line-height: 20px;
+	min-width: 65px;
+	margin-top: 10px;
+}
+.products .ci_actions ul li>span{
+	font-size: 1.2em;
+  	padding-bottom: 15px;
+}
+.products.ci_overlay .ci_actions a span{
+	margin-left:10px;
+}
+.ci_overlay .ci_data ul li span{
+	display:inline-block;
+	position:relative;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: auto;
+}
+.ci_overlay .ci_data ul li span:nth-child(odd){
+	float:left;
+	text-align:left;
+	margin-right: 5px;
+}
+.ci_overlay .ci_data ul li span:nth-child(even){
+	float: left;
+	text-align: left;
+}
+.ci_overlay .ci_data table {
+	height: 100%;
+	width: 100%;
+}
+
+.ci_overlay .ci_data table .data_width {
+	width: 95%;
+}
+
+.ci_overlay .ci_data table tr td {
+	padding: 0;
+}
+
+.product .ci_overlay .ci_data, .products.ci_overlay .ci_data{
+	width:100%;
+	padding:0;
+	height: 100%;
+}
+.product .ci_overlay .ci_data ul, .products.ci_overlay .ci_data ul{
+	float:left;
+	width: calc(100% - 50px);
+	padding: 10px 25px;
+	height: calc(100% - 20px);
+	overflow: hidden;
+}
+.products.ci_overlay .ci_data ul li{
+	width:100%;
+	padding-top:0;
+	line-height: 20px;
+	font-size: 1.2em;
+}
+.product .ci_overlay .ci_data ul li span:nth-child(odd), .products.ci_overlay .ci_data ul li span:nth-child(odd){
+	float:left;
+	width: calc(50% - 5px);
+}
+.product .ci_overlay .ci_data ul li span:nth-child(even), .products.ci_overlay .ci_data ul li span:nth-child(even){
+	float:right;
+	text-align: right;
+	width: 50%;
+}
+.ci_left_arrow {
+	left: 5px;
+	position: absolute;    
+	top: 50%;    
+	transform: translateY(-50%);
+	background: url("../images/ci/arrow_left.png") no-repeat center;
+	width:15px;
+	height:15px;
+	display:inline-block;
+	background-size: cover;
+}
+
+.ci_right_arrow {
+	position: absolute;    
+	right: 5px;
+	top: 50%;    
+	transform: translateY(-50%);
+	background: url("../images/ci/arrow_right.png") no-repeat center;
+	width:15px;
+	height:15px;
+	display:inline-block;
+	background-size: cover;
+}
+
+
+.ci_overlay .ci_inventory canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.ci_overlay .ci_inventory_info {
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	color: white;
+	box-sizing: border-box;
+}
+
+.ci_overlay.ci_overlay_tall_rect_small {
+	
+}
+
+.ci_overlay .ci_inventory_info .ci_child_inventory_info {
+	margin: 0 auto;
+	position: absolute;
+	box-sizing: border-box;
+}
+
+.ci_overlay .ci_child_inventory_info span{
+	display: block;
+	font-size:1em;
+  	margin-bottom: 0;
+
+}
+
+.ci_overlay .ci_child_inventory_info span.skuInStock{
+	max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ci_overlay .ci_inventory_info .ci_child_inventory_info .percentage {
+	font-size: 1.8em;
+}
+
+.ci_overlay .ci_inventory_info .ci_child_inventory_info .inventory {
+	margin-top:10px;
+	font-size: 1.2em;
+}
+
+
+/*
+.ci_overlay, .ci_top_overlay {
+	background: rgba(0, 0, 0, 0.69); 
+	position: absolute; 
+	width: 100%; 
+	z-index: 898;
+}
+
+.ci_stacked_overlay {
+	background: rgba(0, 0, 0, 1); 
+	position: absolute; 
+	width: 100%; 
+	z-index: 900;
+}
+
+.ci_top_overlay .ci_actions {
+	color: rgb(255,255,255);
+	margin-top: 33%;
+	text-align: center;
+}
+*/
+.ci_bottom_half {
+	bottom: 0;
+	height: 50%;
+	cursor: pointer;
+}
+
+.ci_bottom_third {
+	bottom: 0;
+	height: 33%;
+	cursor: pointer;
+}
+
+/*
+.ci_left {
+	left: 0;
+	width: 50%;
+	cursor: pointer;
+}*/
+
+.ci_right {
+	right: 0;
+	width: 50%;
+	cursor: pointer;
+}
+/*
+.ci_top {
+	top: 0;
+	height: 50%;
+}
+*/
+.ci_full_height {
+	height : 100%;
+}
+
+/*
+.ci_quarter_width {
+	width: 25%;
+}*/	
+
+.ci_overlay .ci_overlay_row {
+	color: rgb(255,255,255);
+	font-size: 12px;
+/*	float: left;*/
+	margin-top: 10px;
+/*	width: 95%;*/
+}
+
+.ci_overlay .ci_overlay_row .ci_overlay_desc {
+	float: left;
+	width: 50%;
+	text-align:left;
+}
+
+.ci_overlay .ci_overlay_row .ci_overlay_value {
+	float: right;
+	text-align: right;
+	width: 40%;
+	font-weight: bold;
+}
+
+.ci_overlay_triangle { 
+	width: 0;
+	height: 0;
+	border-style: solid;  
+    	border-width: 0 35px 35px 0;  
+    	border-color: transparent #FAD175 transparent transparent;
+    	position: absolute;
+    	float: left;
+    	top: 0px;
+    	right: 0px;
+}
+
+.ci_overlay_triangle > span {
+  	font-size: 15px;
+  	right: -30px;
+  	position: absolute;
+  	top: 3px;
+  	color: white;
+}
+	
+.product_page_content .widget_product_image_viewer .image_container {
+	position: relative;
+}
+
+/*
+.ci_overlay .ci_hidden {
+	display: none;
+}
+
+.ci_overlay .ci_not_visible, .ci_top_overlay.ci_not_visible, .ci_stacked_overlay.ci_not_visible {
+	visibility: hidden;
+}
+*/
+
+/* Style for overlays in different width */
+.ci_overlay.ci_xxs .ci_data ul li{
+	width: 100%;
+}
+
+/* Responsive Design */

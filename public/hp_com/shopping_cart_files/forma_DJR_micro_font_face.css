@@ -1,0 +1,15 @@
+@font-face{
+	font-family:forma-djr-micro;font-weight:400;src:url("/wcsstore/hpusstore/Treatment/mdps/forma/FormaDJRMicro-Regular.woff2") format("woff2"),url("/wcsstore/hpusstore/Treatment/mdps/forma/FormaDJRMicro-Regular.woff") format("woff")
+}
+@font-face{
+	font-family:forma-djr-microM;font-weight:500;src:url("/wcsstore/hpusstore/Treatment/mdps/forma/FormaDJRMicro-Medium.woff2") format("woff2"),url("/wcsstore/hpusstore/Treatment/mdps/forma/FormaDJRMicro-Medium.woff") format("woff")
+}
+@font-face{
+	font-family:forma-djr-Medium;font-weight:600;src:url("/wcsstore/hpusstore/Treatment/mdps/forma/FormaDJRTextGreek-Medium.ttf") format("ttf")
+}
+@font-face{
+	font-family:forma-djr-Bold;font-weight:800;src:url("/wcsstore/hpusstore/Treatment/mdps/forma/FormaDJRTextGreek-Bold.ttf") format("ttf")
+}
+
+.fv5 {font-family: forma-djr-micro,Arial,sans-serif!important;}
+.fv5 h1, .fv5 h2, .fv5 h3, .fv5 h4, .fv5 h5 {font-family: forma-djr-micro,Arial,sans-serif!important;}

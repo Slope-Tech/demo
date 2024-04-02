@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="origin-trial" content="Az520Inasey3TAyqLyojQa8MnmCALSEU29yQFW8dePZ7xQTvSt73pHazLFTK5f7SyLUJSo2uKLesEtEa9aUYcgMAAACPeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="><meta name="ROBOTS" content="INDEX,FOLLOW"><meta name="keywords" content=""><meta name="description" content="">
+    
+    <meta name="viewport" content="width=device-width">
+    <!-- production server files/ remove before uploading -->
+    <link href="./hpi-fontface-core.css" rel="stylesheet" type="text/css">
+    <link href="./typography.css" rel="stylesheet" type="text/css">
+    <link href="./mdp_foundation_ad.css" media="screen" rel="stylesheet" type="text/css">
+    <title>Share Cart
+    </title>
+    <script type="text/javascript" async="" src="./recaptcha__en.js" crossorigin="anonymous" integrity="sha384-wEVSdqKc5hf9vkWC9kAmVRAEa11o8QNGecO6p5G2xGj+RmQhgDqFDCRdpfSr1VUf"></script><script>
+      var sendToUDL = function(dLdata) {
+        if (dLdata && dLdata.constructor == Object && window.JSON) {
+          window.top.postMessage('UDL:' + JSON.stringify(dLdata), '*');
+        }
+        else {
+          console.log('ERROR: cross-domain messaging');
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <!-- SHARE CART STYLES START -->
+    <style type="text/css">
+      #shareCartForm .modalBorder{
+        z-index: 9999;
+        border: 20px solid rgba(0, 0, 0, 0.7);
+      }
+      #shareCartForm .flex-video{
+        overflow:visible;
+        top:25%;
+      }
+      #shareCartForm .flex-box{
+        text-align:center;
+        width:1116px;
+        height:auto;
+        padding:25px 32px;
+        margin: 0 auto;
+        background-color: #FFF;
+        overflow: hidden;
+        position: relative;
+      }
+      #shareCartForm .share-cart-btn {
+        position:relative;
+        width:172px;
+        height:40px;
+        padding:10px 0;
+        text-align:center;
+        background-color:#0171AD;
+        color:#fff;
+        border-radius:3px;
+        margin:0;
+        cursor:pointer;
+        font-size:16px;
+        font-weight:normal;
+        border:1px solid #0171AD;
+        line-height:18px;
+      }
+      #shareCartForm .share-cart-btn:hover{
+        background-color:#075782;
+        text-decoration:underline;
+      }
+      #shareCartForm .share-cart-btn.disabled {
+        background-color:#E8E8E8;
+        color:#fff;
+        border-color:#E8E8E8;
+        cursor:default;
+        text-decoration: none;
+      }
+      #shareCartForm .share-cart-form{
+        padding:0;
+        float:left;
+        width:100%;
+      }
+      #shareCartForm .share-cart-shared{
+        padding:0;
+        display:none;
+      }
+      #shareCartForm .share-cart-not-shared{
+        padding:0;
+        display:none;
+      }
+      #shareCartForm .stacked-grid .shared-cart-header{
+        font-size:22px;
+        line-height:32px;
+        color:#2C3038;
+        margin-top:16px;
+        padding:0;
+      }
+      /* STACKABLE GRID */
+      #shareCartForm .stacked-grid {
+        width:100%;
+        height:auto;
+        margin:0 auto;
+        padding:22.55px 0;
+        overflow: hidden;
+      }
+      #shareCartForm .stacked-grid .bodyCenterContent {
+        max-width:1308px;
+        margin: auto;
+      }
+      #shareCartForm .stacked-grid .gridContainer {
+        padding:0;
+      }
+      #shareCartForm .stacked-grid h3 {
+        font-size:24px;
+        line-height:32px;
+        font-weight:normal;
+        color:#000;
+        text-align:center;
+        letter-spacing:0.24px;
+        margin: 0 0 10px 0;
+      }
+      #shareCartForm .stacked-grid h4 {
+        font-size:18px;
+        line-height:24px;
+        font-weight:normal;
+        color:#000;
+        text-align:center;
+        letter-spacing:0.18px;
+        margin:0 auto;
+        padding:0 0 10px;
+      }
+      #shareCartForm .stacked-grid h5 {
+        font-size:14px;
+        line-height:20px;
+        font-weight:normal;
+        color:#2C3038;
+        text-align:left;
+        margin: 0 0 4px;
+      }
+      #shareCartForm .stacked-grid p {
+        font-size:16px;
+        line-height:24px;
+        font-weight:100;
+        color:#000;
+        padding-bottom:40px;
+        margin:0;
+        width:auto;
+      }
+      #shareCartForm .stacked-grid .cart-url {
+        font-size:16px;
+        line-height:18px;
+        font-weight:normal;
+        color:#0171AD;
+        text-align:left;
+        margin:0;
+        letter-spacing:0.3px;
+        display:block;
+        text-transform: uppercase;
+        max-width: 100px;
+        cursor:pointer;
+      }
+      #shareCartForm .stacked-grid .cart-url:hover {
+        text-decoration: underline;
+      }
+      #shareCartForm .stacked-grid .columns{
+        padding: 0;
+      }
+      #shareCartForm .stacked-grid .cart-url:focus{
+        outline: thin dotted;
+      }
+      #shareCartForm .stacked-grid .inputWrapper {
+        float: left;
+        position: relative;
+        width:100%;
+        margin:0 0 20px;
+      }
+      #shareCartForm .stacked-grid .inputContainer {
+        padding: 10px 14px;
+        position: relative;
+        width:100%;
+        height:39px;
+        border: 1px solid #767676;
+        background-color:#fff;
+      }
+      #shareCartForm .stacked-grid .inputContainer .inpt.noText {
+        padding-top: 0px;
+      }
+      #shareCartForm .stacked-grid .inputContainer .inpt {
+        font-size:14px;
+        line-height:18px;
+        font-weight:100;
+        border:none;
+        font-family:'HP Simplified';
+        outline:none;
+        padding-top:0;
+        width:100%;
+        z-index:10;
+        position:relative;
+        background-color:transparent;
+      }
+      #shareCartForm .stacked-grid .inputContainer .labl.noText {
+        font-size: 14px;
+        line-height:18px;
+        color:#ccc;
+        font-weight:100;
+        top:10px;
+        display:inline-block;
+      }
+      #shareCartForm .stacked-grid .inputContainer .labl {
+        width: auto;
+        display:none;
+        font-size: 12px;
+        font-weight: normal;
+        position: absolute;
+        top: 5px;
+        left: 15px;
+        z-index: 9;
+      }
+      #shareCartForm .stacked-grid label {
+        font-size: 0.875em;
+        color: #4d4d4d;
+        cursor: pointer;
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.1875em;
+      }
+      #shareCartForm .stacked-grid .mand {
+        color: #e88233;
+        font-size: 12px;
+        font-weight: normal;
+        position: relative;
+        padding-left: 2px;
+      }
+      #shareCartForm .stacked-grid .errorClass {
+        display: none;
+        color: #bf2026;
+        font-size: 12px;
+        line-height:16px;
+        padding: 5px 0 2px 0;
+        width: 100%;
+        float: left;
+        text-align:left;
+      }
+      #shareCartForm .stacked-grid textarea {
+        font-size:13px;
+        line-height:17px;
+        color:#2C3038;
+        width:100%;
+        height: 77px;
+        border-color: #767676;
+        margin: 0;
+        padding: 12px 13px;
+      }
+      #shareCartForm .stacked-grid .copy-link {
+        padding: 30px 0 0 33.5px;
+        width: 50%;
+        margin: auto;
+      }
+      #shareCartForm .stacked-grid .copied {
+        background-color:#C2C2C2;
+        border-color:#C2C2C2;
+      }
+      #shareCartForm .stacked-grid .required{
+        font-size:10px;
+        line-height:18px;
+        font-weight:normal;
+        letter-spacing:0.19px;
+        text-transform: uppercase;
+        text-align:left;
+        margin:14px 0 20px;
+      }
+      #shareCartForm .stacked-grid .errorHighlight {
+        border-color: #bf2026 !important;
+      }
+      #shareCartForm .stacked-grid .share-cart-btn-wrp{
+        float:left;
+        width:100%;
+        margin: 15px 0 0;
+      }
+      @media only screen and (max-width:1116px) {
+        #shareCartForm .flex-box{
+          height:auto;
+          width:calc(100% - 26px);
+          padding: 0 12px;
+        }
+        #shareCartForm .stacked-grid .copy-link{
+          width:85%;
+        }
+      }
+      @media only screen and (max-width:640px) {
+        #shareCartForm .shareCartClose{
+          top:6px!important;
+          right:6px!important;
+        }
+        #shareCartForm .shareCartClose span.shareCartClose::before{
+          width:16px;
+          margin-left:-8px;
+        }
+        #shareCartForm .shareCartClose span.shareCartClose::after{
+          height:16px;
+          margin-top:-8px;
+        }
+        #shareCartForm.reveal-modal{
+          width:100%;
+          height:100%;
+          top:0;
+          margin-left:-50%;
+        }
+        #shareCartForm .shareCartClose{
+          display:block;
+        }
+        #shareCartForm .flex-video{
+          top:0;
+        }
+        #shareCartForm h3{
+          padding-top:15px;
+        }
+        #shareCartForm .share-cart-form{
+          padding:0 0 32px;
+          border-bottom:1px solid #ccc;
+        }
+        #shareCartForm .stacked-grid {
+          min-height: 720px;
+          height: auto;
+          padding:13px 0 10px;
+        }
+        #shareCartForm .stacked-grid .sectionHeading {
+          padding: 0 20px 0;
+        }
+        #shareCartForm .stacked-grid h3 {
+          font-size:18px;
+          line-height:24px;
+          font-weight:normal;
+          letter-spacing:0.18px;
+          margin:00 4px;
+        }
+        #shareCartForm .stacked-grid h4 {
+          font-size:14px;
+          line-height:18px;
+          font-weight:normal;
+          letter-spacing:0.14px;
+          margin:24px 0 8px;
+          padding:0;
+        }
+        #shareCartForm .stacked-grid h5 {
+          font-size:12px;
+          line-height:16px;
+        }
+        #shareCartForm .stacked-grid p {
+          font-size:12px;
+          line-height:14px;
+          font-weight: 100;
+          letter-spacing:0.12px;
+          padding-bottom: 0px;
+          width:100%px;
+        }
+        #shareCartForm .stacked-grid .cart-url {
+          margin:0 auto;
+          padding:0 0 20px;
+        }
+        #shareCartForm .stacked-grid .columnbar {
+          border-right:none;
+          border-bottom:1px solid #707070;
+          width: 239.93px;
+          margin:0 auto;
+        }
+        #shareCartForm .stacked-grid .gridContainer {
+          width:100%;
+          padding:0 0 13px;
+        }
+        #shareCartForm .stacked-grid .inputContainer{
+          width:100%;
+        }
+        #shareCartForm .stacked-grid textarea {
+          width:100%;
+          font-size:12px;
+          line-height:16px;
+        }
+        #shareCartForm .stacked-grid .columnbar{
+          border-bottom:none;
+        }
+        #shareCartForm .stacked-grid .copy-link{
+          margin:0;
+        }
+        #shareCartForm .stacked-grid .share-cart-btn{
+          width:100%;
+        }
+        #shareCartForm .stacked-grid .required{
+          font-size:10px;
+          line-height:18px;
+          font-weight:normal;
+          letter-spacing:0.19px;
+          text-transform: uppercase;
+          text-align:left;
+          margin: 8px 0 15px;
+        }
+        #shareCartForm .stacked-grid .inputContainer .inpt{
+          font-size:12px;
+          line-height:16px}
+        #shareCartForm .stacked-grid .inputContainer .labl.noText {
+          font-size: 12px;
+          line-height: 16px;
+        }
+        #shareCartForm .stacked-grid .inputContainer .labl{
+          left:10px;
+        }
+        #shareCartForm .stacked-grid .share-cart-btn.disabled {
+          margin:0 auto;
+        }
+        #shareCartForm .stacked-grid .shared-cart-header{
+          font-size:16px;
+          line-height:24px;
+          letter-spacing:0.16px;
+        }
+        #shareCartForm .stacked-grid .share-cart-shared img{
+          margin: 16px 0 0;
+        }
+      }
+    </style>
+    <!-- SHARE CART STYLES END -->
+    <div class="fv5"> 
+      <!-- SHARE CART HTML START -->
+      <div id="shareCartForm" class="" data-reveal="" data-options="animation:fadeAndPop;" aria-labelledby="" aria-hidden="true" role="dialog">
+        <div class="flex-video">
+          <div class="flex-box">
+            <div class="modals">
+              <!-- 2 STACKABLE GRID -->
+              <div class="stacked-grid">
+                <form id="shartCartInputForm" name="shartCartInputForm" method="post" action="https://cloud.store.hp.com/sCartProcessPROD">
+                  <div class="bodyCenterContent">
+                    <h3>Share your cart
+                    </h3>
+                    <p>Share the products in your cart with friends and family
+                    </p>
+                    <div class="columns small-12 large-6 medium-6">
+                      <div class="share-cart-form">
+                        <h4>Share via email
+                        </h4>
+                        <div class="required">
+                          <span class="mand">* </span>Required
+                        </div>
+                        <div class="gridContainer">
+                          <div class="inputWrapper">
+                            <h5>
+                              <span class="mand">* </span>Enter your name
+                            </h5>
+                            <div class="inputContainer">
+                              <input class="inpt noText" type="text" name="usrname" id="usrname" data-cat="uname" required="">
+                              <label class="labl noText">Let your recipient(s) know who is sharing.</label>
+                            </div>
+                            <div class="errorClass">
+                            </div>
+                          </div>                
+                          <div class="inputWrapper">
+                            <h5>
+                              <span class="mand">* </span>Enter your friend's email
+                            </h5>
+                            <div class="inputContainer">
+                              <input class="inpt noText" type="text" name="usremail" id="usremail" data-cat="uemail" required="">
+                              <label class="labl noText">Use comma to separate multiple email addresses</label>
+                            </div>
+                            <div class="errorClass">
+                            </div>
+                          </div>
+                          <div class="g-recaptcha" data-sitekey="6Ldz2pQbAAAAABp8J0TFO2kUzZO7Px7WAZtEQn93" data-callback="onSubmit" data-size="invisible"><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-7alw5rlwu1e0" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="./anchor(1).html"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;" src="./saved_resource(11).html"></iframe></div>                
+                          <!--<div class="inputWrapper">
+                            <h5>Your message
+                            </h5>
+                            <div class="inputContaine">
+                              <textarea class="inpt noText" name="usrcomment" id="usrcomment" data-cat="ucomment">I am sharing the products in my shopping cart with you.</textarea>
+                            </div>
+                          </div>-->
+                        </div>
+                        <div class="share-cart-btn-wrp">
+                           <input type="hidden" name="cartData" id="cartData" value="">
+                           <button class="share-cart-btn disabled" type="submit">SHARE CART</button>
+                        </div>
+                      </div>
+                      <div class="share-cart-shared">
+                        <img src="./7ef30b9b-a368-419c-9443-2e9cd090d5d2.png" alt="">
+                        <h3 class="shared-cart-header">Successfully shared
+                        </h3>
+                        <p>Your shopping cart products have been successfully
+                          <br>shared with your friends via email
+                        </p>
+                      </div>
+                      <div class="share-cart-not-shared">
+                        <h3 class="shared-cart-header">Share cart unsuccessful
+                        </h3>
+                        <p>Try later again, we are facing some issues to share your cart.</p>
+                      </div>
+                    </div>
+                    <div class="columns small-12 large-6 medium-6">
+                      <h4>Share via link
+                      </h4>
+                      <div class="gridContainer copy-link">
+                        <div class="inputWrapper">
+                          <h5>Share link
+                          </h5>
+                          <div class="inputContainer">
+                            <input class="inpt noText" type="text" id="sharelink" data-cat="slink" value="">                      
+                          </div>                    
+                        </div>
+                        <div class="cart-url" onclick="fncopyLink()">COPY LINK
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                </form> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SHARE CART HTML END -->
+    </div>
+    <!--fv5 end--> 
+  
+
+<script type="text/javascript" src="./jquery-latest.js"></script>
+<script src="./api(1).js" async="" defer=""></script>
+<!-- SHARE CART JS START -->
+<script>
+  var cartData;
+  var cartJson;
+  var errorMsg = "";
+  var isError = false;
+  var incorrectCartURL = false;
+  window.addEventListener('message', message => {
+    console.log('Event Origin : '+ message.origin);
+    if(message !== null && message !== ' '){
+      console.log("Cart data posted: "+message.data);
+      cartData = message.data;
+      cartJson = JSON.parse(cartData);
+      var urlParser = document.createElement('a');
+      urlParser.href = cartJson.CartURL;
+      var cartURLHost = urlParser.hostname;
+      urlParser.href = message.origin;
+      var eventOriginHost = urlParser.hostname;
+      if(cartURLHost === eventOriginHost){
+        console.log('Cart URL host Name : '+cartURLHost + ' Event Origin: '+eventOriginHost);
+        $("#sharelink").val(cartJson.CartURL);
+        $("#cartData").val(cartData);
+      }
+      else{
+        incorrectCartURL = true;
+      }
+    }
+  });
+  $(document).ready(function(){
+    $("input[type=text],input[type=email]").on('blur',function(){
+      inpBlur(this)}
+                                              );
+    $("input[type=text],input[type=email]").on('focus',function(){
+      inpFocus(this)}
+                                              );
+    $("input[type=text],input[type=email]").on('keyup',function(){
+      inpKeyUp(this)}
+                                              );
+  });
+  $("#shartCartInputForm").submit(function (e) {
+    e.preventDefault();
+    fnsubmitShareCart();
+    formData = $("#shartCartInputForm").serializeArray();
+    var response = grecaptcha.execute();
+    console.log('Capcha response: '+response);
+  });
+  
+  function inpFocus(getEl){
+    $(getEl).siblings(".labl").removeClass("noText");
+    $(getEl).removeClass("noText");
+  }
+  function inpBlur(getEl){
+    if($(getEl).val() == ""){
+      $(getEl).siblings(".labl").addClass("noText");
+      $(getEl).addClass("noText");
+    }
+    if ($(getEl).attr('id') != 'sharelink') {
+      fnValidateBasic(getEl);
+      /*fnEmailsLimit(getEl);*/
+    }
+  }
+  function inpKeyUp(getEl){
+    var curVal = $(getEl).val();
+    if(curVal == ""){
+    }
+    else if(curVal != ""){
+      if ($(getEl).attr('id') != 'sharelink') {
+        fnValidateBasic(getEl);
+      }
+    }
+  }
+  function fnEmailsLimit(getEl){
+     var curVal = $(getEl).val();
+     var emailsArrayLength = 0;
+    var mailformat = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}(\s*,?\s*)*)+$/;
+     if(curVal != ""){
+      if($(getEl).attr('id') == "usremail"){
+          var emailsArray = curVal.split(",");
+          emailsArrayLength = emailsArray.length;
+      }
+     }
+    console.log("Number of Emails: "+emailsArrayLength);
+    if(emailsArrayLength > 5){
+      isError = true;
+      console.log("Maximum emails corssed: "+emailsArrayLength);
+      errorMsg = "* Please enter only 5 email addresses";
+    }
+    /*fnError(getEl,isError,errorMsg,mailformat);*/
+  }
+  function fnValidateBasic(getEl){
+    isError = false;
+    var curVal = $(getEl).val();
+    /*var mailformat = /[A-Za-z0-9\._%-]+@[A-Za-z0-9]+\.[A-Za-z]{2,4}(,\\n*[A-Za-z0-9\._%-]+@[A-Za-z0-9]+\.[A-Za-z]{2,4})*,?$/;*/
+    var mailformat = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}(\s*,?\s*)*)+$/;
+    if(curVal == ""){
+      isError = true;
+      if ($(getEl).attr('id') == "usrname"){
+        errorMsg = "* Name is required";
+      }
+      else{
+        errorMsg = "* Please enter a valid email address";
+      }
+    }
+    else if(curVal != ""){
+      if($(getEl).attr('id') == "usremail"){
+        if (!curVal.match(mailformat)){
+          isError = true;
+          errorMsg = "* Please enter a valid email address";
+        }
+        if(!isError){
+          fnEmailsLimit(getEl)
+        }
+      }
+    }
+    fnError(getEl,isError,errorMsg,mailformat);
+  }
+  function fnError(getEl,isError,errorMsg,mailformat){
+    if(isError || incorrectCartURL){
+      $(getEl).parent().addClass("errorHighlight");
+      $(getEl).parent().siblings(".errorClass").css('display','block');
+      $(getEl).parent().siblings(".errorClass").text(errorMsg);
+      $(".share-cart-btn").addClass('disabled');
+    }
+    else{
+      $(getEl).parent().removeClass("errorHighlight");
+      $(getEl).parent().siblings(".errorClass").css('display','none');
+      if( $("#usrname").val() != "" &&  $("#usremail").val().match(mailformat)  ){
+        $(".share-cart-btn").removeClass('disabled');
+      }
+    }
+  }
+  function fncopyLink() {
+    var copyText = document.getElementById("sharelink");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999)
+    document.execCommand("copy");
+    $(".cart-url").html('Link Copied');
+    $(".cart-url").siblings().find(".inputContainer").addClass('copied');
+    copyText.blur()
+    $("#sharelink").css("color", "#fff");
+    sendToUDL({event:'e_linkClick',linkID:'Share cart: copy',linkPlacement:'customer:sharecart'})
+  }
+  function fnsubmitShareCart() {
+    sendToUDL({event:'e_linkClick',linkID:'Share cart: email',linkPlacement:'customer:sharecart'})
+  }
+  function onSubmit(token) {
+      console.log('recapcha success!');
+      formData = $("#shartCartInputForm").serializeArray();
+      if(!isError && !incorrectCartURL){
+        $.post($("#shartCartInputForm").attr("action"), formData, function (status) {
+        status = status.trim();
+        console.log('post status: '+status)
+        if (status == 'Success') {
+          $(".share-cart-form").css("display", "none");
+          $(".share-cart-shared").css("display", "block"); 
+        } else {
+          $(".share-cart-form").css("display", "none");
+          $(".share-cart-not-shared").css("display", "block");
+        }
+      });
+      }
+    }
+</script>
+
+<!-- SHARE CART JS END -->
+<div style="visibility: hidden; position: absolute; width: 100%; top: -10000px; left: 0px; right: 0px; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.5;"></div><div style="margin: 0px auto; top: 0px; left: 0px; right: 0px; position: fixed; border: 1px solid rgb(204, 204, 204); z-index: 2000000000; background-color: rgb(255, 255, 255);"><iframe title="recaptcha challenge expires in two minutes" name="c-7alw5rlwu1e0" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="./bframe(1).html" style="width: 100%; height: 100%;"></iframe></div></div></body></html>

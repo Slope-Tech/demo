@@ -1,0 +1,49 @@
+#changeSubscriptionPaymentModal *, #changeSubscriptionPaymentModal *:before,#changeSubscriptionPaymentModal *:after {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box; }
+#changeSubscriptionPaymentModal {font-family: 'HPSimplified';}
+#changeSubscriptionPaymentModal h4{font-size:20px;line-height:26px;font-weight:normal;color:#000000;padding-bottom:13px;}
+#changeSubscriptionPaymentModal p{font-size:16px;line-height:21px;font-weight:normal;color:#000000;padding-bottom:31px;max-width: 489px;margin:0 auto;}
+
+#changeSubscriptionPaymentModal .subModalClose{border:1px solid #CCC;background-color:#FFF;width:32px;height:32px;border-radius:16px;cursor:pointer;top:28px!important;right:28px!important;}
+#changeSubscriptionPaymentModal .subModalClose span{position:relative;display:inline-block;width:14px;height:14px;color:#2C3038;top:4px;left:0px;transform:rotate(45deg);}
+#changeSubscriptionPaymentModal .subModalClose span.subModalCloseSpan::before{content:" ";position:absolute;display:block;background-color:#2C3038;width:14px;margin-left:-7px;left: 50%;top:6px;bottom:6px;z-index:9;}
+#changeSubscriptionPaymentModal .subModalClose span.subModalCloseSpan::after{content:" ";position:absolute;display:block;background-color:#2C3038;height:14px;margin-top:-7px;top: 50%;left:6px;right:6px;z-index:9;}
+#changeSubscriptionPaymentModal .subModalClose:focus{outline:revert;}
+
+#changeSubscriptionPaymentModal .rtctaWrap{margin:0 auto;overflow: hidden;position:relative;width:256px;}
+#changeSubscriptionPaymentModal .rtcta{width:182px;text-transform:uppercase;font-size:16px;line-height:16px;cursor:pointer;background-color:#0171AD;color:#FFF;padding:11px;font-weight: normal;}
+#changeSubscriptionPaymentModal .rtcta:hover,#changeSubscriptionPaymentModal .rtcta:focus{text-decoration:underline;background-color:#075782;}
+
+#changeSubscriptionPaymentModal .screens{float:left;position:relative;width:100%;display:none;}
+#changeSubscriptionPaymentModal .rtcta{float:right;width:120px;}
+#changeSubscriptionPaymentModal .rtcta.secondary{float:left;background-color:#FFF;color:#0171AD;border:1px solid #075782;}
+#changeSubscriptionPaymentModal .rtcta.secondary:hover,#changeSubscriptionPaymentModal .rtcta.secondary:focus{color:#075782;background-color:#0171AD26;}
+
+#changeSubscriptionPaymentModal .flex-video{overflow:visible;}
+#changeSubscriptionPaymentModal .modalInsidePadding{text-align:center;width:886px;padding:115px 22px 115px 22px;margin: 0 auto;background-color: #FFF;overflow: hidden;position: relative;}
+#changeSubscriptionPaymentModal.reveal-modal{z-index:9999999999!important}
+
+#changeSubscriptionPaymentModal .reveal-modal-bg{z-index:999;background:rgba(0, 0, 0, 0.7);}
+#changeSubscriptionPaymentModal .modalBorder{z-index: 9999;border: 20px solid rgba(0, 0, 0, 0.7);}
+#changeSubscriptionPaymentModal.reveal-modal.full {padding: 0;background-color: transparent;border: none;box-shadow: none;overflow: visible;}
+
+@media only screen and (max-width:1100px) {
+  #changeSubscriptionPaymentModal .modalInsidePadding{width: 820px;padding: 36px 12px 36px 12px;}
+  #changeSubscriptionPaymentModal .subModalClose{top: 15px!important;right: 15px!important;}
+}
+
+@media only screen and (min-width:768px) and (max-width:1024px) {
+  #changeSubscriptionPaymentModal .modalInsidePadding{width: 100%;padding: 20px;}
+}
+
+@media only screen and (max-width:767px) {
+  #changeSubscriptionPaymentModal .modalInsidePadding{width: 100%;padding:15px;}
+  /* #changeSubscriptionPaymentModal.reveal-modal{width:100%;height:100%;top:-25px!important;margin-left:-50%;} */
+  #changeSubscriptionPaymentModal h4{font-size:17px;line-height:21px;margin: 0 auto;letter-spacing: 0.17px;}
+  #changeSubscriptionPaymentModal p{font-size:12px;line-height:14px;margin: 0 auto;letter-spacing: 0.12px;padding-bottom: 18px;}
+}
+
+@media only screen and (max-width:600px) {
+  #changeSubscriptionPaymentModal .rtctaWrap{width:100%;margin:14px 0 20px 0;}
+  #changeSubscriptionPaymentModal .rtcta{float:none;clear:both;width:100%;margin:0 auto;max-width:270px;}
+  #changeSubscriptionPaymentModal .rtcta.secondary{margin-bottom:16px;float:none;}
+}

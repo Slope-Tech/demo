@@ -1,0 +1,9 @@
+/* ***REMOVE ALL COMMENTS BEFORE PUBLISHING*/
+  
+/* PAGE CONTENT STYLES*/
+.myaccount-information {margin:40px 0 0;}
+.myaccount-information h3{font: normal normal bold 16px/24px Montserrat; color:#2C3038; margin:0 0 6px;}
+.myaccount-information p{font: normal normal 300 16px/24px HP Simplified Light; color:#2C3038; margin:0;}
+.myaccount-information__item {margin:0 0 28px;}
+.myaccount-email {color:#165DBA; text-decoration:none; margin:0 0 3px; display:inline-block;}
+.myaccount-email:hover {color:#114284; text-decoration: underline;}
