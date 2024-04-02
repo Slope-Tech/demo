@@ -44,6 +44,45 @@
 		</script>
 
 	<script type="text/javascript" src="./my_account_payment_options_files/Bootstrap.js"></script><script type="text/javascript" src="./my_account_payment_options_files/mu.js" async=""></script><script type="text/javascript" src="./my_account_payment_options_files/etr_store.js"></script>
+
+    <script type="text/javascript" src="https://checkout.sandbox.slope.so/slope.min.js"></script>
+    <script type="text/javascript">
+      window.openSlope = async () => {
+        const orderRes = await fetch('/api/create-order', {
+          method: 'POST',
+          body: JSON.stringify({
+            customerId: 'cust_2dybKh4Ceunet85oVYEki7Nr6Vn',
+            currency: 'usd',
+            total: 358305
+          }),
+        })
+
+        const { secret, order } = await orderRes.json()
+
+        window.initializeSlope({
+          primaryColor: '#1159a0',
+          intentSecret: secret,
+          flow: 'pre_qualify',
+          onSuccess: async () => {
+            console.log('slope done')
+            window.location.href = '/hp_com/my_account_payment_methods.html'
+          },
+          onFailure: (err) => {
+            console.error(err)
+          },
+          onClose: () => {
+            setLoading(false)
+          },
+          onOrderOpen: (payload) => {
+            console.log('Slope order open', payload)
+          },
+          onEvent: console.log,
+        })
+
+        window.Slope.open()
+
+      }
+    </script>
 <!-- Omniture - End-->
 <title>My Account - Saved cards</title>
 
@@ -3996,6 +4035,120 @@ function getAbsoluteURL(){
             <div class="mysaved-section__desc">
               You have no saved cards in your profile
               <p>To save a credit card to your account, during the checkout process, select "Save this card for faster future checkout." <b>For security purposes</b>, saved credit cards must be authorized on each of your devices separately.</p>
+            </div>
+        </div>
+
+<input type="hidden" id="hasValidSOCard" value="false" autocomplete="off">
+
+<script src="./my_account_payment_options_files/SubscriptionSavedCard.js"></script>
+<script type="text/javascript">
+	/* var curPid="";
+	console.log('######INIT');
+	$(".lnkSetAsDefault").on('keydown click',function(ev){
+      if(ev.type == "click" || (ev.type == "keydown" && ev.keyCode == 13)){
+        fnOverlay('open');
+        curPid=ev.target.parentElement.dataset.pid;
+        fnOpenMyModalScreen('setAsDefault');
+      }
+    }); */
+	function onMouseEnter(id) {
+		$('.savedCards div').removeClass('cardHovered');
+		$('#savedCCDiv-' + id).addClass('cardHovered');
+	}
+
+	function onMouseLeave(id) {
+		$('#savedCCDiv-' + id).removeClass('cardHovered');
+	}
+</script>
+
+<script src="./my_account_payment_options_files/stellar-common.js"></script>
+<script src="./my_account_payment_options_files/my-saved-cards.js"></script>
+
+
+<div class="guxReskin-overlay-mask" style="display: none;">
+<div class="guxReskin-overlay">
+	<div class="overlayContainer">
+		<div class="overlayContent">
+			<div class="myModalsOverlay">
+				<div class="screens setAsDefault" style="display: none;">
+					<div class="overlayTitle" tabindex="0">SET THIS CARD AS
+						DEFAULT?</div>
+					<div class="overlayDesc">You are about to change your default
+						card, are you sure you want to continue this action?</div>
+					<div class="remCtaWrap">
+						<button class="sbtn secondary remove-blue btnCancel" aria-label="Cancel set as default" onclick="javascript:fnOverlay(&#39;close&#39;);">
+							<span>Cancel</span>
+						</button>
+						<button class="sbtn primary go-white btnContinue" aria-label="Continue to set as default" onclick="javascript:fnOverlay(&#39;setdefcc&#39;);">
+							<span>Continue</span>
+						</button>
+					</div>
+				</div>
+				<div class="screens confirmDelete" style="display: none;">
+					<div class="overlayTitle" tabindex="0">ARE YOU SURE?</div>
+					<div class="overlayDesc">You are about to delete this card,
+						are you sure you want to continue this action?</div>
+					<div class="remCtaWrap">
+						<button class="sbtn secondary remove-blue btnCancel" aria-label="Cancel to remove card" onclick="javascript:fnOverlay(&#39;close&#39;);">
+							<span>Cancel</span>
+						</button>
+						<button class="sbtn primary go-white btnContinue" aria-label="Continue to remove card" onclick="javascript:MyAccountDisplay.deleteSavedCard();">
+							<span>Continue</span>
+						</button>
+					</div>
+				</div>
+				<div class="screens confirmEdit" style="display: flex;">
+					<div class="overlayTitle" tabindex="0">CHANGE PAYMENT CARD</div>
+					<div class="overlayDesc">Update payment method for ?</div>
+					<div class="remCtaWrap">
+						<button class="sbtn secondary remove-blue btnCancel" aria-label="Cancel to change payment card" onclick="javascript:fnOverlay(&#39;close&#39;);">
+							<span>Cancel</span>
+						</button>
+						<button class="sbtn primary go-white btnContinue" aria-label="Continue to change payment card" onclick="javascript:SubscriptionSavedCardJS.updatePayCard();fnOverlay(&#39;close&#39;);">
+							<span>Continue</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<a href="https://www.hp.com/us-en/shop/MySavedCards?catalogId=10051&amp;storeId=10151&amp;langId=-1#!" class="overlayClose" tabindex="0" onclick="javascript:fnOverlay(&#39;close&#39;);" aria-label="Close Overlay"><img alt="" src="./my_account_payment_options_files/icon_x_black.png"></a>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- END - SavedCardsReskin.jsp -->
+			</div>
+
+
+			<div>
+				<h2 class="myaccount-content__title savedcardtitle">
+					My financing options
+				</h2>
+			</div>
+			<!-- My Saved cards-->
+
+			<div dojotype="wc.widget.RefreshArea" widgetid="savedCardsDetails" id="savedCardsDetails" controllerid="savedCardsDetailsController" role="wairole:region" waistate:live="polite" waistate:atomic="true" waistate:relevant="all" class="dijitContentPane" lang="en-us">
+				<!-- BEGIN - SavedCardsReskin.jsp -->
+<input type="hidden" id="paymentId" value="" autocomplete="off">
+<input type="hidden" id="sOrderID" value="" autocomplete="off">
+<input type="hidden" id="mySubId" value="" autocomplete="off">
+
+
+
+<link href="./my_account_payment_options_files/subscription-payment-modal-style.css" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" href="./my_account_payment_options_files/my-saved-cards.css">
+
+<div id="commonLoadingOverlay" style="display: none">
+	<img alt="Loading" data-src="/wcsstore/HPStorefrontAssetStore/img/loader.gif" class="lazyload">
+</div>
+
+
+		<div class="mysaved-cards">
+            <div class="mysaved-section__desc">
+              <p>You can pay for purchased items over time.</p>
+              <div style="display: flex; align-items: center; gap: .5em;">Prequalify for <div onclick="openSlope()" style="background-color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.125rem; border: 1px solid black; height: 50px; border-radius: .25rem; cursor: pointer; text-transform: uppercase; padding: .5rem"><img style="height: 32px; margin-right: .75rem;" src="../images/slope_icon.svg" />Pay Later with Slope</div></div>
             </div>
         </div>
 

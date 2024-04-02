@@ -39,14 +39,14 @@
           body: JSON.stringify({
             customerId: 'cust_2dybKh4Ceunet85oVYEki7Nr6Vn',
             currency: 'usd',
-            total: 349999
+            total: 358305
           }),
         })
 
         const { secret, order } = await orderRes.json()
 
         window.initializeSlope({
-          primaryColor: '#0158a3',
+          primaryColor: '#1159a0',
           intentSecret: secret,
           onSuccess: async () => {
             console.log('slope done')
