@@ -34,6 +34,7 @@
     <script type="text/javascript" src="https://checkout.sandbox.slope.so/slope.min.js"></script>
     <script type="text/javascript">
       window.openSlope = async () => {
+        document.querySelector('.slope-btn-icon').classList.add('slope-btn-icon-loader')
         const orderRes = await fetch('/api/create-order', {
           method: 'POST',
           body: JSON.stringify({
@@ -45,6 +46,7 @@
 
         const { secret, order } = await orderRes.json()
 
+        setTimeout(() => document.querySelector('.slope-btn-icon').classList.remove('slope-btn-icon-loader'), 1000)
         window.initializeSlope({
           primaryColor: '#0096db',
           intentSecret: secret,
@@ -4814,7 +4816,50 @@ var cartCarePackOitems = [];
 						</div>
 					<!-- udstart -->
 					<div class="login_or "><span>or</span></div>
-                    <div onclick="openSlope()" style="display: flex; align-items: center; justify-content: center; font-size: 1.125rem; border: 1px solid black; height: 50px; border-radius: .25rem; cursor: pointer; text-transform: uppercase;"><img style="height: 32px; margin-right: .75rem;" src="../images/slope_icon.svg" />Pay Later with Slope</div>
+                    <div onclick="openSlope()" style="display: flex; align-items: center; justify-content: center; font-size: 1.125rem; border: 1px solid black; height: 50px; border-radius: .25rem; cursor: pointer; text-transform: uppercase;">
+                        <style>
+                            .slope-btn-icon {
+                                height: 32px; width: 32px;
+                                margin-right: .75rem;
+                                background-image: url(../images/slope_icon.svg);
+                                background-position: center;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                            }
+                            .slope-btn-icon-loader {
+                                width: 24px; height: 24px;
+                                margin-left: 4px;
+                                margin-right: calc(4px + .75rem);
+                                background: none;
+                                border-radius: 50%;
+                                position: relative;
+                                animation: rotate 1s linear infinite
+                                }
+                            .slope-btn-icon-loader::before {
+                                content: "";
+                                box-sizing: border-box;
+                                position: absolute;
+                                inset: 0px;
+                                border-radius: 50%;
+                                border: 2px solid #FF7D52;
+                                animation: prixClipFix 4s linear infinite ;
+                            }
+
+                            @keyframes rotate {
+                            100%   {transform: rotate(360deg)}
+                            }
+
+                            @keyframes prixClipFix {
+                                0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+                                25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+                                50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+                                75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+                                100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+                            }
+                        </style>
+                        <div class="slope-btn-icon"></div>
+                        Pay Later with Slope
+                    </div>
 <style>
 .finimgbox{max-width:313px; margin:15px 0 0 20px;}
 .finconbox{max-width:275px; padding:6px; margin-top:-42%;}
