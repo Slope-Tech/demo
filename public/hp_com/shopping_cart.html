@@ -49,7 +49,10 @@
             "qualified": true
         }
         console.log({customerData})
-        const customer = await fetch('/api/create-customer', customerData)
+        const customer = await fetch('/api/create-customer', {
+            method: 'POST',
+            data: customerData
+        })
         const orderRes = await fetch('/api/create-order', {
           method: 'POST',
           body: JSON.stringify({
