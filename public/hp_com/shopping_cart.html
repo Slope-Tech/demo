@@ -36,7 +36,9 @@
       window.openSlope = async () => {
         document.querySelector('.slope-btn-icon').classList.add('slope-btn-icon-loader')
         const customerEmail = document.querySelector('#slope-customer-type').value
-        const customerData = {
+        const customer = await fetch('/api/create-customer', {
+            method: 'POST',
+            data: JSON.stringify({
             "businessName": "Slope Demo Customer",
             "email": customerEmail,
             "phone": "+16175551212",
@@ -47,11 +49,7 @@
             "country": "US",
             "currency": "usd",
             "qualified": true
-        }
-        console.log({customerData})
-        const customer = await fetch('/api/create-customer', {
-            method: 'POST',
-            data: customerData
+        })
         })
         const orderRes = await fetch('/api/create-order', {
           method: 'POST',
