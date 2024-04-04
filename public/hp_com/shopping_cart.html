@@ -35,10 +35,24 @@
     <script type="text/javascript">
       window.openSlope = async () => {
         document.querySelector('.slope-btn-icon').classList.add('slope-btn-icon-loader')
+        const customerEmail = document.querySelector('#slope-customer-type').value
+        const customerData = {
+            "businessName": "Slope Demo Customer",
+            "email": customerEmail,
+            "phone": "+16175551212",
+            "line1": "123 California St",
+            "city": "San Francisco",
+            "state": "CA",
+            "postalCode": "94105",
+            "country": "US",
+            "currency": "usd"
+        }
+        console.log({customerData})
+        const customer = await fetch('/api/create-customer', customerData)
         const orderRes = await fetch('/api/create-order', {
           method: 'POST',
           body: JSON.stringify({
-            customerId: 'cust_2eWVAxrL8MM9QDgDsA407cYVUFP',
+            customerId: customer.id,
             currency: 'usd',
             total: 358305
           }),
@@ -4816,6 +4830,7 @@ var cartCarePackOitems = [];
 						</div>
 					<!-- udstart -->
 					<div class="login_or "><span>or</span></div>
+                    <div style="position: relative">
                     <div onclick="openSlope()" style="display: flex; align-items: center; justify-content: center; font-size: 1.125rem; border: 1px solid black; height: 50px; border-radius: .25rem; cursor: pointer; text-transform: uppercase;">
                         <style>
                             .slope-btn-icon {
@@ -4859,7 +4874,16 @@ var cartCarePackOitems = [];
                         </style>
                         <div class="slope-btn-icon"></div>
                         Pay Later with Slope
+
                     </div>
+                    <div style="position: absolute; left: calc(100% + 2rem); top: -1.2rem; padding-top: .5rem">
+                        <label for="slope-customer-type">Slope Customer</label>
+                        <select id="slope-customer-type" style="width: 140px; height: 40px; align-self: center; padding: 0 .5rem">
+                            <option value="demo@slope.so">New</option>
+                            <option value="demo+skip-pre_qualify@slope.so">Qualified</option>
+                        </select>
+                    </div>
+                </div>
 <style>
 .finimgbox{max-width:313px; margin:15px 0 0 20px;}
 .finconbox{max-width:275px; padding:6px; margin-top:-42%;}
