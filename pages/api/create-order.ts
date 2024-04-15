@@ -36,6 +36,7 @@ export default async function handler(
   })
 
   const order = await orderRes.json()
+  console.log(JSON.stringify(order, null, 2))
   if (!order.id) {
     res.status(500).json(order)
     return
