@@ -17,7 +17,7 @@ export default async function handler(
     JSON.parse(req.body)
 
   const orderRes = await fetch(`${getApiHost()}/v3/orders`, {
-    method: 'post',
+    method: 'POST',
     headers: getAuthHeaders({ qualified }),
     body: JSON.stringify({
       currency,
@@ -36,14 +36,14 @@ export default async function handler(
   })
 
   const order = await orderRes.json()
-  console.log(JSON.stringify(order, null, 2))
+
   if (!order.id) {
     res.status(500).json(order)
     return
   }
 
   const orderIntentRes = await fetch(`${getApiHost()}/v3/orders/${order.id}/intent`, {
-    method: 'post',
+    method: 'POST',
     headers: getAuthHeaders({ qualified }),
   })
   const { secret } = await orderIntentRes.json()

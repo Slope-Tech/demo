@@ -17,7 +17,7 @@ export default async function handler(
     JSON.parse(req.body)
 
   const customerRes = await fetch(`${getApiHost()}/v3/customers`, {
-    method: 'post',
+    method: 'POST',
     headers: getAuthHeaders({ qualified }),
     body: JSON.stringify({
       businessName,

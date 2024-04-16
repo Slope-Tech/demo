@@ -26,25 +26,28 @@
     ></script>
     <script type="text/javascript">
       window.openSlope = async () => {
-        // document.querySelector('.slope-btn-icon').classList.add('slope-btn-icon-loader')
-        const customerId = document.querySelector('#slope-customer-type').value
-        // const customerData = {
-        //     "businessName": "Slope Demo Customer",
-        //     "email": customerEmail,
-        //     "phone": "+16175551212",
-        //     "line1": "123 California St",
-        //     "city": "San Francisco",
-        //     "state": "CA",
-        //     "postalCode": "94105",
-        //     "country": "US",
-        //     "currency": "usd"
-        // }
-        // console.log({customerData})
-        // const customer = await fetch('/api/create-customer', customerData)
+        document.querySelector('.slope-btn-icon').classList.add('slope-btn-icon-loader')
+        const customerEmail = document.querySelector('#slope-customer-email').value
+        // const customerId = document.querySelector('#slope-customer-type').value
+        const customerData = {
+            "businessName": "Samsung",
+            "qualified": true,
+            "email": customerEmail,
+            "phone": "+16175551212",
+            "line1": "123 California St",
+            "city": "San Francisco",
+            "state": "CA",
+            "postalCode": "94105",
+            "country": "US",
+            "currency": "usd"
+        }
+        const customerResponse = await fetch('/api/create-customer', { method: 'POST', body: JSON.stringify(customerData) })
+        const { customer } = await customerResponse.json()
+        console.log({customer})
         const orderRes = await fetch('/api/create-order', {
           method: 'POST',
           body: JSON.stringify({
-            customerId: customerId,
+            customerId: customer.id,
             currency: 'usd',
             total: 1157994,
             line1: '600 Harrison St.',
@@ -57,10 +60,7 @@
 
         const { secret, order } = await orderRes.json()
 
-        // setTimeout(
-        //   () => document.querySelector('.slope-btn-icon').classList.remove('slope-btn-icon-loader'),
-        //   1000
-        // )
+        document.querySelector('.slope-btn-icon').classList.remove('slope-btn-icon-loader')
         window.initializeSlope({
           primaryColor: '#1428a0',
           intentSecret: secret,
@@ -50492,13 +50492,38 @@ code.google.com/p/crypto-js/wiki/License
                                           Powered by Slope <br />
                                           <span class="net-days">Up to 3 months financing</span>
                                         </span>
+                                        <div class='slope-btn-icon'></div>
+                                        <style>
+                                          .financing-btn {
+                                            position: relative;
+                                          }
+                                          .slope-btn-icon {
+                                            position: absolute;
+                                            right: 1rem;
+                                            top: 50%;
+                                            margin-top: -.75rem;
+                                          }
+                                          .slope-btn-icon-loader {
+                                            width: 1.5rem;
+                                            aspect-ratio: 1;
+                                            border-radius: 50%;
+                                            background:
+                                              radial-gradient(farthest-side,#1428a0 94%,#0000) top/.25rem .25rem no-repeat,
+                                              conic-gradient(#0000 30%,#1428a0);
+                                            -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - .25rem),#000 0);
+                                            animation: l13 1s infinite linear;
+                                          }
+                                          @keyframes l13{
+                                            100%{transform: rotate(1turn)}
+                                          }
+                                        </style>
                                       </button>
                                     </div>
                                     <br />
                                     <div style="position: relative">
                                       <label for="slope-customer-type">Slope Customer</label>
                                       <select
-                                        id="slope-customer-type"
+                                        id="slope-customer-email"
                                         style="
                                           width: 140px;
                                           height: 40px;
@@ -50506,14 +50531,8 @@ code.google.com/p/crypto-js/wiki/License
                                           padding: 0 0.5rem;
                                         "
                                       >
-                                        <!-- <option value="demo@slope.so">New</option>
-                                          <option value="demo+skip-pre_qualify@slope.so">Qualified</option> -->
-                                        <option value="cust_2f6WmdBjPTFanjzqvD9XwMByjlC">
-                                          New
-                                        </option>
-                                        <option value="cust_2f6XTdTgyoELGbgdFulQGAG25G3">
-                                          Pre-approved
-                                        </option>
+                                        <option value="demo@slope.so">New</option>
+                                        <option value="demo+skip-pre_qualify@slope.so">Pre-approved</option>
                                       </select>
                                     </div>
                                     <!---->
