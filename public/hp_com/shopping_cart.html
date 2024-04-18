@@ -35,24 +35,27 @@
     <script type="text/javascript">
       window.openSlope = async () => {
         document.querySelector('.slope-btn-icon').classList.add('slope-btn-icon-loader')
-        const customerId = document.querySelector('#slope-customer-type').value
-        // const customerData = {
-        //     "businessName": "Slope Demo Customer",
-        //     "email": customerEmail,
-        //     "phone": "+16175551212",
-        //     "line1": "123 California St",
-        //     "city": "San Francisco",
-        //     "state": "CA",
-        //     "postalCode": "94105",
-        //     "country": "US",
-        //     "currency": "usd"
-        // }
-        // console.log({customerData})
-        // const customer = await fetch('/api/create-customer', customerData)
+        const customerEmail = document.querySelector('#slope-customer-email').value
+        const customerData = {
+            "businessName": "Slope Demo Customer",
+            "email": customerEmail,
+            "phone": "+16175551212",
+            "line1": "123 California St",
+            "city": "San Francisco",
+            "state": "CA",
+            "postalCode": "94105",
+            "country": "US",
+            "currency": "usd"
+        }
+        const customerResponse = await fetch('/api/create-customer', {
+            method: 'POST',
+            body: JSON.stringify(customerData)
+        })
+        const { customer } = await customerResponse.json()
         const orderRes = await fetch('/api/create-order', {
           method: 'POST',
           body: JSON.stringify({
-            customerId: customerId,
+            customerId: customer.id,
             currency: 'usd',
             total: 358305
           }),
@@ -4877,12 +4880,11 @@ var cartCarePackOitems = [];
 
                     </div>
                     <div style="position: absolute; left: calc(100% + 2rem); top: -1.2rem; padding-top: .5rem">
-                        <label for="slope-customer-type">Slope Customer</label>
-                        <select id="slope-customer-type" style="width: 140px; height: 40px; align-self: center; padding: 0 .5rem">
-                            <!-- <option value="demo@slope.so">New</option>
-                            <option value="demo+skip-pre_qualify@slope.so">Qualified</option> -->
-                            <option value="cust_2eeEdYHIYw3bzy3T2WRWEONZtqt">New</option>
-                            <option value="cust_2eWVAxrL8MM9QDgDsA407cYVUFP">Qualified</option>
+                        <label for="slope-customer-email">Slope Customer</label>
+                        <select id="slope-customer-email" style="width: 140px; height: 40px; align-self: center; padding: 0 .5rem">
+                            <option value="demo@slope.so">New</option>
+                            <option value="demo+skip-compliance@slope.so">Skip Compliance</option>
+                            <option value="demo+skip-pre_qualify@slope.so">Pre-approved</option>
                         </select>
                     </div>
                 </div>
