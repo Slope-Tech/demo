@@ -9,6 +9,7 @@ import {
   Container,
   ColorPicker,
   TextInput,
+  Loader,
 } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
@@ -164,113 +165,7 @@ const Checkout: React.FC<{
   )
 
   return (
-    <>
-      <Title order={2} mb="xl">
-        <Group spacing="xs">
-          <IconShoppingCart />
-          <Text span>Checkout</Text>
-        </Group>
-      </Title>
-
-      <Grid gutter="xl">
-        <Grid.Col md={12} lg={4}>
-          <OrderSummary product={product} setProduct={setProduct} total={total} setTotal={setTotal} />
-          <Container bg="gray.1" py="xs" mt="sm">
-            <Title mt="lg" mb="sm" order={4}>
-              Slope Options
-            </Title>
-
-            <Checkbox
-              onChange={onChangeRedirect}
-              checked={customerForm.mode === 'redirect'}
-              label="Perform a full-screen redirect"
-              mb="xs"
-            />
-            <Checkbox
-              onChange={onChangeLocaleSelector}
-              checked={!!localeSelector}
-              disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-              label="Display language selector"
-              mb="xs"
-            />
-            <Checkbox
-              onChange={onChangeGuest}
-              checked={guestMode}
-              disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-              label="Guest checkout mode"
-              mb="xs"
-            />
-
-            {customerForm.mode !== 'redirect' && (
-              <>
-                <TextInput
-                  value={primaryColor}
-                  label="Widget theme"
-                  mb="xs"
-                  labelProps={{
-                    style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
-                  }}
-                  readOnly
-                />
-                <ColorPicker
-                  mb="xs"
-                  format="hex"
-                  swatches={[
-                    '#FD611A',
-                    '#868e96',
-                    '#be4bdb',
-                    '#4c6ef5',
-                    '#228be6',
-                    '#12b886',
-                    '#fab005',
-                  ]}
-                  value={primaryColor}
-                  onChange={setPrimaryColor}
-                />
-              </>
-            )}
-          </Container>
-        </Grid.Col>
-        <Grid.Col md={12} lg={8}>
-          <ErrorAlert error={error} setError={setError} />
-          <Title order={3} mb="sm">
-            Customer
-          </Title>
-          <CustomerForm
-            customerForm={customerForm}
-            setCustomerForm={setCustomerForm}
-            isDisabled={guestMode}
-          />
-
-          <Title order={3} mb="sm">
-            Payment
-          </Title>
-          {productFlow !== ProductFlow.BNPL_ONLY ? (
-            slopeButton
-          ) : (
-            <Grid align="center" gutter="xs" columns={11}>
-              <Grid.Col md={11} lg={5}>
-                <Button
-                  leftIcon={<IconCreditCard />}
-                  fullWidth
-                  onClick={() => alert('Try paying with Slope!')}
-                >
-                  Pay now
-                </Button>
-              </Grid.Col>
-              <Grid.Col md={11} lg={1}>
-                <Text fw={700} sx={{ textAlign: 'center' }}>
-                  OR
-                </Text>
-              </Grid.Col>
-              <Grid.Col md={11} lg={5}>
-                {slopeButton}
-              </Grid.Col>
-            </Grid>
-          )}
-        </Grid.Col>
-      </Grid>
-    </>
+    <Loader />
   )
 }
 
