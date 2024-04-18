@@ -1,0 +1,44 @@
+.modal__base{--modal-font-size:var(--scope-modalnavigation-font-size,18px);--modal-text-color:var(--scope-color-main-color);--modal-text-link:var(--scope-modal-text-color,#3b1c1c);--modal-content-height:80vh;--modal-content-grid-area:var(--scope-grid-content-grid-area,1 / 1 / 1 / 4);--modal-close-btn-padding:var(--scope-layout-margin,20px);--modal-close-btn-area-size:calc(var(--modal-close-btn-padding) * 3);--modal-close-btn-icon-size:calc(var(--modal-close-btn-padding) * 1.5);--modal-container-animation-open:slide-from-bottom .5s forwards;--modal-container-animation-close:slide-to-bottom .2s forwards;--modal-overlay-animation-close:fade-overlay .4s forwards;--modal-overlay-animation-open:fade-overlay-in .4s forwards;--modal-grid-columns:12;display:grid;position:fixed;inset-block-start:0;inset-inline-start:0;width:100%;height:100%;grid-template-columns:repeat(var(--modal-grid-columns),1fr);overflow-y:scroll;z-index:10000}
+.modal__base--closing .modal__overlay{opacity:.6;animation:var(--modal-overlay-animation-close)}
+.modal__base--closing .modal__container{opacity:1;animation:var(--modal-container-animation-close)}
+.modal__base--flyout{--modal-grid-area-start:calc(13 - var(--modal-grid-area-size));--modal-close-btn-area-size:calc(var(--modal-close-btn-padding) * 2);--modal-close-btn-icon-size:calc(var(--modal-close-btn-padding));--modal-content-height:calc(100vh - var(--modal-close-btn-area-size));--modal-container-animation-open:slide-from-right .4s forwards;--modal-container-animation-close:slide-to-right .3s forwards;display:grid}
+@media(min-width:0)and (max-width:767px){.modal__base--flyout{--modal-grid-area-size:var(--modal-grid-columns)}
+}
+.modal__base--flyout .modal__container{max-height:100vh;overflow:hidden;display:grid;grid-template-rows:max-content auto;height:100%}
+@media(min-width:0)and (max-width:767px){.modal__base--flyout .modal__container{grid-column:1/-1}
+}
+@media(min-width:768px){.modal__base--flyout .modal__container{min-inline-size:calc(100vw/var(--modal-grid-columns)*var(--modal-grid-area-size))}
+}
+.modal__base--flyout .modal__content{padding:var(--scope-modal-content-padding,0 40px)}
+.modal--hidden{display:none}
+.modal__overlay{animation:var(--modal-overlay-animation-open);background:#2d2e32;position:absolute;inset-block:0;inset-inline:0;opacity:0}
+.modal__container{opacity:0;animation:var(--modal-container-animation-open);position:relative;background-color:var(--scope-modal-background-color,#fff);height:auto;max-block-size:100%;display:grid;align-self:center;grid-template-rows:1fr auto}
+@media(min-width:0)and (max-width:767px){.modal__container{--modal-grid-area-size:10;grid-column:2/span var(--modal-grid-area-size)}
+}
+@media(min-width:768px){.modal__container{grid-column:var(--modal-grid-area-start,2)/span var(--modal-grid-area-size,10);max-block-size:var(--modal-content-height)}
+}
+.modal__content{overflow:auto;padding:var(--scope-modal-content-padding,0);max-block-size:100vh;height:auto;animation-delay:.5s}
+.modal__content:not(:focus-within){background-color:var(--c-txt-white);transition:background-color .01s ease}
+@media(min-width:768px){.modal__content{max-block-size:var(--modal-content-height)}
+}
+.modal__closeBtn{background:rgba(0,0,0,0);min-width:var(--modal-close-btn-area-size);min-height:var(--modal-close-btn-area-size);border:0;cursor:pointer;position:relative;padding-block:var(--modal-close-btn-padding);padding-inline:var(--modal-close-btn-padding);place-self:end}
+.modal__closeBtn heliux-icon{--icon-size:var(--modal-close-btn-icon-size)}
+.modal__closeBtn *{pointer-events:none}
+@keyframes slide-from-bottom{1%{opacity:.2;margin-block-start:100vh}
+100%{opacity:1;margin-block-start:0}
+}
+@keyframes slide-to-bottom{1%{opacity:1;transform:translateY(0)}
+100%{opacity:0;transform:translateY(100vh)}
+}
+@keyframes slide-from-right{1%{opacity:0;transform:translateX(100vw)}
+100%{opacity:1;transform:translateX(0)}
+}
+@keyframes slide-to-right{1%{opacity:1;transform:translateX(0)}
+100%{opacity:0;transform:translateX(100vw)}
+}
+@keyframes fade-overlay{1%{opacity:.6}
+100%{opacity:0}
+}
+@keyframes fade-overlay-in{1%{opacity:0}
+100%{opacity:.6}
+}

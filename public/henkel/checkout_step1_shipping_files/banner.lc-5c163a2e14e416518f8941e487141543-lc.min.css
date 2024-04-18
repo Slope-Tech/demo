@@ -1,0 +1,20 @@
+heliux-banner{--banner-padding:0;display:block;align-self:baseline;width:100%;min-inline-size:100%;min-block-size:var(--banner-height,0);padding-block:var(--banner-padding) var(--banner-padding);padding-inline:0}
+heliux-banner+.header__container{min-block-size:inherit}
+.header__base--isSticky+heliux-banner{position:fixed;z-index:7}
+heliux-banner .banner__base{display:flex;justify-content:center;align-items:center}
+@media(min-width:0)and (max-width:1023px){heliux-banner .banner__base--hidden-mobile{--banner-height:0;display:none}
+}
+@media(min-width:1024px){heliux-banner .banner__base--hidden-desktop{--banner-height:0;display:none}
+}
+heliux-banner .banner__base heliux-text .heliux-text__wrapper{display:inline-block}
+heliux-banner .banner__base>*{--scope-margin-block-start:0;--scope-margin-block-end:0;--scope-margin-inline-start:0;--scope-margin-inline-end:0;display:inline-block;width:auto}
+heliux-banner .banner__base--isStickyBottom{display:none}
+heliux-banner .banner__base--isStickyBottom>*{--scope-margin-block-start:0;--scope-margin-block-end:0;--scope-margin-inline-start:0;--scope-margin-inline-end:0;width:auto}
+heliux-banner .banner__base--isStickyBottom heliux-inlinesection .inlinesection__base{justify-content:space-between;flex-flow:row nowrap}
+heliux-banner.banner--isBottomNavigationBar{position:fixed;inset-block-end:0;z-index:7}
+heliux-banner.banner--isBottomNavigationBar .banner__base--isStickyBottom{display:flex}
+@media(min-width:0)and (max-width:1023px){heliux-banner.banner--isBottomNavigationBar .banner__base--hidden-mobile{--banner-height:0;display:none}
+}
+@media(min-width:1024px){heliux-banner.banner--isBottomNavigationBar .banner__base--hidden-desktop{--banner-height:0;display:none}
+}
+heliux-banner.banner--isBottomNavigationBar .columncontrol heliux-grid{justify-items:center}

@@ -1,0 +1,15 @@
+heliux-inlinesection{--section-margin-block-start:var(--scope-margin-block-start,0);--section-margin-inline-end:var(--scope-margin-inline-end,0);--section-margin-block-end:var(--scope-margin-block-end,0);--section-margin-inline-start:var(--scope-margin-inline-start,0);margin-block:var(--section-margin-block-start) var(--section-margin-block-end);margin-inline:var(--section-margin-inline-start) var(--section-margin-inline-end);--inlinesection-color:var(--scope-color-main-color);--inlinesection-background:var(--scope-color-background);--inlinesection-alignment-horizontal:var(--scope-alignment-horizontal,start);--inlinesection-align:var(--scope-grid-align-items,flex-start);color:var(--inlinesection-color);width:calc(100% - (var(--inlinesection-margin-inline-start) + var(--inlinesection-margin-inline-end)));height:calc(100% - (var(--inlinesection-margin-block-start) + var(--inlinesection-margin-block-end)));display:flex;position:relative;max-inline-size:100%}
+heliux-inlinesection .alignment-vertical-top{--scope-grid-align-items:flex-start}
+heliux-inlinesection .alignment-vertical-center{--scope-grid-align-items:center}
+heliux-inlinesection .alignment-vertical-bottom{--scope-grid-align-items:flex-end}
+heliux-inlinesection.opacity66>.section__img img{opacity:.66}
+heliux-inlinesection.opacity90>.section__img img{opacity:.9}
+heliux-inlinesection.opacity100>.section__img img{opacity:1}
+heliux-inlinesection .inlinesection__base{width:100%;align-items:var(--inlinesection-align);justify-content:var(--inlinesection-alignment-horizontal);display:flex;flex-flow:row wrap}
+heliux-inlinesection .inlinesection__link::after{content:"";position:absolute;width:100%;height:100%;inset-inline-start:0;inset-block-start:0;z-index:1}
+heliux-inlinesection .inlinesection__link~*{pointer-events:none}
+heliux-inlinesection .inlinesection__link~* a,heliux-inlinesection .inlinesection__link~* button{pointer-events:all}
+heliux-inlinesection.container-max-grid{width:calc(100% - (var(--inlinesection-margin-inline-start) + var(--inlinesection-margin-inline-end)))}
+heliux-inlinesection.inlinesection.equal-distribution .inlinesection__base{justify-content:space-evenly}
+heliux-inlinesection.inlinesection.space-between .inlinesection__base{justify-content:space-between}
+heliux-inlinesection.inlinesection.space-around .inlinesection__base{justify-content:space-around}

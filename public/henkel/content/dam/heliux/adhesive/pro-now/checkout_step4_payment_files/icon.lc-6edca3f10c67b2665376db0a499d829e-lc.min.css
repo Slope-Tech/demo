@@ -1,0 +1,47 @@
+.icon{--icon-margin-block-start:var(--scope-margin-block-start,0);--icon-margin-inline-end:var(--scope-margin-inline-end,0);--icon-margin-block-end:var(--scope-margin-block-end,var(--global-layout-viewport-default-margin));--icon-margin-inline-start:var(--scope-margin-inline-start,0);margin-block:var(--icon-margin-block-start) var(--icon-margin-block-end);margin-inline:var(--icon-margin-inline-start) var(--icon-margin-inline-end);display:inline-flex}
+.icon__wrapper{--icon-alignment-horizontal:var(--scope-alignment-horizontal,start);display:flex;text-align:var(--icon-alignment-horizontal);justify-content:var(--icon-alignment-horizontal)}
+.icon--block{display:grid}
+heliux-icon{--icon-color:var(--scope-icon-color,var(--scope-color-main-color));--icon-color-hover:var(--scope-icon-color-hover,var(--scope-color-accent1));--icon-color-disabled:var(--scope-icon-color-disabled,var(--scope-color-accent1-disabled-text));--icon-margin:var(--scope-icon-margin,var(--scope-layout-margin,20px));--icon-alignment-horizontal:var(--scope-alignment-horizontal,start);--icon-default-size:var(--global-iconSize-default-font-size,var(--global-type-heading5-font-size-desktop));--icon-space-from-icon-to-desc:5px;display:inline-flex;height:100%;align-items:center;justify-content:var(--icon-alignment-horizontal);text-align:var(--icon-alignment-horizontal);min-inline-size:var(--icon-size);min-block-size:var(--icon-size);max-inline-size:100%;max-block-size:100%}
+@media(min-width:1024px){heliux-icon{--icon-size:var(--icon-size-big,var(--icon-default-size))}
+}
+@media(min-width:768px)and (max-width:1023px){heliux-icon{--icon-size:var(--icon-size-medium,var(--icon-default-size))}
+}
+@media(min-width:0)and (max-width:767px){heliux-icon{--icon-size:var(--icon-size-small,var(--icon-default-size))}
+}
+.accent1 heliux-icon{--scope-icon-color:var(--scope-color-accent1);--scope-icon-color-hover:var(--scope-color-accent1-hover);--scope-icon-color-disabled:var(--scope-color-accent1-disabled-text)}
+.accent2 heliux-icon{--scope-icon-color:var(--scope-color-accent2);--scope-icon-color-hover:var(--scope-color-accent2-hover);--scope-icon-color-disabled:var(--scope-color-accent2-disabled-text)}
+heliux-icon svg{fill:var(--icon-color);display:inline-flex;height:100%;width:auto;min-inline-size:var(--icon-size);min-block-size:var(--icon-size);max-block-size:var(--icon-size);max-inline-size:100%}
+heliux-icon .icon__link.disabled svg{--icon-color:var(--icon-color-disabled)}
+heliux-icon .icon__link:disabled svg{--icon-color:var(--icon-color-disabled)}
+heliux-icon .icon__link{color:var(--icon-color);text-decoration:none;display:inline-flex}
+heliux-icon .icon__link.disabled,heliux-icon .icon__link:disabled{--scope-icon-color:var(--icon-color-disabled);--icon-color-hover:var(--icon-color-disabled)}
+heliux-icon .icon__link--interactive:hover{color:var(--icon-color-hover);cursor:pointer}
+heliux-icon .icon__link--interactive:hover svg{fill:var(--icon-color-hover)}
+heliux-icon .icon__link.active{color:var(--icon-color-hover)}
+heliux-icon .icon__link.active svg{fill:var(--icon-color-hover)}
+heliux-icon button.icon__link{-webkit-appearance:none;-moz-appearance:none;appearance:none;background:0;border:0;padding:0;cursor:pointer}
+heliux-icon .icon__description{display:inline-flex;align-items:center;margin-inline-start:var(--icon-space-from-icon-to-desc)}
+heliux-icon.hasModalOpen .icon__description--initial:not(.icon__svgWrap--initial-only){display:none}
+heliux-icon .icon__description--active{display:none}
+heliux-icon.hasModalOpen .icon__description--active{display:inline-flex}
+heliux-icon .icon__svgWrap{display:inline-flex}
+heliux-icon.hasModalOpen .icon__svgWrap--initial:not(.icon__svgWrap--initial-only){display:none}
+heliux-icon .icon__svgWrap--active{display:none}
+heliux-icon.hasModalOpen .icon__svgWrap--active{display:inline-flex}
+heliux-icon.element--placeholder-test-empty{display:none}
+*:not(heliux-icon)+heliux-icon{--icon-margin:var(--scope-icon-margin,var(--scope-layout-margin,20px));margin-inline-start:var(--icon-margin)}
+*:not(heliux-icon)+heliux-icon .icon__link{margin-inline-end:calc(var(--icon-margin)*-1)}
+heliux-icon+*:not(heliux-icon){--icon-margin:var(--scope-icon-margin,var(--scope-layout-margin,20px));margin-inline-start:var(--icon-margin)}
+heliux-icon+*:not(heliux-icon) .icon__link{margin-inline-end:calc(var(--icon-margin)*-1)}
+.icon--before *:not(heliux-icon)+heliux-icon{margin-inline:0 var(--icon-margin)}
+.icon--before *:not(heliux-icon)+heliux-icon .icon__link{margin-inline:calc(var(--icon-margin)*-1) 0}
+.icon--after *:not(heliux-icon)+heliux-icon{margin-inline:0 var(--icon-margin)}
+.icon--after *:not(heliux-icon)+heliux-icon .icon__link{margin-inline:calc(var(--icon-margin)*-1) 0}
+.icon--after heliux-icon+*:not(heliux-icon){margin-inline:0 var(--icon-margin)}
+.icon--after heliux-icon+*:not(heliux-icon) .icon__link{margin-inline:calc(var(--icon-margin)*-1) 0}
+.icon--after .icon__link{flex-direction:row-reverse}
+.icon--after .icon__description{margin-inline:0 var(--icon-space-from-icon-to-desc)}
+.icon--above .icon__link{flex-flow:column nowrap;align-items:center}
+.icon--above .icon__description{margin-inline:0;margin-block-start:var(--icon-space-from-icon-to-desc)}
+.icon--below .icon__link{flex-flow:column-reverse nowrap;align-items:center}
+.icon--below .icon__description{margin-inline:0;margin-block-end:var(--icon-space-from-icon-to-desc)}

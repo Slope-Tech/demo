@@ -1,0 +1,17 @@
+.notifications{--notifications-background:var(--scope-color-background,#fff);--notifications-close-background:transparent;--notifications-padding:12px;--notifications-space-to-icon:16px;--notification-default-color:#000;--notification-success-color:var(--scope-color-success-color,green);--notification-error-color:var(--scope-color-error-color,red);--notification-spacing:10px;--notification-close-icon-size:calc(var(--scope-type-font-size, 18px) - 2px);--notification-state-icon-size:calc(var(--scope-type-font-size, 18px) + 10px);position:relative;display:block}
+.notifications__base{display:none;position:fixed;width:90%;max-inline-size:600px;margin-block:0;margin-inline:auto;inset-inline-start:50%;transform:translateX(-50%);z-index:16}
+.notifications__base.notifications--show{display:block}
+.notifications__base.notifications--atTop{inset-block-start:0}
+.notifications__message{position:relative;padding:var(--notifications-padding);border:2px solid var(--notification-default-color);border-radius:5px;background:var(--notifications-background);margin-block-start:var(--notification-spacing);display:flex;justify-content:flex-start;align-items:center;flex-direction:row}
+.notifications__message.notifications--hide{display:none}
+.notifications__message.notifications--success{border-color:var(--notification-success-color)}
+.notifications__message.notifications--error{border-color:var(--notification-error-color)}
+.notifications__inner{margin-inline-start:var(--notifications-padding);max-inline-size:calc(100% - var(--notifications-padding)*2 - var(--notifications-space-to-icon) - var(--notification-close-icon-size) - var(--notification-state-icon-size))}
+.notifications__close{background:var(--notifications-close-background);border:0;position:absolute;inset-block-start:50%;transform:translateY(-50%);inset-inline-end:var(--notifications-padding);cursor:pointer}
+.notifications__close heliux-icon{--icon-size:var(--notification-close-icon-size)}
+.notifications__icon{display:none}
+.notifications--success .notifications__icon--success,.notifications--error .notifications__icon--error{display:flex}
+.notifications__icon heliux-icon{--icon-size:var(--notification-state-icon-size)}
+.notifications--success .notifications__icon--success svg{fill:var(--notification-success-color)}
+.notifications--error .notifications__icon--error svg{fill:var(--notification-error-color)}
+.notifications--message{padding:var(--notifications-padding);opacity:1}

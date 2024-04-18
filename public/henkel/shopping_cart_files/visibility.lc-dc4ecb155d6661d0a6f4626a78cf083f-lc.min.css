@@ -1,0 +1,16 @@
+body .isHidden,.visibility--isHidden{display:none;visibility:hidden;pointer-events:none}
+.visibility--isHidden-important{display:none !important;visibility:hidden !important;pointer-events:none}
+@media(min-width:0)and (max-width:479px){body .isHidden--xxs{display:none;visibility:hidden;pointer-events:none}
+}
+@media(min-width:480px)and (max-width:639px){body .isHidden--xs{display:none;visibility:hidden;pointer-events:none}
+}
+@media(min-width:640px)and (max-width:767px){body .isHidden--s{display:none;visibility:hidden;pointer-events:none}
+}
+@media(min-width:768px)and (max-width:1023px){body .isHidden--m{display:none;visibility:hidden;pointer-events:none}
+}
+@media(min-width:1024px)and (max-width:1279px){body .isHidden--l{display:none;visibility:hidden;pointer-events:none}
+}
+@media(min-width:1280px)and (max-width:1919px){body .isHidden--xl{display:none;visibility:hidden;pointer-events:none}
+}
+@media(min-width:1920px){body .isHidden--xxl{display:none;visibility:hidden;pointer-events:none}
+}

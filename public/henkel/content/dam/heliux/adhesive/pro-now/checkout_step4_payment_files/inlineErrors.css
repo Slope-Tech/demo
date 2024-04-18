@@ -1,0 +1,27 @@
+#theForm {
+    width:600px;
+}
+#hpsKaptchaRow {
+    margin-top:5px;
+}
+#expMonth {
+    float:left;
+    width: 100px;
+}
+.showInlineError {
+    display: inline;
+}
+.hideInlineError {
+    display: none;
+}
+
+
+/* CC Number and CVC on same row */
+#hpsNumberRow {
+    float:left;
+    margin-right:20px;
+    display: inline;
+}
+#hpsExpirationRow {
+    clear: left;
+}

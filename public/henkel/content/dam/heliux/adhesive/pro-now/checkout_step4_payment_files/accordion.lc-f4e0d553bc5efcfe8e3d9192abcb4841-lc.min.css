@@ -1,0 +1,5 @@
+.accordion{--accordion-title-margin-block-end:var(--scope-layout-margin,20px)}
+.accordion__collapsable{--accordion-border-color:var(--scope-color-main-color,#fff);border-block-end:1px solid var(--accordion-border-color);cursor:pointer;overflow:hidden;width:100%;transform:translate3d(0,0,0);max-block-size:auto;transition:max-height .3s}
+.accordion__title{margin-block-end:var(--accordion-title-margin-block-end)}
+@media(min-width:0)and (max-width:640px){.accordion__base--isHidden{display:none;visibility:hidden}
+}

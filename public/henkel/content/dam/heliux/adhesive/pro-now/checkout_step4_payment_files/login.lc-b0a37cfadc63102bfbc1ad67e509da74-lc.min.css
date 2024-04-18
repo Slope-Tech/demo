@@ -1,0 +1,31 @@
+heliux-login{--login-background:var(--scope-color-background);--login-picture-background:var(--scope-color-accent1);--login-avatar-text-color:var(--scope-color-accent1-text);--login-label-color:var(--scope-color-main-color);--login-label-color-hover:var(--scope-color-main-color-hover);--login-label-max-width:120px;--login-label-margin-block:0;--login-label-margin-inline:10px}
+.accent1 heliux-login{--login-label-color:var(--scope-color-accent1);--login-label-color-hover:var(--scope-color-accent1-hover)}
+.accent2 heliux-login{--login-label-color:var(--scope-color-accent2);--login-label-color-hover:var(--scope-color-accent2-hover)}
+heliux-login.icon--after .login__button{flex-direction:row-reverse}
+heliux-login .login__wrapper{position:relative;display:flex;flex-direction:column;block-size:100%}
+heliux-login .login__wrapper.login--initiallyHidden{display:none}
+heliux-login .login__wrapper.login__wrapper--flyout:hover .login__flyout{visibility:visible;transition-delay:1ms}
+heliux-login .login--loggedOut .login__button--logout{display:none}
+heliux-login .login--loggedOut .login__button--login{display:flex}
+heliux-login .login__button{cursor:pointer;border:0;background:0;min-block-size:100%;display:inline-flex;align-items:center;text-decoration:none}
+heliux-login .login__button--login{display:none}
+heliux-login .login__iconLoggedIn{display:none}
+heliux-login .login__label{display:none;color:var(--login-label-color)}
+@media(min-width:768px){heliux-login .login__label.richLabel{display:block}
+heliux-login .login__label.richLabel p,heliux-login .login__label.richLabel h1,heliux-login .login__label.richLabel h2,heliux-login .login__label.richLabel h3,heliux-login .login__label.richLabel h4,heliux-login .login__label.richLabel h5,heliux-login .login__label.richLabel h6,heliux-login .login__label.richLabel h7{margin-block-end:0;display:block;white-space:nowrap}
+}
+heliux-login .login__label:hover{color:var(--login-label-color-hover)}
+@media(min-width:768px){heliux-login .login__label{margin-block:var(--login-label-margin-block);margin-inline:var(--login-label-margin-inline);display:inline-flex}
+heliux-login .login__label p{max-inline-size:var(--login-label-max-width);display:inline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+heliux-login .login__circle{width:var(--icon-size,30px);height:var(--icon-size,30px);background:var(--login-picture-background);border-radius:50%;overflow:hidden;align-items:center;text-align:center;line-height:var(--icon-size,30px);text-transform:uppercase}
+heliux-login .login__circle span{color:var(--login-avatar-text-color)}
+heliux-login .login__circle img{width:100%;min-block-size:100%}
+heliux-login .login__flyout{display:grid;position:absolute;background:var(--login-background);width:100%;transform:translate3d(0,0,0);inset-inline-end:0;z-index:1000;visibility:hidden;transition:visibility 1ms 250ms}
+@media(min-width:768px){heliux-login .login__flyout{width:-moz-max-content;width:max-content}
+}
+heliux-login .login__flyoutContainer{position:relative}
+@media(min-width:0)and (max-width:767px){heliux-login .login__flyout{position:fixed;inset-block-start:var(--header-height-mobile);inset-inline:0 auto}
+}
+heliux-login .login__flyout.open{display:grid}
+heliux-login .login__flyout .calltoaction__wrapper{width:100%}

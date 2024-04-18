@@ -1,0 +1,5 @@
+.title{--title-alignment-horizontal:var(--scope-alignment-horizontal,start);text-align:var(--title-alignment-horizontal);justify-self:var(--title-alignment-horizontal);--title-margin-block-start:var(--scope-margin-block-start,0);--title-margin-inline-end:var(--scope-margin-inline-end,0);--title-margin-block-end:var(--scope-margin-block-end,var(--global-layout-viewport-default-margin));--title-margin-inline-start:var(--scope-margin-inline-start,0);margin-block:var(--title-margin-block-start) var(--title-margin-block-end);margin-inline:var(--title-margin-inline-start) var(--title-margin-inline-end)}
+.title.font-weight-normal .apply-font-style{font-weight:normal}
+.title.font-weight-light .apply-font-style{font-weight:lighter}
+.title.font-weight-bold .apply-font-style{font-weight:bold}
+.title__link{text-decoration:none}

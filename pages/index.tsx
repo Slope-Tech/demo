@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Grid,
@@ -34,6 +34,10 @@ const Checkout: React.FC<{
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
 
+  useEffect(() => {
+    router.replace('/henkel/shopping_cart.html')
+  }, [])
+
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
 
@@ -60,9 +64,9 @@ const Checkout: React.FC<{
         method: 'POST',
         body: JSON.stringify(customerForm),
       })
-  
+
       customerJson = await customerResp.json()
-  
+
       if (!customerJson.customer) {
         setLoading(false)
         setError(customerJson)
@@ -76,7 +80,7 @@ const Checkout: React.FC<{
       body: JSON.stringify({
         ...customerForm,
         customerId: guestMode ? undefined : customerJson.customer.id,
-        total, 
+        total,
         items: products.map((p) => ({
           sku: p.sku,
           name: p.name,

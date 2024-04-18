@@ -1,0 +1,30 @@
+.searchbox{--header-height:64px;--searchbox-height:45px}
+.searchbox--flexible{flex:1}
+.searchbox__base--mobileFlyout{margin-block:0;margin-inline:0;inline-size:100%;border:0;padding:8px;box-shadow:none}
+.searchbox__base--mobileFlyout .searchbox__content{display:flex;inline-size:100%;z-index:1;flex-flow:row-reverse;padding-inline:13px}
+.searchbox__base--mobileFlyout .searchbox__input{inline-size:100%;background:rgba(0,0,0,0);padding-inline-start:0;text-overflow:ellipsis}
+.searchbox__base--mobileFlyout .searchbox__flyoutWrapper{display:none;box-shadow:none;z-index:-1;inset-block-start:0}
+.searchbox__base--mobileFlyout .searchbox__flyoutInnerWrapper--top{margin-block-start:var(--scope-grid-height)}
+@media(min-width:768px){.searchbox__base--mobileFlyout .search__btn.search__btnClear{order:-1}
+}
+.searchbox__base--mobileFlyout.searchbox__base--openStyle .search__btnSearch heliux-icon{--icon-color:var(--scope-color-accent1)}
+.searchbox__base--mobileFlyout.searchbox__base--openStyle .searchbox__input{color:var(--scope-main-color)}
+.searchbox__base--mobileFlyout.searchbox__base--openStyle .searchbox__flyoutWrapper{display:block}
+.searchbox__base--mobileFlyout .searchbox__closeExpandedState{display:none}
+@media(min-width:0)and (max-width:767px){.searchbox__base--mobileFlyout.searchbox__base--openStyle{box-shadow:0 0 0 100vmax rgba(0,0,0,.3);position:fixed;z-index:17;inset-block-start:0;inset-inline-start:0;inline-size:100%;block-size:auto;align-items:flex-start;margin-block-start:var(--header-height);padding-block:calc((var(--scope-grid-height) - var(--searchbox-height))/2);background-color:var(--scope-color-background,#fff)}
+.header__base--isUp .searchbox__base--mobileFlyout.searchbox__base--openStyle{margin-block-start:0;transition:margin .2s ease}
+.searchbox__base--mobileFlyout.searchbox__base--openStyle .searchbox__input{padding-inline-start:var(--searchbox-padding)}
+.searchbox__base--mobileFlyout.searchbox__base--openStyle .searchbox__content{flex-flow:inherit}
+.searchbox__base--mobileFlyout.searchbox__base--openStyle .searchbox__historyHeader{margin-block-start:0}
+.searchbox__base--mobileFlyout:not(.searchbox__base--openStyle) .search__btn.search__btnClear{display:none}
+.searchbox__base--mobileFlyout .searchbox__flyoutWrapper{inset-block-start:calc(var(--scope-grid-height) - 1px);max-block-size:calc(50vh - var(--header-height));overflow:scroll}
+.searchbox__base--mobileFlyout .searchbox__flyoutWrapper .searchbox__flyoutInnerWrapper--top{margin-block-start:0}
+.searchbox__base--mobileFlyout .searchbox__flyoutWrapper .searchbox__flyoutInnerWrapper--top .searchbox__historyHeader{margin-block-start:30px}
+}
+.dimmedScreen *{pointer-events:none !important}
+.dimmedScreen .searchbox--flexible .searchbox__base *{pointer-events:auto !important}
+.dimmedScreen .searchbox--flexible{position:relative;z-index:1}
+.dimmedScreen .main,.dimmedScreen heliux-footer{isolation:isolate}
+.dimmedScreen .layoutheader__container>div{z-index:auto}
+@media(min-width:0)and (max-width:767px){.dimmedScreen .layoutHeader__Search{order:1}
+}
