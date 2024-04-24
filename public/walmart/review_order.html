@@ -1496,6 +1496,7 @@
                                       <div class="flex justify-between items-end f6">
                                         <div class="white" data-qm-exclude="true">
                                           <button
+                                            id="btn-check-slope-limits"
                                             class="bg-transparent bn lh-solid pa0 sans-serif tc underline inline-button black pointer f6 h1 white credit-card-tile-button"
                                             type="button"
                                             aria-label="Edit card ending in 4242"
@@ -1603,6 +1604,7 @@
       const paymentOptionSlope = document.querySelector('#payment-option-slope')
       const paymentOptionSlopeSelect = document.querySelector('#payment-option-slope-select')
       const paymentOptionSlopeSelected = document.querySelector('#payment-option-slope-selected')
+      const btnCheckLimits = document.querySelector('#btn-check-slope-limits')
       const hideElement = (element) => {
         element.setAttribute('style', 'display: none')
       }
@@ -1630,7 +1632,7 @@
         }
       }
       selectPaymentOption('card')
-      const openSlopeCheckout = async () => {
+      const openSlopeCheckout = async (flow) => {
         const orderTotal = 13_765_15
         showElement(btnPlaceOrderLoader)
         hideElement(btnPlaceOrderText)
@@ -1665,9 +1667,12 @@
         window.initializeSlope({
           primaryColor: '#0071dc',
           intentSecret: secret,
+          flow: flow,
           onSuccess: async () => {
               console.log('slope done')
-              window.location.href = '/walmart/order_complete.html'
+              if (!flow) {
+                window.location.href = '/walmart/order_complete.html'
+              }
           },
           onFailure: (err) => {
               console.error(err)
@@ -1700,6 +1705,9 @@
       }
       paymentOptionSlopeSelect.onclick = () => {
         selectPaymentOption('slope')
+      }
+      btnCheckLimits.onclick = () => {
+        openSlopeCheckout('pre_qualify')
       }
       btnPlaceOrder.onclick = async () => {
         if (selectedPaymentOption === 'card') {
