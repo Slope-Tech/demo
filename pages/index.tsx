@@ -154,8 +154,7 @@ const Checkout: React.FC<{
       color="orange"
       loading={loading}
       onClick={onPay}
-      data-slope-app='demo'
-      data-test-id='pay-button'
+      data-testid='pay-button'
     >
       {productFlow === ProductFlow.BNPL_ONLY ? 'Pay later with Slope' : 'Pay with Slope'}
     </Button>
