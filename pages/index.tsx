@@ -60,9 +60,9 @@ const Checkout: React.FC<{
         method: 'POST',
         body: JSON.stringify(customerForm),
       })
-  
+
       customerJson = await customerResp.json()
-  
+
       if (!customerJson.customer) {
         setLoading(false)
         setError(customerJson)
@@ -76,7 +76,7 @@ const Checkout: React.FC<{
       body: JSON.stringify({
         ...customerForm,
         customerId: guestMode ? undefined : customerJson.customer.id,
-        total, 
+        total,
         items: products.map((p) => ({
           sku: p.sku,
           name: p.name,
@@ -154,6 +154,8 @@ const Checkout: React.FC<{
       color="orange"
       loading={loading}
       onClick={onPay}
+      data-slope-app='demo'
+      data-test-id='pay-button'
     >
       {productFlow === ProductFlow.BNPL_ONLY ? 'Pay later with Slope' : 'Pay with Slope'}
     </Button>
