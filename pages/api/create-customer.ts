@@ -24,7 +24,7 @@ export default async function handler(
       email,
       phone,
       externalId: (Math.random() + 1).toString(36),
-      address: {
+      address: line1 && {
         line1,
         city,
         state,
