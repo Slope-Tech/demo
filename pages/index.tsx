@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Grid,
@@ -18,6 +18,15 @@ import ErrorAlert from '../components/ErrorAlert'
 import { getProducts, getTotals } from '../utils/products'
 import { ProductFlow } from '../utils/email'
 
+declare global {
+  interface Window {
+    initializeSlope: any
+    initSlopeJs: any
+    Slope: any
+    SlopeJs: any
+  }
+}
+
 const Checkout: React.FC<{
   customerForm: Record<string, any>
   setCustomerForm: any
@@ -33,6 +42,11 @@ const Checkout: React.FC<{
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
+  const [isLegacySDK, setIsLegacySDK] = useState(false)
+
+  useEffect(() => {
+    window.initSlopeJs()
+  }, [])
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
@@ -53,6 +67,9 @@ const Checkout: React.FC<{
 
   const onPay = async () => {
     setLoading(true)
+    if (!isLegacySDK) {
+      window.SlopeJs.open()
+    }
 
     let customerJson
     if (!guestMode) {
@@ -60,9 +77,9 @@ const Checkout: React.FC<{
         method: 'POST',
         body: JSON.stringify(customerForm),
       })
-  
+
       customerJson = await customerResp.json()
-  
+
       if (!customerJson.customer) {
         setLoading(false)
         setError(customerJson)
@@ -70,13 +87,12 @@ const Checkout: React.FC<{
       }
     }
 
-
     const orderRes = await fetch('/api/create-order', {
       method: 'POST',
       body: JSON.stringify({
         ...customerForm,
         customerId: guestMode ? undefined : customerJson.customer.id,
-        total, 
+        total,
         items: products.map((p) => ({
           sku: p.sku,
           name: p.name,
@@ -123,8 +139,8 @@ const Checkout: React.FC<{
     const primaryColorObject = primaryColor
       ? { primaryColor: (primaryColor as string).slice(1) }
       : {}
-    // @ts-ignore
-    window.initializeSlope({
+
+    const slopeParams = {
       ...primaryColorObject,
       localeSelector,
       intentSecret: secret,
@@ -142,9 +158,14 @@ const Checkout: React.FC<{
         console.log('Slope order open', payload)
       },
       onEvent: console.log,
-    })
-    // @ts-ignore
-    window.Slope.open()
+    }
+
+    if (isLegacySDK) {
+      window.initializeSlope(slopeParams)
+      window.Slope.open()
+    } else {
+      window.SlopeJs.start(slopeParams)
+    }
   }
 
   const slopeButton = (
@@ -170,7 +191,12 @@ const Checkout: React.FC<{
 
       <Grid gutter="xl">
         <Grid.Col md={12} lg={4}>
-          <OrderSummary product={product} setProduct={setProduct} total={total} setTotal={setTotal} />
+          <OrderSummary
+            product={product}
+            setProduct={setProduct}
+            total={total}
+            setTotal={setTotal}
+          />
           <Container bg="gray.1" py="xs" mt="sm">
             <Title mt="lg" mb="sm" order={4}>
               Slope Options
@@ -180,6 +206,12 @@ const Checkout: React.FC<{
               onChange={onChangeRedirect}
               checked={customerForm.mode === 'redirect'}
               label="Perform a full-screen redirect"
+              mb="xs"
+            />
+            <Checkbox
+              onChange={(e) => setIsLegacySDK(e.currentTarget.checked)}
+              checked={isLegacySDK}
+              label="Use old V3 SlopeJS"
               mb="xs"
             />
             <Checkbox
