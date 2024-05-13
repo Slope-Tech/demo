@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   Grid,
@@ -21,7 +21,6 @@ import { ProductFlow } from '../utils/email'
 declare global {
   interface Window {
     initializeSlope: any
-    initSlopeJs: any
     Slope: any
     SlopeJs: any
   }
@@ -43,10 +42,6 @@ const Checkout: React.FC<{
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
   const [isLegacySDK, setIsLegacySDK] = useState(false)
-
-  useEffect(() => {
-    window.initSlopeJs()
-  }, [])
 
   const localeSelector =
     productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
