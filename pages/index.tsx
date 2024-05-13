@@ -62,7 +62,7 @@ const Checkout: React.FC<{
 
   const onPay = async () => {
     setLoading(true)
-    if (!isLegacySDK) {
+    if (!isLegacySDK && customerForm.mode !== 'redirect') {
       window.SlopeJs.open()
     }
 
@@ -206,6 +206,7 @@ const Checkout: React.FC<{
             <Checkbox
               onChange={(e) => setIsLegacySDK(e.currentTarget.checked)}
               checked={isLegacySDK}
+              disabled={customerForm.mode === 'redirect'}
               label="Use old V3 SlopeJS"
               mb="xs"
             />

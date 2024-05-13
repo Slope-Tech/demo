@@ -54,7 +54,7 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       <Head>
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
         <title>Slope Checkout Demo</title>
-        <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js`} />
+        <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js?v=2`} />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
         <AppShell
