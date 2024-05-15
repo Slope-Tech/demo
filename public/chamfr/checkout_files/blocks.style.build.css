@@ -1,0 +1,645 @@
+/**
+ * #.# Styles
+ *
+ * CSS for both Frontend+Backend.
+ */
+/**
+ * #.# Common SCSS
+ *
+ * Can include things like variables and mixins
+ * that are used across the project.
+*/
+/**
+	Sizes
+ */
+/**
+	Colors
+ */
+.sc_card {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  background: #fff;
+  margin: 2em auto;
+  width: 100%;
+  overflow: hidden;
+  padding: 1em;
+  box-sizing: border-box;
+}
+.sc_card h1, .sc_card h2, .sc_card h3, .sc_card h4, .sc_card h5, .sc_card h6 {
+  font-size: 1em;
+  line-height: 1.2em;
+  margin: 0 0 1em;
+  font-weight: 700;
+}
+.sc_card p {
+  font-size: 1em;
+}
+.sc_card p:last-child {
+  margin-bottom: 0;
+}
+.sc_card p:empty {
+  display: none;
+  margin-bottom: 0;
+}
+.sc_card img {
+  margin-bottom: 1em;
+}
+.sc_card .sc_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 15px;
+  margin-top: 15px;
+}
+.sc_card .sc_company {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 15px;
+}
+.sc_card .sc_company-logo-wrapper,
+.sc_card .sc_person-image-wrapper {
+  height: auto;
+  margin-top: 15px;
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.16), 0 0 1px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  max-width: 100%;
+  width: auto;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.sc_card .sc_company-logo-wrapper img,
+.sc_card .sc_person-image-wrapper img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  margin: 0;
+}
+.sc_card .sc_grey-box {
+  background: #f2f2f2;
+  border-radius: 4px;
+  padding: 16px;
+}
+.sc_card .sc_grey-box .sc_box-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 150%;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 12px;
+}
+.sc_card .sc_input-group .sc_input-label {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+  color: #000;
+}
+.sc_card .wp-block-structured-content-person__colleague_url {
+  font-size: 0.875em;
+  word-break: break-word;
+}
+
+@media (max-width: 468px) {
+  .sc_card p {
+    padding: 0 1em 1em;
+  }
+}
+@media (min-width: 469px) {
+  .sc_fs_faq__figure {
+    float: right;
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+  .sc_fs_faq__figure a {
+    display: block;
+  }
+  .sc_fs_faq__figure a img {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 640px) {
+  .sc_card .sc_row {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+  .sc_card .sc_company {
+    grid-template-columns: 1fr;
+  }
+  .sc_card .sc_grey-box {
+    margin-top: 15px;
+  }
+}
+/** TinyMCE **/
+.w-100 {
+  width: 100%;
+}
+
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+i.mce-ico.mce-i-structured-content {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAE5SURBVHgBrZThUcMwDIWfQrgDfiUbdASPkG7ABsAEhU3YAJigsEFHMBtkg+YX9OBi8YyTNmAuuG3enRM7tj/JkhVpzPkaQIFp1OQDWNO9OdYakIER7eZkFtb5cdT/3pv3WzJkty0+XjOcLBzwxIUVP9ehqeG8OugL4AxX05hjE8vGOagC94HTycOA05lyAYe9xTr0tXZwkkEWQN59F3rWeg8LwqqeI4yhxkfe9ocqdkY8TM2vfgScRNsYKvSmtJtHHKC1ObsWyMMP4G7y4jIEPEVZU9q3Z/zlYS+BLv0zTRq2jAF59DmS1UbJi4C8b1dIls/wpx0F0kPGMLkUvYd3o8DCvpc4QhGQ93KJPX4WdGA+CvSlhGTp/0kp7GaPLMcalt6Kt73GASLA9PU89LBSHF/WBOoKk0mbL1wWbz1nKPlvAAAAAElFTkSuQmCC") !important;
+  background-size: 85%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 4px;
+}
+
+.mce-window.mce-container.mce-sc_panel .mce-container-body.mce-abs-layout {
+  overflow: hidden;
+}
+
+/**
+ FAQ Summary
+ */
+.entry-content .sc_fs_faq summary:focus,
+.sc_fs_faq summary:focus {
+  outline: none;
+}
+.entry-content .sc_fs_faq summary *,
+.sc_fs_faq summary * {
+  margin: 0;
+  display: inline;
+  padding: 0;
+}
+.entry-content .sc_fs_faq summary + div,
+.sc_fs_faq summary + div {
+  overflow: hidden;
+}
+.entry-content .sc_fs_faq summary + div img,
+.sc_fs_faq summary + div img {
+  margin-top: 0;
+}
+
+.sc_fs_card__animate {
+  padding: 0;
+}
+.sc_fs_card__animate .sc_fs_faq__content {
+  padding: 0 1em 1em;
+}
+.sc_fs_card__animate .sc_fs_faq__content > *:first-child {
+  margin-top: 0;
+}
+.sc_fs_card__animate summary {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  padding: 1em 1em 1em 2em;
+}
+.sc_fs_card__animate summary:before {
+  content: "";
+  position: absolute;
+  top: 1.5em;
+  left: 1em;
+  transform: rotate(0);
+  transform-origin: 0.2rem 50%;
+  transition: 0.25s transform ease;
+  border: 0.4rem solid transparent;
+  border-left-color: inherit;
+}
+.sc_fs_card__animate[open] > summary:before {
+  transform: rotate(90deg);
+}
+
+.sc_business-logo-wrapper,
+.sc_business-image-wrapper {
+  margin: 0;
+}
+
+.sc_recipe .sc_recipe__head {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1em;
+}
+@media (max-width: 767px) {
+  .sc_recipe .sc_recipe__head {
+    grid-template-columns: 1fr;
+  }
+}
+.sc_recipe h1, .sc_recipe h2, .sc_recipe h3, .sc_recipe h4, .sc_recipe h5, .sc_recipe h6 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+.sc_recipe .sc_recipe__head--figure {
+  margin: 0;
+}
+.sc_recipe .sc_recipe__head--figure img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+.sc_recipe .sc_recipe__print {
+  margin: 1em 0;
+}
+.sc_recipe .sc_recipe__print .sc_recipe__printButton {
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+.sc_recipe .sc_recipe__divider {
+  margin: 1.5em 0;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.sc_recipe .sc_recipe__times, .sc_recipe .sc_recipe__meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .sc_recipe .sc_recipe__times, .sc_recipe .sc_recipe__meta {
+    grid-template-columns: 1fr;
+  }
+}
+.sc_recipe .sc_recipe__times--label, .sc_recipe .sc_recipe__meta--label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.75em;
+}
+.sc_recipe .sc_recipe__instructions--figure {
+  margin: 0.5em 0 1em 0;
+  line-height: 0;
+}
+.sc_recipe .sc_recipe__instructions--figure img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  margin: 0;
+}
+.sc_recipe .sc_recipe__ingredients--checklist {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 1em 0 !important;
+}
+.sc_recipe .sc_recipe__ingredients--checklist li {
+  margin-bottom: 0.5em;
+  position: relative;
+  padding-left: 0;
+}
+.sc_recipe .sc_recipe__ingredients--checklist li input[type=checkbox] {
+  display: none;
+}
+.sc_recipe .sc_recipe__ingredients--checklist li input[type=checkbox]:checked + label:before {
+  border-color: black;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZD0iTTAgMTFsMi0yIDUgNUwxOCAzbDIgMkw3IDE4eiIvPjwvc3ZnPgo=");
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.sc_recipe .sc_recipe__ingredients--checklist li label {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  padding-left: 1.5em;
+  position: relative;
+}
+.sc_recipe .sc_recipe__ingredients--checklist li label:before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sc_recipe .sc_recipe__video--oembed {
+  aspect-ratio: 16/9;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  padding-top: 56.25%;
+  /* if aspect-ratio is supported */
+}
+.sc_recipe .sc_recipe__video--oembed > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+@supports (aspect-ratio: 16/9) {
+  .sc_recipe .sc_recipe__video--oembed {
+    padding-top: 0 !important;
+  }
+  .sc_recipe .sc_recipe__video--oembed > iframe {
+    position: static;
+  }
+}
+.sc_recipe .sc_recipe__video video {
+  width: 100%;
+  height: auto;
+}
+.sc_recipe .sc_recipe__nutrition--heading,
+.sc_recipe .sc_recipe__video--heading,
+.sc_recipe .sc_recipe__instructions--heading,
+.sc_recipe .sc_recipe__ingredients--heading {
+  font-size: 1.125em;
+  margin-bottom: 0.5em;
+  font-weight: bolder;
+}
+
+.sc_card .has-wpsc-lightbox {
+  cursor: zoom-in;
+}
+
+body.hidden-scroll {
+  overflow: hidden;
+}
+
+.sl-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+  display: none;
+  z-index: 1035;
+}
+
+.sl-wrapper {
+  z-index: 1040;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+}
+.sl-wrapper * {
+  box-sizing: border-box;
+}
+.sl-wrapper button {
+  border: 0 none;
+  background: transparent;
+  font-size: 28px;
+  padding: 0;
+  cursor: pointer;
+}
+.sl-wrapper button:hover {
+  opacity: 0.7;
+}
+.sl-wrapper .sl-close {
+  display: none;
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  z-index: 10060;
+  margin-top: -14px;
+  margin-right: -14px;
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+  font-family: Arial, Baskerville, monospace;
+  color: #000;
+  font-size: 3rem;
+}
+.sl-wrapper .sl-counter {
+  display: none;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  z-index: 10060;
+  color: #000;
+  font-size: 1rem;
+}
+.sl-wrapper .sl-download {
+  display: none;
+  position: fixed;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+  z-index: 10060;
+  color: #fff;
+  font-size: 1rem;
+}
+.sl-wrapper .sl-download a {
+  color: #fff;
+}
+.sl-wrapper .sl-navigation {
+  width: 100%;
+  display: none;
+}
+.sl-wrapper .sl-navigation button {
+  position: fixed;
+  top: 50%;
+  margin-top: -22px;
+  height: 44px;
+  width: 22px;
+  line-height: 44px;
+  text-align: center;
+  display: block;
+  z-index: 10060;
+  font-family: Arial, Baskerville, monospace;
+  color: #000;
+}
+.sl-wrapper .sl-navigation button.sl-next {
+  right: 5px;
+  font-size: 2rem;
+}
+.sl-wrapper .sl-navigation button.sl-prev {
+  left: 5px;
+  font-size: 2rem;
+}
+@media (min-width: 35.5em) {
+  .sl-wrapper .sl-navigation button {
+    width: 44px;
+  }
+  .sl-wrapper .sl-navigation button.sl-next {
+    right: 10px;
+    font-size: 3rem;
+  }
+  .sl-wrapper .sl-navigation button.sl-prev {
+    left: 10px;
+    font-size: 3rem;
+  }
+}
+@media (min-width: 50em) {
+  .sl-wrapper .sl-navigation button {
+    width: 44px;
+  }
+  .sl-wrapper .sl-navigation button.sl-next {
+    right: 20px;
+    font-size: 3rem;
+  }
+  .sl-wrapper .sl-navigation button.sl-prev {
+    left: 20px;
+    font-size: 3rem;
+  }
+}
+.sl-wrapper.sl-dir-rtl .sl-navigation {
+  direction: ltr;
+}
+.sl-wrapper .sl-image {
+  position: fixed;
+  -ms-touch-action: none;
+  touch-action: none;
+  z-index: 10000;
+}
+.sl-wrapper .sl-image img {
+  margin: 0;
+  padding: 0;
+  display: block;
+  border: 0 none;
+  width: 100%;
+  height: auto;
+}
+@media (min-width: 35.5em) {
+  .sl-wrapper .sl-image img {
+    border: 0 none;
+  }
+}
+@media (min-width: 50em) {
+  .sl-wrapper .sl-image img {
+    border: 0 none;
+  }
+}
+.sl-wrapper .sl-image iframe {
+  background: #000;
+  border: 0 none;
+}
+@media (min-width: 35.5em) {
+  .sl-wrapper .sl-image iframe {
+    border: 0 none;
+  }
+}
+@media (min-width: 50em) {
+  .sl-wrapper .sl-image iframe {
+    border: 0 none;
+  }
+}
+.sl-wrapper .sl-image .sl-caption {
+  display: none;
+  padding: 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.sl-wrapper .sl-image .sl-caption.pos-top {
+  bottom: auto;
+  top: 0;
+}
+.sl-wrapper .sl-image .sl-caption.pos-outside {
+  bottom: auto;
+}
+
+.sl-spinner {
+  display: none;
+  border: 5px solid #333;
+  border-radius: 40px;
+  height: 40px;
+  left: 50%;
+  margin: -20px 0 0 -20px;
+  opacity: 0;
+  position: fixed;
+  top: 50%;
+  width: 40px;
+  z-index: 1007;
+  -webkit-animation: pulsate 1s ease-out infinite;
+  -moz-animation: pulsate 1s ease-out infinite;
+  -ms-animation: pulsate 1s ease-out infinite;
+  -o-animation: pulsate 1s ease-out infinite;
+  animation: pulsate 1s ease-out infinite;
+}
+
+.sl-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+.sl-transition {
+  transition: -moz-transform ease 200ms;
+  transition: -ms-transform ease 200ms;
+  transition: -o-transform ease 200ms;
+  transition: -webkit-transform ease 200ms;
+  transition: transform ease 200ms;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@keyframes pulsate {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@-moz-keyframes pulsate {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@-o-keyframes pulsate {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@-ms-keyframes pulsate {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
