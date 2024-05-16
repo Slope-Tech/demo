@@ -2,9 +2,6 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { useState } from 'react'
-import MainFooter from '../components/MainFooter'
-import MainHeader from '../components/MainHeader'
-import { ProductFlow } from '../utils/email'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [customerForm, setCustomerForm] = useState({
@@ -20,8 +17,6 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     qualified: true,
     product: 'Soda',
   })
-
-  const [productFlow, setProductFlow] = useState<ProductFlow>(ProductFlow.BNPL_AND_PAY_NOW)
 
   const providerTheme: MantineThemeOverride = {
     colors: {
@@ -58,22 +53,17 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
         <AppShell
-          padding="xl"
-          header={
-            <MainHeader
-              customerForm={customerForm}
-              setCustomerForm={setCustomerForm}
-              productFlow={productFlow}
-              setProductFlow={setProductFlow}
-            />
-          }
-          footer={<MainFooter />}
+          styles={(theme) => ({
+            main: {
+              backgroundColor: theme.colors.gray[6],
+              padding: 0
+            },
+          })}
         >
-          <Container pb={20}>
+          <Container>
             <Component
               customerForm={customerForm}
               setCustomerForm={setCustomerForm}
-              productFlow={productFlow}
               {...pageProps}
             />
           </Container>

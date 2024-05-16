@@ -1,22 +1,15 @@
 import React, { useState } from 'react'
 import {
-  Button,
-  Grid,
-  Title,
-  Text,
-  Group,
-  Checkbox,
-  Container,
-  ColorPicker,
-  TextInput,
+  Button as MantineButton,
+  Image,
+  Center,
+  Box,
+  ButtonProps,
+  BoxProps,
+  Select,
 } from '@mantine/core'
+import { useHotkeys } from '@mantine/hooks'
 import { useRouter } from 'next/router'
-import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
-import CustomerForm from '../components/CustomerForm'
-import OrderSummary from '../components/OrderSummary'
-import ErrorAlert from '../components/ErrorAlert'
-import { getProducts, getTotals } from '../utils/products'
-import { ProductFlow } from '../utils/email'
 
 declare global {
   interface Window {
@@ -26,67 +19,95 @@ declare global {
   }
 }
 
-const Checkout: React.FC<{
-  customerForm: Record<string, any>
-  setCustomerForm: any
-  productFlow: ProductFlow
-}> = ({ customerForm, setCustomerForm, productFlow }) => {
+const customerTypes = [
+  {
+    label: 'Pre-qualified',
+    email: 'demo+skip-pre_qualify@slope.so',
+  },
+  {
+    label: 'New',
+    email: 'demo@slope.so',
+  },
+  {
+    label: 'Skip Compliance',
+    email: 'demo+skip-compliance@slope.so',
+  },
+]
+
+const Pos: React.FC<{ x: number; y: number } & BoxProps> = ({ x, y, ...props }) => (
+  <Center w={0} h={0} pos="absolute" top={y} left={x} {...props}>
+    <Box sx={{ flexShrink: 0 }}>{props.children}</Box>
+  </Center>
+)
+
+const TransparentButton: React.FC<{ x: number; y: number; onClick: () => any } & ButtonProps> = ({
+  x,
+  y,
+  w,
+  h,
+  ...props
+}) => (
+  <Pos y={y} x={x}>
+    <Box w={w} h={h} sx={{ opacity: 0, cursor: 'pointer', flexShrink: 0 }} {...props} />
+  </Pos>
+)
+
+const Button: React.FC<
+  { x: number; y: number; w: number; h: number; onClick: () => any } & ButtonProps
+> = ({ x, y, ...props }) => (
+  <Pos y={y} x={x}>
+    <MantineButton styles={{ root: { flexShrink: 0 } }} {...props} />
+  </Pos>
+)
+
+const Checkout: React.FC = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [localeSelectorChecked, setLocaleSelector] = useState(false)
-  const [isGuest, setIsGuest] = useState(false)
-  const [primaryColor, setPrimaryColor] = useState('')
-  const [product, setProduct] = useState('Soda')
-  const products = getProducts(product)
-  const totals = getTotals(products)
-  const [total, setTotal] = useState(totals.total)
-  const [isLegacySDK, setIsLegacySDK] = useState(false)
+  const [customerEmail, setCustomerEmail] = useState(customerTypes[0].email)
+  const products = [
+    {
+      quantity: 25,
+      name: 'All Natural Ground Beef (28 oz / 12 cans per case)',
+      price: 104_00,
+      sku: 'ground-beef-28oz-12cans',
+    },
+    {
+      quantity: 1,
+      name: 'Shipping - UPS Ground',
+      price: 797_90,
+      sku: 'shipping-ups-ground',
+    },
+  ]
+  const primaryColor = '#1971C2'
 
-  const localeSelector =
-    productFlow === ProductFlow.PAY_NOW_ONLY && localeSelectorChecked ? 'true' : ''
-
-  const onChangeRedirect = (event) => {
-    setCustomerForm({ ...customerForm, mode: event.currentTarget.checked ? 'redirect' : null })
-  }
-
-  const onChangeLocaleSelector = (event) => {
-    setLocaleSelector(event.currentTarget.checked)
-  }
-
-  const onChangeGuest = (event) => {
-    setIsGuest(event.currentTarget.checked)
-  }
-
-  const guestMode = isGuest && productFlow === ProductFlow.PAY_NOW_ONLY
+  const total = 3_397_90
 
   const onPay = async () => {
     setLoading(true)
-    if (!isLegacySDK && customerForm.mode !== 'redirect') {
-      window.SlopeJs.open()
+    const customerData = {
+      businessName: 'Slope Demo Customer',
+      email: customerEmail,
+      phone: '+16175551212',
+      line1: '123 California St',
+      city: 'San Francisco',
+      state: 'CA',
+      postalCode: '94105',
+      country: 'US',
+      currency: 'usd',
     }
 
-    let customerJson
-    if (!guestMode) {
-      const customerResp = await fetch('/api/create-customer', {
-        method: 'POST',
-        body: JSON.stringify(customerForm),
-      })
+    const customerResp = await fetch('/api/create-customer', {
+      method: 'POST',
+      body: JSON.stringify(customerData),
+    })
 
-      customerJson = await customerResp.json()
-
-      if (!customerJson.customer) {
-        setLoading(false)
-        setError(customerJson)
-        return
-      }
-    }
+    const customerJson = await customerResp.json()
 
     const orderRes = await fetch('/api/create-order', {
       method: 'POST',
       body: JSON.stringify({
-        ...customerForm,
-        customerId: guestMode ? undefined : customerJson.customer.id,
+        customerId: customerJson.customer.id,
+        currency: 'usd',
         total,
         items: products.map((p) => ({
           sku: p.sku,
@@ -102,44 +123,11 @@ const Checkout: React.FC<{
 
     const { secret, order } = await orderRes.json()
 
-    let offerType
-    switch (productFlow) {
-      case ProductFlow.BNPL_ONLY:
-      case ProductFlow.PAY_NOW_ONLY:
-        offerType = productFlow
-        break
-      default:
-        break
-    }
-
     const successPath = `/success?orderNumber=${order.number}`
 
-    if (customerForm.mode === 'redirect') {
-      // NOTE: The redirect API is still private and should not be used by developers.
-      // Contact the Slope team if you're interested in using the redirect API.
-      const baseHost = `${window.location.protocol}//${window.location.host}`
-      const urlParams = new URLSearchParams({
-        localeSelector,
-        secret,
-        mode: 'redirect',
-        cancelUrl: `${baseHost}/`,
-        successUrl: `${baseHost}${successPath}`,
-      })
-      window.location.href = `${
-        process.env.NEXT_PUBLIC_CHECKOUT_HOST
-      }/en/pay?${urlParams.toString()}`
-      return
-    }
-
-    const primaryColorObject = primaryColor
-      ? { primaryColor: (primaryColor as string).slice(1) }
-      : {}
-
     const slopeParams = {
-      ...primaryColorObject,
-      localeSelector,
+      primaryColor,
       intentSecret: secret,
-      offerType,
       onSuccess: async () => {
         router.push(successPath)
       },
@@ -155,146 +143,69 @@ const Checkout: React.FC<{
       onEvent: console.log,
     }
 
-    if (isLegacySDK) {
-      window.initializeSlope(slopeParams)
-      window.Slope.open()
-    } else {
-      window.SlopeJs.start(slopeParams)
-    }
+    window.initializeSlope(slopeParams)
+    window.Slope.open()
   }
 
-  const slopeButton = (
-    <Button
-      leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={22} />}
-      fullWidth
-      color="orange"
-      loading={loading}
-      onClick={onPay}
-    >
-      {productFlow === ProductFlow.BNPL_ONLY ? 'Pay later with Slope' : 'Pay with Slope'}
-    </Button>
-  )
+  const pageIdx = parseInt((router.query.pageIdx as string) || '0', 10)
+  const setPage = (idx) => {
+    router.push({ query: { pageIdx: idx } })
+    window.scrollTo(0, 0)
+  }
+  const nextPage = () => setPage(pageIdx + 1)
+  const prevPage = () => setPage(pageIdx - 1)
+
+  const pages = [
+    {
+      bg: '1_cart.png',
+      elements: [<TransparentButton x={1138} y={665} w={140} h={50} onClick={nextPage} />],
+    },
+    {
+      bg: '2_checkout.png',
+      elements: [
+        <TransparentButton x={210} y={780} w={140} h={50} onClick={prevPage} />,
+        <TransparentButton x={640} y={780} w={180} h={70} onClick={nextPage} />,
+      ],
+    },
+    {
+      bg: '3_shipping.png',
+      elements: [
+        <TransparentButton x={230} y={440} w={170} h={50} onClick={prevPage} />,
+        <TransparentButton x={640} y={440} w={180} h={70} onClick={nextPage} />,
+      ],
+    },
+    {
+      bg: '4_payment.png',
+      elements: [
+        <TransparentButton x={220} y={772} w={160} h={50} onClick={prevPage} />,
+        <Button x={678} y={773} w={106} h={65} loading={loading} onClick={onPay} color="blue.8">
+          Pay Later
+        </Button>,
+        <Pos x={520} y={765}>
+          <Select
+            label="Slope Customer"
+            size="xs"
+            data={customerTypes.map(({ label, email }) => ({ label, value: email }))}
+            value={customerEmail}
+            onChange={(v) => v && setCustomerEmail(v)}
+          />
+        </Pos>,
+      ],
+    },
+  ]
+
+  useHotkeys([
+    ['arrowLeft', () => setPage(pageIdx - 1)],
+    ['arrowRight', () => setPage(pageIdx + 1)],
+  ])
 
   return (
-    <>
-      <Title order={2} mb="xl">
-        <Group spacing="xs">
-          <IconShoppingCart />
-          <Text span>Checkout</Text>
-        </Group>
-      </Title>
-
-      <Grid gutter="xl">
-        <Grid.Col md={12} lg={4}>
-          <OrderSummary
-            product={product}
-            setProduct={setProduct}
-            total={total}
-            setTotal={setTotal}
-          />
-          <Container bg="gray.1" py="xs" mt="sm">
-            <Title mt="lg" mb="sm" order={4}>
-              Slope Options
-            </Title>
-
-            <Checkbox
-              onChange={onChangeRedirect}
-              checked={customerForm.mode === 'redirect'}
-              label="Perform a full-screen redirect"
-              mb="xs"
-            />
-            <Checkbox
-              onChange={(e) => setIsLegacySDK(e.currentTarget.checked)}
-              checked={isLegacySDK}
-              disabled={customerForm.mode === 'redirect'}
-              label="Use old V3 SlopeJS"
-              mb="xs"
-            />
-            <Checkbox
-              onChange={onChangeLocaleSelector}
-              checked={!!localeSelector}
-              disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-              label="Display language selector"
-              mb="xs"
-            />
-            <Checkbox
-              onChange={onChangeGuest}
-              checked={guestMode}
-              disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-              label="Guest checkout mode"
-              mb="xs"
-            />
-
-            {customerForm.mode !== 'redirect' && (
-              <>
-                <TextInput
-                  value={primaryColor}
-                  label="Widget theme"
-                  mb="xs"
-                  labelProps={{
-                    style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
-                  }}
-                  readOnly
-                />
-                <ColorPicker
-                  mb="xs"
-                  format="hex"
-                  swatches={[
-                    '#FD611A',
-                    '#868e96',
-                    '#be4bdb',
-                    '#4c6ef5',
-                    '#228be6',
-                    '#12b886',
-                    '#fab005',
-                  ]}
-                  value={primaryColor}
-                  onChange={setPrimaryColor}
-                />
-              </>
-            )}
-          </Container>
-        </Grid.Col>
-        <Grid.Col md={12} lg={8}>
-          <ErrorAlert error={error} setError={setError} />
-          <Title order={3} mb="sm">
-            Customer
-          </Title>
-          <CustomerForm
-            customerForm={customerForm}
-            setCustomerForm={setCustomerForm}
-            isDisabled={guestMode}
-          />
-
-          <Title order={3} mb="sm">
-            Payment
-          </Title>
-          {productFlow !== ProductFlow.BNPL_ONLY ? (
-            slopeButton
-          ) : (
-            <Grid align="center" gutter="xs" columns={11}>
-              <Grid.Col md={11} lg={5}>
-                <Button
-                  leftIcon={<IconCreditCard />}
-                  fullWidth
-                  onClick={() => alert('Try paying with Slope!')}
-                >
-                  Pay now
-                </Button>
-              </Grid.Col>
-              <Grid.Col md={11} lg={1}>
-                <Text fw={700} sx={{ textAlign: 'center' }}>
-                  OR
-                </Text>
-              </Grid.Col>
-              <Grid.Col md={11} lg={5}>
-                {slopeButton}
-              </Grid.Col>
-            </Grid>
-          )}
-        </Grid.Col>
-      </Grid>
-    </>
+    <Center>
+      <Box pos="relative">
+        <Image width={1400} src={`/keystone/${pages[pageIdx].bg}`} />
+        {pages[pageIdx].elements}
+      </Box>
+    </Center>
   )
 }
 
