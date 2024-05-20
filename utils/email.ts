@@ -14,11 +14,11 @@ export enum CustomerType {
   NEW = '',
   SKIP_PRE_QUALIFY = '+skip-pre_qualify',
   SKIP_COMPLIANCE = '+skip-compliance',
-  SKIP_BANKING = '+skip-banking',
-  SKIP_COMPLIANCE_AND_BANKING = '+skip-compliance+skip-banking',
+  SKIP_BANKING = '+skip-banking+low_price',
+  SKIP_COMPLIANCE_AND_BANKING = '+skip-compliance+skip-banking+low_price',
   SKIP_CONSUMER_CREDIT = '+skip-consumer_credit',
   SKIP_COMPLIANCE_AND_CONSUMER_CREDIT = '+skip-compliance+skip-consumer_credit',
-  SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT = '+skip-compliance+skip-banking+skip-consumer_credit',
+  SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT = '+skip-compliance+skip-banking+low_price+skip-consumer_credit',
 }
 
 export const generateDemoEmail = ({ customerType }: { customerType: CustomerType }) => {
