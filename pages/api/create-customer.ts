@@ -13,12 +13,12 @@ export default async function handler(
     return
   }
 
-  const { qualified, businessName, email, phone, line1, city, state, postalCode, country } =
+  const { businessName, email, phone, line1, city, state, postalCode, country } =
     JSON.parse(req.body)
 
   const customerRes = await fetch(`${getApiHost()}/v3/customers`, {
     method: 'post',
-    headers: getAuthHeaders({ qualified }),
+    headers: getAuthHeaders(),
     body: JSON.stringify({
       businessName,
       email,
@@ -42,7 +42,7 @@ export default async function handler(
 
   const customerIntentRes = await fetch(`${getApiHost()}/v3/customers/${customer.id}/intent`, {
     method: 'post',
-    headers: getAuthHeaders({ qualified }),
+    headers: getAuthHeaders(),
   })
   const { secret } = await customerIntentRes.json()
 
