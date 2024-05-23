@@ -5,7 +5,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{
     order: Record<string, any>
-    secret: string
   }>
 ) {
   if (req.method !== 'POST') {
@@ -13,25 +12,16 @@ export default async function handler(
     return
   }
 
-  const { customerId, items, line1, city, state, postalCode, country, currency, total } =
-    JSON.parse(req.body)
+  const { items, currency, total } = JSON.parse(req.body)
 
-  const orderRes = await fetch(`${getApiHost()}/v3/orders`, {
+  const orderRes = await fetch(`${getApiHost()}/v4/orders`, {
     method: 'post',
     headers: getAuthHeaders(),
     body: JSON.stringify({
       currency,
       total,
-      items,
-      customerId,
       externalId: (Math.random() + 1).toString(36),
-      billingAddress: {
-        line1,
-        city,
-        state,
-        postalCode,
-        country,
-      },
+      items,
     }),
   })
 
@@ -41,14 +31,7 @@ export default async function handler(
     return
   }
 
-  const orderIntentRes = await fetch(`${getApiHost()}/v3/orders/${order.id}/intent`, {
-    method: 'post',
-    headers: getAuthHeaders(),
-  })
-  const { secret } = await orderIntentRes.json()
-
   res.status(200).json({
     order,
-    secret,
   })
 }
