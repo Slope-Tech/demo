@@ -4,12 +4,12 @@ import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@man
 import { useState } from 'react'
 import MainFooter from '../components/MainFooter'
 import MainHeader from '../components/MainHeader'
-import { ProductFlow } from '../utils/email'
+import { CustomerType, ProductFlow, generateDemoEmail } from '../utils/email'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [customerForm, setCustomerForm] = useState({
     businessName: 'Slope Demo Customer',
-    email: 'demo@slope.so',
+    email: generateDemoEmail({ customerType: CustomerType.NEW }),
     phone: '+16175551212',
     line1: '123 California St',
     city: 'San Francisco',

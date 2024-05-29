@@ -22,11 +22,11 @@ export enum CustomerType {
 }
 
 export const generateDemoEmail = ({ customerType }: { customerType: CustomerType }) => {
-  let email = 'demo'
-
+  const randString = Math.floor(100000000 + Math.random() * 900000000)
+  let email = `demo+rand${randString}`
   if (Object.values(CustomerType).includes(customerType)) {
     email += customerType as string
   }
-  email += '@slope.so'
+  email += '@slopepay.com'
   return email
 }
