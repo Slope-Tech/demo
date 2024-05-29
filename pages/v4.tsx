@@ -18,6 +18,7 @@ import OrderSummary from '../components/OrderSummary'
 import ErrorAlert from '../components/ErrorAlert'
 import { getProducts, getTotals } from '../utils/products'
 import { ProductFlow } from '../utils/email'
+import CustomerForm from '../components/CustomerForm'
 
 declare global {
   interface Window {
@@ -54,6 +55,16 @@ const Checkout: React.FC<{
       body: JSON.stringify({
         total,
         currency: 'usd',
+        contactBusinessName: customerForm.businessName,
+        contactEmail: customerForm.email,
+        contactPhone: customerForm.phone,
+        billingAddress: {
+          line1: customerForm.line1,
+          city: customerForm.city,
+          state: customerForm.state,
+          postalCode: customerForm.postalCode,
+          country: customerForm.country,
+        },
         items: products.map((p) => ({
           sku: p.sku,
           name: p.name,
@@ -168,6 +179,12 @@ const Checkout: React.FC<{
 
       <Grid gutter="xl">
         <Grid.Col md={12} lg={4}>
+          <OrderSummary
+            product={product}
+            setProduct={setProduct}
+            total={total}
+            setTotal={setTotal}
+          />
           <Container bg="gray.1" py="xs" mt="sm">
             <Title mt="lg" mb="sm" order={4}>
               Slope Options
@@ -211,12 +228,11 @@ const Checkout: React.FC<{
         </Grid.Col>
         <Grid.Col md={12} lg={8}>
           <ErrorAlert error={error} setError={setError} />
-          <OrderSummary
-            product={product}
-            setProduct={setProduct}
-            total={total}
-            setTotal={setTotal}
-          />
+          <Title order={3} mb="sm">
+            Customer
+          </Title>
+          <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
+
           <Title order={3} mb="sm">
             Payment
           </Title>
