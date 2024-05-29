@@ -12,7 +12,15 @@ export default async function handler(
     return
   }
 
-  const { items, currency, total } = JSON.parse(req.body)
+  const {
+    items,
+    contactBusinessName,
+    contactEmail,
+    contactPhone,
+    billingAddress,
+    currency,
+    total,
+  } = JSON.parse(req.body)
 
   const orderRes = await fetch(`${getApiHost()}/v4/orders`, {
     method: 'post',
@@ -20,8 +28,13 @@ export default async function handler(
     body: JSON.stringify({
       currency,
       total,
-      externalId: (Math.random() + 1).toString(36),
+      externalId: (Math.random() + 1).toString(36).split('.')[1],
       items,
+      contactBusinessName,
+      contactEmail,
+      contactPhone,
+      billingAddress,
+      taxId: Math.floor(100000000 + Math.random() * 900000000),
     }),
   })
 
