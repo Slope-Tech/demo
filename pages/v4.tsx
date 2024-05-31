@@ -11,13 +11,14 @@ import {
   TextInput,
   Alert,
   Anchor,
+  Code,
 } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
+import { IconCreditCard, IconShoppingCart, IconUserPlus } from '@tabler/icons'
 import OrderSummary from '../components/OrderSummary'
 import ErrorAlert from '../components/ErrorAlert'
 import { getProducts, getTotals } from '../utils/products'
-import { ProductFlow } from '../utils/email'
+import { ProductFlow, customerTypeToShortcutTypes, parseTaxIdFromEmail } from '../utils/email'
 import CustomerForm from '../components/CustomerForm'
 
 declare global {
@@ -33,15 +34,41 @@ const Checkout: React.FC<{
 }> = ({ customerForm, setCustomerForm, productFlow }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [loadingUser, setLoadingUser] = useState(false)
   const [error, setError] = useState(null)
   const [primaryColor, setPrimaryColor] = useState('')
   const [product, setProduct] = useState('Soda')
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
+  const [createCustomerResponse, setCreateCustomerResponse] = useState<any>(undefined)
 
   const onChangeRedirect = (event) => {
     setCustomerForm({ ...customerForm, mode: event.currentTarget.checked ? 'redirect' : null })
+  }
+
+  const onClickCreateCustomer = async () => {
+    setLoadingUser(true)
+    const response = await fetch('/api/v4-create-customer', {
+      method: 'POST',
+      body: JSON.stringify({
+        shortcutTypes: customerTypeToShortcutTypes(customerForm.customerType),
+        businessName: customerForm.businessName,
+        phone: customerForm.phone,
+        address: {
+          line1: customerForm.line1,
+          city: customerForm.city,
+          state: customerForm.state,
+          postalCode: customerForm.postalCode,
+          country: customerForm.country,
+        },
+        taxId: parseTaxIdFromEmail(customerForm.email),
+      }),
+    })
+
+    const body = await response.json()
+    setCreateCustomerResponse(body)
+    setLoadingUser(false)
   }
 
   const onPay = async () => {
@@ -141,6 +168,21 @@ const Checkout: React.FC<{
     </Button>
   )
 
+  let createdCustomerBody
+
+  if (createCustomerResponse) {
+    createdCustomerBody = (
+      <Alert my="sm" color="green" title="New user account created:">
+        <Text>
+          Email: <Code>{createCustomerResponse.email}</Code>
+        </Text>
+        <Text>
+          Password: <Code>{createCustomerResponse.password}</Code>
+        </Text>
+      </Alert>
+    )
+  }
+
   return (
     <>
       <Alert color="blue" title="This is the Slope V4 API" mb="md">
@@ -233,7 +275,19 @@ const Checkout: React.FC<{
           </Title>
           <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
 
-          <Title order={3} mb="sm">
+          <Button
+            leftIcon={<IconUserPlus />}
+            fullWidth
+            color="blue"
+            loading={loadingUser}
+            onClick={onClickCreateCustomer}
+          >
+            Create Slope user account
+          </Button>
+
+          {createdCustomerBody}
+
+          <Title order={3} mb="sm" mt="lg">
             Payment
           </Title>
           {productFlow !== ProductFlow.BNPL_ONLY ? (

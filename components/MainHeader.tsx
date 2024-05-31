@@ -79,7 +79,6 @@ const MainHeader: React.FC<{
   setProductFlow: any
 }> = ({ customerForm, setCustomerForm, productFlow, setProductFlow }) => {
   const [opened, setOpened] = useState(false)
-  const [customerType, setCustomerType] = useState<CustomerType>(CustomerType.NEW)
   const { classes } = useStyles()
   const router = useRouter()
 
@@ -168,18 +167,31 @@ const MainHeader: React.FC<{
         data={availableCustomerTypes}
         size="sm"
         sx={{
-          width: 300,
+          width: 240,
         }}
-        value={customerType}
+        value={customerForm.customerType}
         onChange={(value) => {
           const newCustomerType = value as CustomerType
-          setCustomerType(newCustomerType)
           setCustomerForm({
             ...customerForm,
+            customerType: newCustomerType,
             email: generateDemoEmail({
               customerType: newCustomerType,
             }),
           })
+        }}
+      />
+       <SegmentedControl
+        data={[
+          { label: 'V3', value: '/' },
+          { label: 'V4', value: '/v4' },
+        ]}
+        size="sm"
+        value={router.pathname === '/v4' ? '/v4' : '/'}
+        onChange={(value) => {
+          if (value !== router.pathname) {
+            router.push(value)
+          }
         }}
       />
     </>
