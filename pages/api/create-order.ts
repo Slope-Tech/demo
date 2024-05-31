@@ -24,7 +24,13 @@ export default async function handler(
       total,
       items,
       customerId,
+      vendor: {
+        foo: "bar",
+      },
       externalId: (Math.random() + 1).toString(36),
+      additionalData: {
+        testing: 1
+      },
       billingAddress: {
         line1,
         city,

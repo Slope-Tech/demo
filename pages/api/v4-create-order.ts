@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getApiHost, getAuthHeaders } from '../../utils/creds'
+import { parseTaxIdFromEmail } from '../../utils/email'
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,6 +23,8 @@ export default async function handler(
     total,
   } = JSON.parse(req.body)
 
+  const taxId = parseTaxIdFromEmail(contactEmail)
+
   const orderRes = await fetch(`${getApiHost()}/v4/orders`, {
     method: 'post',
     headers: getAuthHeaders(),
@@ -34,7 +37,7 @@ export default async function handler(
       contactEmail,
       contactPhone,
       billingAddress,
-      taxId: Math.floor(100000000 + Math.random() * 900000000),
+      taxId,
     }),
   })
 
