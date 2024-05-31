@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getApiHost, getAuthHeaders } from '../../utils/creds'
+import { generateRandomTaxId } from '../../utils/email'
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,6 +25,9 @@ export default async function handler(
       email,
       phone,
       externalId: (Math.random() + 1).toString(36),
+      kyb: {
+        taxId: generateRandomTaxId(),
+      },
       address: {
         line1,
         city,
