@@ -1,6 +1,6 @@
 <html>
   <div id="checkoutBtn" class="popup" ondblclick="payWithSlope()">
-    <div class="popup-header noselect">Pay with Slope</div>
+    <div id="checkoutTxt" class="popup-header noselect">Pay with Slope</div>
   </div>
 
   <style>
@@ -225,13 +225,15 @@
       function doDrag(e) {
         element.style.width = startWidth + e.clientX - startX + 'px'
         element.style.height = startHeight + e.clientY - startY + 'px'
+
+        document.getElementById('checkoutTxt').style.fontSize =
+          (startHeight + e.clientY - startY) * 0.6 + 'px'
       }
 
       function stopDrag() {
         document.documentElement.removeEventListener('mousemove', doDrag, false)
         document.documentElement.removeEventListener('mouseup', stopDrag, false)
       }
-      a
     }
 
     const urlParams = new URLSearchParams(window.location.search)
