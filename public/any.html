@@ -1,0 +1,329 @@
+<html>
+  <div id="checkoutBtn" class="popup" ondblclick="payWithSlope()">
+    <div class="popup-header noselect">Pay with Slope</div>
+  </div>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .popup {
+      z-index: 9;
+      background-color: #f1f1f1;
+      border: 1px solid #d3d3d3;
+      text-align: center;
+      min-height: 36px;
+      min-width: 150px;
+      left: 45%;
+      top: 45%;
+      padding: 12px;
+      appearance: none;
+      text-decoration: none;
+      box-sizing: border-box;
+      height: 36px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-weight: 600;
+      position: relative;
+      line-height: 1;
+      font-size: calc(15px + 0.390625vw);
+      user-select: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background-color: rgb(253, 126, 20);
+      color: rgb(255, 255, 255);
+    }
+
+    /*Drgable */
+
+    .popup {
+      position: absolute;
+      /*resize: both; !*enable this to css resize*! */
+      overflow: auto;
+    }
+
+    .popup-header {
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+      color: #fff;
+    }
+
+    /*Resizeable*/
+
+    .popup .resizer-right {
+      width: 5px;
+      height: 100%;
+      background: transparent;
+      position: absolute;
+      right: 50%;
+      bottom: 50%;
+      cursor: e-resize;
+    }
+
+    .popup .resizer-bottom {
+      width: 100%;
+      height: 5px;
+      background: transparent;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      cursor: n-resize;
+    }
+
+    .popup .resizer-both {
+      width: 5px;
+      height: 5px;
+      background: transparent;
+      z-index: 10;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      cursor: nw-resize;
+    }
+
+    /*NOSELECT*/
+
+    .popup * {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+    }
+  </style>
+
+  <script>
+    window.onload = function () {
+      initDragElement()
+      initResizeElement()
+    }
+
+    function initDragElement() {
+      var pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0
+      var popups = document.getElementsByClassName('popup')
+      var elmnt = null
+      var currentZIndex = 100 //TODO reset z index when a threshold is passed
+
+      for (var i = 0; i < popups.length; i++) {
+        var popup = popups[i]
+        var header = getHeader(popup)
+
+        popup.onmousedown = function () {
+          this.style.zIndex = '' + ++currentZIndex
+        }
+
+        if (header) {
+          header.parentPopup = popup
+          header.onmousedown = dragMouseDown
+        }
+      }
+
+      function dragMouseDown(e) {
+        elmnt = this.parentPopup
+        elmnt.style.zIndex = '' + ++currentZIndex
+
+        e = e || window.event
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX
+        pos4 = e.clientY
+        document.onmouseup = closeDragElement
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag
+      }
+
+      function elementDrag(e) {
+        if (!elmnt) {
+          return
+        }
+
+        e = e || window.event
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX
+        pos2 = pos4 - e.clientY
+        pos3 = e.clientX
+        pos4 = e.clientY
+        // set the element's new position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + 'px'
+        elmnt.style.left = elmnt.offsetLeft - pos1 + 'px'
+      }
+
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null
+        document.onmousemove = null
+      }
+
+      function getHeader(element) {
+        var headerItems = element.getElementsByClassName('popup-header')
+
+        if (headerItems.length === 1) {
+          return headerItems[0]
+        }
+
+        return null
+      }
+    }
+
+    function initResizeElement() {
+      var popups = document.getElementsByClassName('popup')
+      var element = null
+      var startX, startY, startWidth, startHeight
+
+      for (var i = 0; i < popups.length; i++) {
+        var p = popups[i]
+
+        var right = document.createElement('div')
+        right.className = 'resizer-right'
+        p.appendChild(right)
+        right.addEventListener('mousedown', initDrag, false)
+        right.parentPopup = p
+
+        var bottom = document.createElement('div')
+        bottom.className = 'resizer-bottom'
+        p.appendChild(bottom)
+        bottom.addEventListener('mousedown', initDrag, false)
+        bottom.parentPopup = p
+
+        var both = document.createElement('div')
+        both.className = 'resizer-both'
+        p.appendChild(both)
+        both.addEventListener('mousedown', initDrag, false)
+        both.parentPopup = p
+      }
+
+      function initDrag(e) {
+        element = this.parentPopup
+
+        startX = e.clientX
+        startY = e.clientY
+        startWidth = parseInt(document.defaultView.getComputedStyle(element).width, 10)
+        startHeight = parseInt(document.defaultView.getComputedStyle(element).height, 10)
+        document.documentElement.addEventListener('mousemove', doDrag, false)
+        document.documentElement.addEventListener('mouseup', stopDrag, false)
+      }
+
+      function doDrag(e) {
+        element.style.width = startWidth + e.clientX - startX + 'px'
+        element.style.height = startHeight + e.clientY - startY + 'px'
+      }
+
+      function stopDrag() {
+        document.documentElement.removeEventListener('mousemove', doDrag, false)
+        document.documentElement.removeEventListener('mouseup', stopDrag, false)
+      }
+      a
+    }
+
+    const urlParams = new URLSearchParams(window.location.search)
+    const bg = urlParams.get('bg')
+    const primaryColor = urlParams.get('primaryColor') || '#fd7e14'
+
+    document.body.style.backgroundImage = `url('${bg}')`
+    document.getElementById('checkoutBtn').style.backgroundColor = primaryColor
+  </script>
+
+  <script type="text/javascript">
+    async function payWithSlope() {
+      const urlParams = new URLSearchParams(window.location.search)
+      const primaryColor = urlParams.get('primaryColor') || '#fd7e14'
+      const total = Number.parseInt(urlParams.get('total'), 10)
+
+      const generateRandomTaxId = () => Math.floor(100000000 + Math.random() * 900000000)
+      const taxId = generateRandomTaxId()
+
+      const customerForm = {
+        businessName: 'Slope Demo Customer',
+        email: `demo+skip-pre_qualify+tax${taxId}@slopepay.com`,
+        phone: '+16175551212',
+        line1: '123 California St',
+        city: 'San Francisco',
+        state: 'CA',
+        postalCode: '94105',
+        country: 'US',
+        currency: 'usd',
+        qualified: true,
+        product: 'Soda',
+      }
+
+      const products = [
+        {
+          quantity: 1,
+          name: 'Slope Socks',
+          price: total,
+          imageSrc: '/images/products/socks.jpg',
+          sku: 'slope-socks-sku-1',
+        },
+      ]
+
+      const customerResp = await fetch('/api/create-customer', {
+        method: 'POST',
+        body: JSON.stringify(customerForm),
+      })
+
+      customerJson = await customerResp.json()
+
+      // perform optional backend calls to generate checkout code
+      const orderRes = await fetch('/api/create-order', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...customerForm,
+          primaryColor,
+          customerId: customerJson.customer.id,
+          total,
+          items: products.map((p) => ({
+            sku: p.sku,
+            name: p.name,
+            description: p.name,
+            unitPrice: p.price,
+            price: p.price * p.quantity,
+            type: 'lineItem',
+            quantity: p.quantity,
+          })),
+        }),
+      })
+
+      const { secret, order } = await orderRes.json()
+
+      // pass the checkoutCode from Slope backend API here:
+      window.initializeSlope({
+        flow: 'checkout',
+        intentSecret: secret,
+        onSuccess: async () => {
+          router.push(successPath)
+        },
+        onFailure: (err) => {
+          console.error(err)
+        },
+        onClose: () => {
+          setLoading(false)
+        },
+        onOrderOpen: (payload) => {
+          console.log('Slope order open', payload)
+        },
+        onEvent: console.log,
+      })
+    }
+  </script>
+
+  <script src="https://checkout.sandbox.slopepay.com/slope.min.js"></script>
+</html>
