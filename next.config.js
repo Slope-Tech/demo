@@ -10,11 +10,11 @@ const nextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'demo.slopepay.com',
+            value: 'https://demo.slopepay.com',
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'slopepay.retool.com',
+            value: 'https://slopepay.retool.com',
           },
         ],
       },
