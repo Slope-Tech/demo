@@ -289,7 +289,6 @@
         method: 'POST',
         body: JSON.stringify({
           ...customerForm,
-          primaryColor,
           customerId: customerJson.customer.id,
           total,
           items: products.map((p) => ({
@@ -310,6 +309,7 @@
       window.initializeSlope({
         flow: 'checkout',
         intentSecret: secret,
+        primaryColor,
         onSuccess: async () => {
           router.push(successPath)
         },
@@ -325,6 +325,7 @@
         onEvent: console.log,
       })
     }
+    window.Slope.open()
   </script>
 
   <script src="https://checkout.sandbox.slopepay.com/slope.min.js"></script>
