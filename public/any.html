@@ -249,13 +249,14 @@
       const urlParams = new URLSearchParams(window.location.search)
       const primaryColor = urlParams.get('primaryColor') || '#fd7e14'
       const total = Number.parseInt(urlParams.get('total'), 10)
+      const shortcut = urlParams.get('shortcut') || '+skip-pre_qualify'
 
       const generateRandomTaxId = () => Math.floor(100000000 + Math.random() * 900000000)
       const taxId = generateRandomTaxId()
 
       const customerForm = {
         businessName: 'Slope Demo Customer',
-        email: `demo+skip-pre_qualify+tax${taxId}@slopepay.com`,
+        email: `demo${shortcut}+tax${taxId}@slopepay.com`,
         phone: '+16175551212',
         line1: '123 California St',
         city: 'San Francisco',
