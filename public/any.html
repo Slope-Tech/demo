@@ -249,7 +249,7 @@
       const urlParams = new URLSearchParams(window.location.search)
       const primaryColor = urlParams.get('primaryColor') || '#fd7e14'
       const total = Number.parseInt(urlParams.get('total'), 10)
-      const shortcut = urlParams.get('shortcut') || '+skip-pre_qualify'
+      const shortcut = urlParams.get('shortcut')
 
       const generateRandomTaxId = () => Math.floor(100000000 + Math.random() * 900000000)
       const taxId = generateRandomTaxId()
