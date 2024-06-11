@@ -180,10 +180,10 @@ const Checkout: React.FC<{
 
   return (
     <>
-      <Alert color="blue" title="Try the new V4 API expereince (BETA)" mb="md">
+      <Alert color="blue" title="Try the new V4 API experience (BETA)" mb="md">
         <Group position="apart" noWrap>
           <Text>
-            We are rolling our a new Slope V4 API expereince that allows a single customer account
+            We are rolling our a new Slope V4 API experience that allows a single customer account
             to be used across multiple merchants. To learn more about the API changes visit our{' '}
             <Anchor
               color="blue"
