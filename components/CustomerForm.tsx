@@ -36,7 +36,7 @@ class CustomerForm extends React.Component<{
   render() {
     return (
       <>
-        {this.renderFormField('email', 'Email')}
+        {/* {this.renderFormField('email', 'Email')} */}
         <SimpleGrid cols={2}>
           {this.renderFormField('businessName', 'Business Name')}
           {this.renderFormField('phone', 'Phone')}
