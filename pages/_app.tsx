@@ -55,6 +55,14 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       <Head>
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
         <title>Slope Checkout Demo</title>
+        {(process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') && (
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script
+            data-project-id="RnurvVVGxCFhOJSvxNzv9YOUaAkDJyFrEqWiXg1b"
+            data-is-production-environment="false"
+            src="https://snippet.meticulous.ai/v1/meticulous.js"
+          />
+        )}
         <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js?v=2`} />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
