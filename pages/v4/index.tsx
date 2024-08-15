@@ -15,11 +15,11 @@ import {
 } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart, IconUserPlus } from '@tabler/icons'
-import OrderSummary from '../components/OrderSummary'
-import ErrorAlert from '../components/ErrorAlert'
-import { getProducts, getTotals } from '../utils/products'
-import { ProductFlow, customerTypeToShortcutTypes, parseTaxIdFromEmail } from '../utils/email'
-import CustomerForm from '../components/CustomerForm'
+import CustomerForm from '../../components/CustomerForm'
+import ErrorAlert from '../../components/ErrorAlert'
+import OrderSummary from '../../components/OrderSummary'
+import { ProductFlow, customerTypeToShortcutTypes, parseTaxIdFromEmail } from '../../utils/email'
+import { getProducts, getTotals } from '../../utils/products'
 
 declare global {
   interface Window {
