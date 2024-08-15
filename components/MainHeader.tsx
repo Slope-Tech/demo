@@ -187,7 +187,7 @@ const MainHeader: React.FC<{
           { label: 'V4', value: '/v4' },
         ]}
         size="sm"
-        value={router.pathname === '/v4' ? '/v4' : '/'}
+        value={router.pathname.startsWith('/v4') ? '/v4' : '/'}
         onChange={(value) => {
           if (value !== router.pathname) {
             router.push(value)
