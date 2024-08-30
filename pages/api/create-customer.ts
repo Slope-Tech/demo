@@ -28,7 +28,7 @@ export default async function handler(
       kyb: {
         taxId: generateRandomTaxId(),
       },
-      address: {
+      address: line1 && {
         line1,
         city,
         state,
