@@ -13,7 +13,7 @@ declare global {
 const Payment = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [userEmailSuffix, setUserEmailSuffix] = useState('');
+  const [userEmailSuffix, setUserEmailSuffix] = useState('+skip-pre_qualify');
   const handleClickSlope = async () => {
     const isLegacySDK = true
     const total = 5129_59
