@@ -31,7 +31,7 @@ export default async function handler(
       additionalData: {
         testing: 1
       },
-      billingAddress: {
+      billingAddress: line1 && {
         line1,
         city,
         state,

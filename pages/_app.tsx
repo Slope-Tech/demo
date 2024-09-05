@@ -1,29 +1,8 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@mantine/core'
-import { useState } from 'react'
-import MainFooter from '../components/MainFooter'
-import MainHeader from '../components/MainHeader'
-import { CustomerType, ProductFlow, generateDemoEmail } from '../utils/email'
+import { Box, MantineProvider, MantineThemeOverride } from '@mantine/core'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
-  const [customerForm, setCustomerForm] = useState({
-    businessName: 'Slope Demo Customer',
-    customerType: CustomerType.NEW,
-    email: generateDemoEmail({ customerType: CustomerType.NEW }),
-    phone: '+16175551212',
-    line1: '123 California St',
-    city: 'San Francisco',
-    state: 'CA',
-    postalCode: '94105',
-    country: 'US',
-    currency: 'usd',
-    qualified: true,
-    product: 'Soda',
-  })
-
-  const [productFlow, setProductFlow] = useState<ProductFlow>(ProductFlow.BNPL_AND_PAY_NOW)
-
   const providerTheme: MantineThemeOverride = {
     colors: {
       fog: [
@@ -58,27 +37,11 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
         <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js?v=2`} />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
-        <AppShell
-          padding="xl"
-          header={
-            <MainHeader
-              customerForm={customerForm}
-              setCustomerForm={setCustomerForm}
-              productFlow={productFlow}
-              setProductFlow={setProductFlow}
-            />
-          }
-          footer={<MainFooter />}
-        >
-          <Container pb={20}>
+          <Box m={0} p={0} w='100vw' h='100vh' bg='gray.4'>
             <Component
-              customerForm={customerForm}
-              setCustomerForm={setCustomerForm}
-              productFlow={productFlow}
               {...pageProps}
             />
-          </Container>
-        </AppShell>
+          </Box>
       </MantineProvider>
     </div>
   )
