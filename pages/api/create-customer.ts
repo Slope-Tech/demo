@@ -35,6 +35,7 @@ export default async function handler(
         postalCode,
         country,
       },
+      annualRevenueAmount: 1_500_000_00,
     }),
   })
 

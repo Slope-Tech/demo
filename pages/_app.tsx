@@ -1,6 +1,8 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Box, MantineProvider, MantineThemeOverride } from '@mantine/core'
+import { useState } from 'react'
+import { CustomerType, generateDemoEmail } from '../utils/email'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const providerTheme: MantineThemeOverride = {
@@ -28,6 +30,20 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       },
     }),
   }
+  const [customerForm, setCustomerForm] = useState({
+    businessName: 'Slope Demo Customer',
+    customerType: CustomerType.NEW,
+    email: generateDemoEmail({ customerType: CustomerType.NEW }),
+    phone: '+16175551212',
+    line1: '123 California St',
+    city: 'San Francisco',
+    state: 'CA',
+    postalCode: '94105',
+    country: 'US',
+    currency: 'usd',
+    qualified: true,
+    product: 'Soda',
+  })
 
   return (
     <div>
@@ -40,6 +56,8 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
           <Box m={0} p={0} w='100vw' h='100vh' bg='gray.4'>
             <Component
               {...pageProps}
+              customerForm={customerForm}
+              setCustomerForm={setCustomerForm}
             />
           </Box>
       </MantineProvider>

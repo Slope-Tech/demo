@@ -12,13 +12,21 @@ const Orders = () => {
   const handleClick = () => {
     router.push('/order_details')
   }
+  const handleClickPayments = () => {
+    router.push('/manage_pay_later')
+  }
+  const handleClickPayLaterSignup = () => {
+    router.push('/pay_later_signup')
+  }
   return (
     <Center w='100%' h='100%'>
       <Box pos='relative' w={1400} h={800} sx={{ flexShrink: 0 }}>
         <Image pos='absolute' width='100%' height='100%' src='/images/alibaba_orders.png' alt='Alibaba Orders' />
         <Box pos='relative' w='100%' h='100%'>
           <Button pos='absolute' top={218} right={53} w={240} h={48} color='orange.7' bg='#FF6600' radius='xl' fz='lg' onClick={handleClick}>Make Payment</Button>
-        </Box>
+          <Button pos='absolute' left={0} top={358} w={60} h={54} sx={{ opacity: 0, ':hover': { opacity: 0.2 } }} onClick={handleClickPayments} />
+          <Button pos='absolute' left={0} top={523} w={60} h={67} sx={{ opacity: 0, ':hover': { opacity: 0.2 } }} onClick={handleClickPayLaterSignup} />
+          </Box>
       </Box>
     </Center>
   )
