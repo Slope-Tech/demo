@@ -74,7 +74,7 @@ export default async function handler(
   })
 
   // Pre-fill control persons
-  fetch('https://api.sandbox.slopepay.com/internal/person/create', {
+  await fetch('https://api.sandbox.slopepay.com/internal/person/create', {
     headers: {
       authorization: `bearer ${secret}`,
       'content-type': 'application/json',
