@@ -43,6 +43,12 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     currency: 'usd',
     qualified: true,
     product: 'Soda',
+    kyb: {
+      entityType: 'LLC'
+    },
+    kybQuestionnaire: {
+      transactionVolumeEstimate: 15000_00,
+    }
   })
 
   return (
