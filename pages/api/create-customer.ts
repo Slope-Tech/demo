@@ -27,7 +27,7 @@ export default async function handler(
     kybQuestionnaire,
   } = JSON.parse(req.body)
 
-  let customerRes = await fetch(`${getApiHost()}/v3/customers`, {
+  const customerRes = await fetch(`${getApiHost()}/v3/customers`, {
     method: 'post',
     headers: getAuthHeaders(),
     body: JSON.stringify({
