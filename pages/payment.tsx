@@ -1,6 +1,7 @@
 import { Box, Button, Center, Image } from "@mantine/core"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { CustomerType } from "../utils/email"
 
 declare global {
   interface Window {
@@ -19,7 +20,7 @@ const Payment = () => {
     const guestMode = false
     const customerForm = {
       businessName: 'Slope Demo Customer',
-      email: `hannah+demo-alibaba+skip-pre_qualify@slopepay.com`,
+      email: `hannah+demo-alibaba${CustomerType.SKIP_PRE_QUALIFY}@slopepay.com`,
       phone: '+16175551212',
       line1: '123 California St',
       city: 'San Francisco',

@@ -48,7 +48,19 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     },
     kybQuestionnaire: {
       transactionVolumeEstimate: 15000_00,
-    }
+    },
+    persons: [
+      {
+        firstName: 'Hannah',
+        lastName: 'Scholes',
+        email: 'hannah+demo@slopepay.com',
+        phone: '+16283778151',
+        title: 'CFO',
+        isApplicant: true,
+        isOwner: false,
+        isController: false,
+      }
+    ]
   })
 
   return (

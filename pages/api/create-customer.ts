@@ -25,6 +25,7 @@ export default async function handler(
     country,
     kyb,
     kybQuestionnaire,
+    persons,
   } = JSON.parse(req.body)
 
   const customerRes = await fetch(`${getApiHost()}/v3/customers`, {
@@ -61,40 +62,33 @@ export default async function handler(
   })
   const { secret } = await customerIntentRes.json()
 
-  // set Estimated Spend
-  await fetch(`${getApiHost()}/internal/customers/${customer.id}`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${secret}`,
-    },
-    body: JSON.stringify({
-      kybQuestionnaire,
-    }),
-  })
+  if (kybQuestionnaire) {
+    // set Estimated Spend
+    await fetch(`${getApiHost()}/internal/customers/${customer.id}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${secret}`,
+      },
+      body: JSON.stringify({
+        kybQuestionnaire,
+      }),
+    })
+  }
 
   // Pre-fill control persons
-  await fetch('https://api.sandbox.slopepay.com/internal/person/create', {
-    headers: {
-      authorization: `bearer ${secret}`,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      persons: [
-        {
-          firstName: 'Hannah',
-          lastName: 'Scholes',
-          email: 'hannah+demo@slopepay.com',
-          phone: '+16283778151',
-          title: 'CFO',
-          isApplicant: true,
-          isOwner: false,
-          isController: false,
-        }
-      ],
-    }),
-    method: 'POST',
-  })
+  if (persons) {
+    await fetch('https://api.sandbox.slopepay.com/internal/person/create', {
+      headers: {
+        authorization: `bearer ${secret}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        persons,
+      }),
+      method: 'POST',
+    })
+  }
 
   res.status(200).json({
     customer,
