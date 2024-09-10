@@ -41,6 +41,9 @@ const PayLaterSignup = ({ customerForm }: { customerForm: any }) => {
   const handleClickOrders = () => {
     router.push('/')
   }
+  const handleClickPayments = () => {
+    router.push('/manage_pay_later')
+  }
 
   return (
     <Center w='100%' h='100%'>
@@ -49,6 +52,7 @@ const PayLaterSignup = ({ customerForm }: { customerForm: any }) => {
         <Box pos='relative' w='100%' h='100%'>
           <Button pos='absolute' left={148} top={393} w={124} h={40} color='orange.7' bg='#FF7722' radius='xl' fz='md' loading={loading} onClick={handleClick}>Apply now</Button>
           <Button pos='absolute' left={0} top={283} w={60} h={54} sx={{ opacity: 0, ':hover': { opacity: 0.2 } }} onClick={handleClickOrders} />
+          <Button pos='absolute' left={0} top={337} w={60} h={54} sx={{ opacity: 0, ':hover': { opacity: 0.2 } }} onClick={handleClickPayments} />
         </Box>
       </Box>
     </Center>
