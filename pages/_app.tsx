@@ -62,6 +62,8 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       }
     ]
   })
+  const [order, setOrder] = useState(null);
+  const [secret, setSecret] = useState(null);
 
   return (
     <div>
@@ -76,6 +78,10 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
               {...pageProps}
               customerForm={customerForm}
               setCustomerForm={setCustomerForm}
+              order={order}
+              setOrder={setOrder}
+              secret={secret}
+              setSecret={setSecret}
             />
           </Box>
       </MantineProvider>

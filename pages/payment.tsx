@@ -1,7 +1,6 @@
-import { Box, Button, Center, Image, Loader } from "@mantine/core"
+import { Box, Button, Center, Image } from "@mantine/core"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { CustomerType } from "../utils/email"
+import { useState } from "react"
 
 declare global {
   interface Window {
@@ -11,69 +10,8 @@ declare global {
   }
 }
 
-const Payment = () => {
+const Payment = ({ order, secret }: { order: any, secret: any }) => {
   const router = useRouter()
-  const [initializing, setInitializing] = useState(true)
-  const [order, setOrder] = useState<any>(null)
-  const [secret, setSecret] = useState<any>(null)
-  const createOrder = async () => {
-    const isLegacySDK = true
-    const total = 5129_59
-    const guestMode = false
-    const customerForm = {
-      businessName: 'Slope Demo Customer',
-      email: `hannah+demo-alibaba${CustomerType.SKIP_PRE_QUALIFY}@slopepay.com`,
-      phone: '+16175551212',
-      line1: '123 California St',
-      city: 'San Francisco',
-      state: 'CA',
-      postalCode: '94105',
-      country: 'US',
-      currency: 'usd',
-      qualified: true,
-      product: 'Soda',
-    }
-    if (!isLegacySDK) {
-      window.SlopeJs.open()
-    }
-
-    let customerJson
-    if (!guestMode) {
-      const customerResp = await fetch('/api/create-customer', {
-        method: 'POST',
-        body: JSON.stringify(customerForm),
-      })
-
-      customerJson = await customerResp.json()
-
-      if (!customerJson.customer) {
-        window.alert(`Error: ${JSON.stringify(customerJson)}`)
-        return {}
-      }
-    }
-
-    const orderRes = await fetch('/api/create-order', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...customerForm,
-        customerId: guestMode ? undefined : customerJson.customer.id,
-        total,
-      }),
-    })
-
-    return orderRes.json()
-  }
-  const initPage = async () => {
-    setInitializing(true)
-    const created = await createOrder()
-    setOrder(created.order)
-    setSecret(created.secret)
-    setInitializing(false)
-  }
-
-  useEffect(() => {
-    initPage()
-  }, [])
 
   const [loading, setLoading] = useState(false)
   const handleClickSlope = async () => {
@@ -111,15 +49,6 @@ const Payment = () => {
     setLoading(false)
   }
 
-  if (initializing) {
-    return <Center w='100%' h='100%'>
-      <Box pos='relative' w={1400} h={800} sx={{ flexShrink: 0}} bg='white'>
-        <Center w='100%' h='100%'>
-          <Loader />
-        </Center>
-      </Box>
-    </Center>
-  }
 
   return (
     <Center w='100%' h='100%'>
