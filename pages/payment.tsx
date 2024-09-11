@@ -1,6 +1,6 @@
-import { Box, Button, Center, Image } from "@mantine/core"
+import { Box, Button, Center, Image, Loader } from "@mantine/core"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CustomerType } from "../utils/email"
 
 declare global {
@@ -13,8 +13,10 @@ declare global {
 
 const Payment = () => {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const handleClickSlope = async () => {
+  const [initializing, setInitializing] = useState(true)
+  const [order, setOrder] = useState<any>(null)
+  const [secret, setSecret] = useState<any>(null)
+  const createOrder = async () => {
     const isLegacySDK = true
     const total = 5129_59
     const guestMode = false
@@ -31,7 +33,6 @@ const Payment = () => {
       qualified: true,
       product: 'Soda',
     }
-    setLoading(true)
     if (!isLegacySDK) {
       window.SlopeJs.open()
     }
@@ -46,9 +47,8 @@ const Payment = () => {
       customerJson = await customerResp.json()
 
       if (!customerJson.customer) {
-        setLoading(false)
         window.alert(`Error: ${JSON.stringify(customerJson)}`)
-        return
+        return {}
       }
     }
 
@@ -61,7 +61,26 @@ const Payment = () => {
       }),
     })
 
-    const { secret, order } = await orderRes.json()
+    return orderRes.json()
+  }
+  const initPage = async () => {
+    setInitializing(true)
+    const created = await createOrder()
+    setOrder(created.order)
+    setSecret(created.secret)
+    setInitializing(false)
+  }
+
+  useEffect(() => {
+    initPage()
+  }, [])
+
+  const [loading, setLoading] = useState(false)
+  const handleClickSlope = async () => {
+    setLoading(true)
+    if (!order || !secret) {
+      return
+    }
 
     const offerType = 'bnpl'
 
@@ -89,6 +108,17 @@ const Payment = () => {
 
     window.initializeSlope(slopeParams)
     window.Slope.open()
+    setLoading(false)
+  }
+
+  if (initializing) {
+    return <Center w='100%' h='100%'>
+      <Box pos='relative' w={1400} h={800} sx={{ flexShrink: 0}} bg='white'>
+        <Center w='100%' h='100%'>
+          <Loader />
+        </Center>
+      </Box>
+    </Center>
   }
 
   return (
