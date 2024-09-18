@@ -14,7 +14,7 @@ import {
   Transition,
   Select,
 } from '@mantine/core'
-import { IconChevronDown, IconWallet } from '@tabler/icons'
+import { IconCashBanknote, IconChevronDown, IconCreditCard, IconMoneybag, IconWallet } from '@tabler/icons'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email'
@@ -82,10 +82,15 @@ const MainHeader: React.FC<{
   const { classes } = useStyles()
   const router = useRouter()
 
-  const item = {
+  const menuItems = [{
+    icon: IconWallet,
     link: '/payment_methods',
     label: 'Payment Methods',
-  }
+  }, {
+    icon: IconCashBanknote,
+    link: '/seller_financing',
+    label: 'Seller Financing',
+  }]
 
   let availableCustomerTypes = [{ label: 'New', value: CustomerType.NEW, group: '' }]
   // Shortcuts for non-production environment
@@ -114,8 +119,8 @@ const MainHeader: React.FC<{
     ]
   }
 
-  const mItem = (
-    <Menu.Item>
+  const mItems = menuItems.map((item) => (
+    <Menu.Item key={item.link}>
       <Anchor
         href={item.link}
         onClick={(e) => {
@@ -124,12 +129,12 @@ const MainHeader: React.FC<{
         }}
       >
         <Group>
-          <IconWallet />
+          {React.createElement(item.icon)}
           {item.label}
         </Group>
       </Anchor>
     </Menu.Item>
-  )
+  ))
 
   const items = (
     <Menu trigger="hover" exitTransitionDuration={0}>
@@ -144,7 +149,7 @@ const MainHeader: React.FC<{
           </Group>
         </UnstyledButton>
       </Menu.Target>
-      <Menu.Dropdown>{mItem}</Menu.Dropdown>
+      <Menu.Dropdown>{mItems}</Menu.Dropdown>
     </Menu>
   )
 
@@ -231,7 +236,7 @@ const MainHeader: React.FC<{
               <Paper className={classes.dropdown} style={styles}>
                 <Group spacing="sm">
                   {controls}
-                  <Menu>{mItem}</Menu>
+                  <Menu>{mItems}</Menu>
                 </Group>
               </Paper>
             )}
