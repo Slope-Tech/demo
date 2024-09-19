@@ -300,35 +300,13 @@ const Checkout: React.FC<{
           </Text>
           <Space h="md" />
 
-          <Card withBorder shadow="sm" radius="md" mb="md">
-            <LoadingOverlay visible={loadingEstimatedPayout} />
-            <Table>
-              <thead>
-                <td>Term</td>
-                <td>Payout amount</td>
-                <td>Estimated fee</td>
-                <td>Discount Rate</td>
-              </thead>
-              <tbody>
-                {estimatedDiscountedPayout?.map((dp) => (
-                  <tr key={dp.termKey}>
-                    <td>{dp.termKey.replace('_', ' ')}</td>
-                    <td>{formatCurrency(dp.principal)}</td>
-                    <td>{formatCurrency(dp.financingFee)}</td>
-                    <td>{dp.discountFeePct.toFixed(2)}%</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Card>
-
           <Select
             label="Financing term"
             placeholder="Select your term"
             value={financingTerm}
             onChange={setFinancingTerm}
             clearable
-            mb="md"
+            mb='md'
             data={
               estimatedDiscountedPayout?.map((dp) => ({
                 label: toTermKeyLabel(dp.termKey),
@@ -336,6 +314,38 @@ const Checkout: React.FC<{
               })) || []
             }
           />
+
+          {selectedDiscountedPayout && (
+            <Card withBorder shadow="sm" radius="md" mb="md">
+              <LoadingOverlay visible={loadingEstimatedPayout} />
+              <Table>
+                <thead>
+                  <td>Term</td>
+                  <td>Payout amount</td>
+                  <td>Estimated fee</td>
+                  <td>Discount Rate</td>
+                </thead>
+                <tbody>
+                  {selectedDiscountedPayout && (
+                    <tr key={selectedDiscountedPayout.termKey}>
+                      <td>{toTermKeyLabel(selectedDiscountedPayout.termKey)}</td>
+                      <td>{formatCurrency(selectedDiscountedPayout.principal)}</td>
+                      <td>{formatCurrency(selectedDiscountedPayout.financingFee)}</td>
+                      <td>{selectedDiscountedPayout.discountFeePct.toFixed(2)}%</td>
+                    </tr>
+                  )}
+                  {/* {estimatedDiscountedPayout?.map((dp) => (
+                  <tr key={dp.termKey}>
+                    <td>{dp.termKey.replace('_', ' ')}</td>
+                    <td>{formatCurrency(dp.principal)}</td>
+                    <td>{formatCurrency(dp.financingFee)}</td>
+                    <td>{dp.discountFeePct.toFixed(2)}%</td>
+                  </tr>
+                ))} */}
+                </tbody>
+              </Table>
+            </Card>
+          )}
 
           {slopeButton}
         </Grid.Col>
