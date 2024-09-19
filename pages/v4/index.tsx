@@ -12,6 +12,7 @@ import {
   Alert,
   Anchor,
   Code,
+  Box,
 } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart, IconUserPlus } from '@tabler/icons'
@@ -31,7 +32,8 @@ const Checkout: React.FC<{
   customerForm: Record<string, any>
   setCustomerForm: any
   productFlow: ProductFlow
-}> = ({ customerForm, setCustomerForm, productFlow }) => {
+  accessToken?: string
+}> = ({ customerForm, setCustomerForm, productFlow, accessToken = undefined }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [loadingUser, setLoadingUser] = useState(false)
@@ -137,6 +139,7 @@ const Checkout: React.FC<{
     const slopeParams = {
       ...primaryColorObject,
       code: order.checkoutCode,
+      accessToken,
       offerType,
       onSuccess: async () => {
         router.push(successPath)
@@ -180,6 +183,31 @@ const Checkout: React.FC<{
           Password: <Code>{createCustomerResponse.password}</Code>
         </Text>
       </Alert>
+    )
+  }
+
+  let customerBlock
+
+  if (!accessToken) {
+    customerBlock = (
+      <Box>
+        <Title order={3} mb="sm">
+          Customer
+        </Title>
+        <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
+
+        <Button
+          leftIcon={<IconUserPlus />}
+          fullWidth
+          color="blue"
+          loading={loadingUser}
+          onClick={onClickCreateCustomer}
+        >
+          Create Slope user account
+        </Button>
+
+        {createdCustomerBody}
+      </Box>
     )
   }
 
@@ -270,23 +298,7 @@ const Checkout: React.FC<{
         </Grid.Col>
         <Grid.Col md={12} lg={8}>
           <ErrorAlert error={error} setError={setError} />
-          <Title order={3} mb="sm">
-            Customer
-          </Title>
-          <CustomerForm customerForm={customerForm} setCustomerForm={setCustomerForm} />
-
-          <Button
-            leftIcon={<IconUserPlus />}
-            fullWidth
-            color="blue"
-            loading={loadingUser}
-            onClick={onClickCreateCustomer}
-          >
-            Create Slope user account
-          </Button>
-
-          {createdCustomerBody}
-
+          {customerBlock}
           <Title order={3} mb="sm" mt="lg">
             Payment
           </Title>
