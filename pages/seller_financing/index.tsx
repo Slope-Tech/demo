@@ -143,7 +143,10 @@ const Checkout: React.FC<{
           })),
           {
             type: 'discount',
+            name: 'Payout discount',
+            unitPrice: -selectedDiscountedPayout.financingFee,
             price: -selectedDiscountedPayout.financingFee,
+            quantity: 1,
           },
         ],
       }),
