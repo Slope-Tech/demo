@@ -82,10 +82,13 @@ const MainHeader: React.FC<{
   const { classes } = useStyles()
   const router = useRouter()
 
-  const item = {
-    link: '/payment_methods',
-    label: 'Payment Methods',
-  }
+  const menuItems = [
+    {
+      icon: IconWallet,
+      link: '/payment_methods',
+      label: 'Payment Methods',
+    },
+  ]
 
   let availableCustomerTypes = [{ label: 'New', value: CustomerType.NEW, group: '' }]
   // Shortcuts for non-production environment
@@ -114,22 +117,25 @@ const MainHeader: React.FC<{
     ]
   }
 
-  const mItem = (
-    <Menu.Item>
-      <Anchor
-        href={item.link}
-        onClick={(e) => {
-          e.preventDefault()
-          router.push(item.link)
-        }}
-      >
-        <Group>
-          <IconWallet />
-          {item.label}
-        </Group>
-      </Anchor>
-    </Menu.Item>
-  )
+  const mItems = menuItems.map((item) => {
+    const Icon = item.icon
+    return (
+      <Menu.Item key={item.link}>
+        <Anchor
+          href={item.link}
+          onClick={(e) => {
+            e.preventDefault()
+            router.push(item.link)
+          }}
+        >
+          <Group>
+            <Icon />
+            {item.label}
+          </Group>
+        </Anchor>
+      </Menu.Item>
+    )
+  })
 
   const items = (
     <Menu trigger="hover" exitTransitionDuration={0}>
@@ -144,7 +150,7 @@ const MainHeader: React.FC<{
           </Group>
         </UnstyledButton>
       </Menu.Target>
-      <Menu.Dropdown>{mItem}</Menu.Dropdown>
+      <Menu.Dropdown>{mItems}</Menu.Dropdown>
     </Menu>
   )
 
@@ -181,7 +187,7 @@ const MainHeader: React.FC<{
           })
         }}
       />
-       <SegmentedControl
+      <SegmentedControl
         data={[
           { label: 'V3', value: '/' },
           { label: 'V4', value: '/v4' },
@@ -231,7 +237,7 @@ const MainHeader: React.FC<{
               <Paper className={classes.dropdown} style={styles}>
                 <Group spacing="sm">
                   {controls}
-                  <Menu>{mItem}</Menu>
+                  <Menu>{mItems}</Menu>
                 </Group>
               </Paper>
             )}
