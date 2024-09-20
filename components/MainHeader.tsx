@@ -88,11 +88,6 @@ const MainHeader: React.FC<{
       link: '/payment_methods',
       label: 'Payment Methods',
     },
-    {
-      icon: IconCashBanknote,
-      link: '/seller_financing',
-      label: 'Seller Financing',
-    },
   ]
 
   let availableCustomerTypes = [{ label: 'New', value: CustomerType.NEW, group: '' }]
