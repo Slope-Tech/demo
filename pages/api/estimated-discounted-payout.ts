@@ -18,6 +18,8 @@ export default async function handler(
   const secretPayload = JSON.parse(Buffer.from(req.headers.authorization.split('.')[1], 'base64').toString())
   const { customerId, total } = JSON.parse(req.body)
 
+  // This is not a public endpoint
+  // Internal API is subject to change at any time at Slope's sole discretion
   const url = `${getApiHost()}/internal/pricing/estimate-discounted-payouts`
   const requestOptions = {
     method: 'POST',

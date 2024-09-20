@@ -128,6 +128,8 @@ const Checkout: React.FC<{
         customerId: guestMode ? undefined : customer.id,
         total: selectedDiscountedPayout.principal,
         additionalData: {
+          // This is not a public API feature
+          // Internal API is subject to change at any time at Slope's sole discretion
           requestedTerms: selectedDiscountedPayout.termKey,
           selectPayoutAtCheckout: true,
         },
