@@ -117,22 +117,25 @@ const MainHeader: React.FC<{
     ]
   }
 
-  const mItems = menuItems.map((item) => (
-    <Menu.Item key={item.link}>
-      <Anchor
-        href={item.link}
-        onClick={(e) => {
-          e.preventDefault()
-          router.push(item.link)
-        }}
-      >
-        <Group>
-          {React.createElement(item.icon)}
-          {item.label}
-        </Group>
-      </Anchor>
-    </Menu.Item>
-  ))
+  const mItems = menuItems.map((item) => {
+    const Icon = item.icon
+    return (
+      <Menu.Item key={item.link}>
+        <Anchor
+          href={item.link}
+          onClick={(e) => {
+            e.preventDefault()
+            router.push(item.link)
+          }}
+        >
+          <Group>
+            <Icon />
+            {item.label}
+          </Group>
+        </Anchor>
+      </Menu.Item>
+    )
+  })
 
   const items = (
     <Menu trigger="hover" exitTransitionDuration={0}>
