@@ -14,7 +14,7 @@ import {
   Transition,
   Select,
 } from '@mantine/core'
-import { IconCashBanknote, IconChevronDown, IconWallet } from '@tabler/icons'
+import { IconChevronDown, IconWallet } from '@tabler/icons'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email'
