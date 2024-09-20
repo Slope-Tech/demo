@@ -14,7 +14,7 @@ import {
   Transition,
   Select,
 } from '@mantine/core'
-import { IconCashBanknote, IconChevronDown, IconCreditCard, IconMoneybag, IconWallet } from '@tabler/icons'
+import { IconCashBanknote, IconChevronDown, IconWallet } from '@tabler/icons'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CustomerType, generateDemoEmail, ProductFlow } from '../utils/email'
@@ -82,15 +82,18 @@ const MainHeader: React.FC<{
   const { classes } = useStyles()
   const router = useRouter()
 
-  const menuItems = [{
-    icon: IconWallet,
-    link: '/payment_methods',
-    label: 'Payment Methods',
-  }, {
-    icon: IconCashBanknote,
-    link: '/seller_financing',
-    label: 'Seller Financing',
-  }]
+  const menuItems = [
+    {
+      icon: IconWallet,
+      link: '/payment_methods',
+      label: 'Payment Methods',
+    },
+    {
+      icon: IconCashBanknote,
+      link: '/seller_financing',
+      label: 'Seller Financing',
+    },
+  ]
 
   let availableCustomerTypes = [{ label: 'New', value: CustomerType.NEW, group: '' }]
   // Shortcuts for non-production environment
@@ -186,7 +189,7 @@ const MainHeader: React.FC<{
           })
         }}
       />
-       <SegmentedControl
+      <SegmentedControl
         data={[
           { label: 'V3', value: '/' },
           { label: 'V4', value: '/v4' },

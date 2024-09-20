@@ -20,7 +20,7 @@ import { IconShoppingCart } from '@tabler/icons'
 import OrderSummary from '../../components/OrderSummary'
 import ErrorAlert from '../../components/ErrorAlert'
 import { formatCurrency, getProducts, getTotals } from '../../utils/products'
-import { CustomerType, ProductFlow } from '../../utils/email'
+import { CustomerType } from '../../utils/email'
 
 declare global {
   interface Window {
@@ -300,7 +300,7 @@ const Checkout: React.FC<{
             value={financingTerm}
             onChange={setFinancingTerm}
             clearable
-            mb='md'
+            mb="md"
             data={
               estimatedDiscountedPayout?.map((dp) => ({
                 label: toTermKeyLabel(dp.termKey),
