@@ -129,6 +129,7 @@ const Checkout: React.FC<{
         total: selectedDiscountedPayout.principal,
         additionalData: {
           requestedTerms: selectedDiscountedPayout.termKey,
+          selectPayoutAtCheckout: true,
         },
         items: [
           ...products.map((p) => ({
@@ -150,9 +151,6 @@ const Checkout: React.FC<{
 
     const { secret, order } = await orderRes.json()
 
-    const offerType = ProductFlow.BNPL_ONLY
-    const requestedTerms = selectedDiscountedPayout.termKey
-
     const successPath = `/seller_financing/success?orderNumber=${order.number}`
 
     if (customerForm.mode === 'redirect') {
@@ -163,8 +161,6 @@ const Checkout: React.FC<{
         localeSelector,
         secret,
         mode: 'redirect',
-        offerType,
-        requestedTerms,
         cancelUrl: `${baseHost}/`,
         successUrl: `${baseHost}${successPath}`,
       })
@@ -183,8 +179,6 @@ const Checkout: React.FC<{
       localeSelector,
       flow: 'checkout',
       intentSecret: secret,
-      offerType,
-      requestedTerms,
       onSuccess: async () => {
         router.push(successPath)
       },
