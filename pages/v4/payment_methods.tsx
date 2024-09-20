@@ -3,7 +3,7 @@ import { IconBuildingBank, IconCreditCard, IconWallet } from '@tabler/icons'
 import React, { useState } from 'react'
 import ErrorAlert from '../../components/ErrorAlert'
 
-const PaymentMethods: React.FC = () => {
+const PaymentMethods: React.FC<any> = ({ accessToken = undefined}) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -12,6 +12,7 @@ const PaymentMethods: React.FC = () => {
 
     window.SlopeJs.start({
       publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
+      accessToken,
       flow: 'pre_qualify',
       onSuccess: (resp) => {
         console.log('onSuccess slope', resp)
