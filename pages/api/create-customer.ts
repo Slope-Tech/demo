@@ -14,9 +14,11 @@ export default async function handler(
     return
   }
 
-  const { businessName, email, phone, line1, city, state, postalCode, country } =
-    JSON.parse(req.body)
+  const { businessName, email, phone, line1, city, state, postalCode, country } = JSON.parse(
+    req.body
+  )
 
+  const taxId = generateRandomTaxId()
   const customerRes = await fetch(`${getApiHost()}/v3/customers`, {
     method: 'post',
     headers: getAuthHeaders(),
@@ -25,8 +27,9 @@ export default async function handler(
       email,
       phone,
       externalId: (Math.random() + 1).toString(36),
+      plainTaxId: taxId,
       kyb: {
-        taxId: generateRandomTaxId(),
+        taxId,
       },
       address: {
         line1,
