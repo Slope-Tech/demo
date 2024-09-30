@@ -8,7 +8,7 @@ import { CustomerType, ProductFlow, generateDemoEmail } from '../utils/email'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [customerForm, setCustomerForm] = useState({
-    businessName: 'Slope Demo Customer',
+    businessName: 'Demo Customer',
     customerType: CustomerType.NEW,
     email: generateDemoEmail({ customerType: CustomerType.NEW }),
     phone: '+16175551212',
