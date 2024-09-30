@@ -170,11 +170,14 @@ const Checkout: React.FC<{
     <Button
       leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={22} />}
       fullWidth
-      color="orange"
+      // color="teal"
       loading={loading}
       onClick={onPay}
+      sx={{ backgroundColor: '#3c7077' }}
     >
-      {productFlow === ProductFlow.BNPL_ONLY ? 'Pay later with Slope' : 'Pay with Slope'}
+      {productFlow === ProductFlow.BNPL_ONLY
+        ? 'Pay later with Amplify Capital'
+        : 'Pay with Amplify Capital'}
     </Button>
   )
 

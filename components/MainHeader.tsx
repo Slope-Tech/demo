@@ -23,7 +23,7 @@ const HEADER_HEIGHT = 56
 
 const useStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: '#47546C',
+    backgroundColor: '#d3d3d3',
   },
 
   dropdown: {
@@ -143,7 +143,7 @@ const MainHeader: React.FC<{
         <UnstyledButton className={classes.link}>
           <Group spacing={7}>
             <Avatar src="/images/alice.jpg" alt="Name" radius="xl" size={34} />
-            <Text weight={600} size="md" sx={{ lineHeight: 1 }} mr={3}>
+            <Text weight={600} size="md" sx={{ lineHeight: 1 }} mr={3} color="gray">
               Alice D
             </Text>
             <IconChevronDown size={12} stroke={1.5} />
@@ -214,11 +214,15 @@ const MainHeader: React.FC<{
               e.preventDefault()
               router.push('/')
             }}
-            color="white"
+            color="gray"
             size={25}
             fw={700}
           >
-            <img alt="Slope Logo" src="/images/slope_logo.svg" height={32} />
+            <img
+              alt="Slope Logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Logo_TD_SYNNEX.svg"
+              height={26}
+            />
             &nbsp;| Demo
           </Text>
           <Group spacing="sm" className={classes.links}>
