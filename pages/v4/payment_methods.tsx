@@ -3,7 +3,7 @@ import { IconBuildingBank, IconCreditCard, IconWallet } from '@tabler/icons'
 import React, { useState } from 'react'
 import ErrorAlert from '../../components/ErrorAlert'
 
-const PaymentMethods: React.FC<any> = ({ accessToken = undefined}) => {
+const PaymentMethods: React.FC<any> = ({ accessToken = undefined }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -54,15 +54,16 @@ const PaymentMethods: React.FC<any> = ({ accessToken = undefined}) => {
           <Group position="apart">
             <Group>
               <IconBuildingBank size={20} />
-              <Title order={5}>Slope: Buy Now, Pay Later</Title>
+              <Title order={5}>Amplify Capital: Buy Now, Pay Later</Title>
             </Group>
             <Button
               leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={18} />}
               loading={loading}
-              color="orange"
+              // color="orange"
               onClick={onPreQualify}
+              sx={{ backgroundColor: '#3c7077' }}
             >
-              Pre Qualify with Slope
+              Pre Qualify Now
             </Button>
           </Group>
         </Card.Section>

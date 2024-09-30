@@ -47,7 +47,7 @@ const PaymentMethods: React.FC<{ customerForm: Record<string, any> }> = ({ custo
 
   const slopeButtonText = limits
     ? `Qualified for ${formatCurrency(limits.customerBalance)}`
-    : 'Pre Qualify with Slope'
+    : 'Pre Qualify with Amplify Capital'
 
   return (
     <>
@@ -75,13 +75,14 @@ const PaymentMethods: React.FC<{ customerForm: Record<string, any> }> = ({ custo
           <Group position="apart">
             <Group>
               <IconBuildingBank size={20} />
-              <Title order={5}>Slope: Buy Now, Pay Later</Title>
+              <Title order={5}>Amplify Capital: Buy Now, Pay Later</Title>
             </Group>
             <Button
               leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={18} />}
               loading={loading}
-              color="orange"
+              // color="orange"
               onClick={onPreQualify}
+              sx={{ backgroundColor: '#3c7077' }}
             >
               {slopeButtonText}
             </Button>
