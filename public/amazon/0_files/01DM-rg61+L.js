@@ -1,0 +1,1 @@
+(function(b){var c=window.AmazonUIPageJS||window.P,d=c._namespace||c.attributeErrors,a=d?d("F3CollapsedCartAssets",""):c;a.guardFatal?a.guardFatal(b)(a,window):a.execute(function(){b(a,window)})})(function(b,c,d){b.when("A").register("F3CartViewType",function(a){return{isCollapsedCart:function(){return!0}}})});
