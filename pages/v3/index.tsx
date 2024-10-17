@@ -2,23 +2,24 @@ import React, { useState } from 'react'
 import { Button, Grid, Title, Text, Group } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
-import ErrorAlert from '../components/ErrorAlert'
-import OrderSummary from '../components/OrderSummary'
-import { AppData, ProductFlow } from '../types/types'
-import { getProducts, getTotals } from '../utils/products'
-import { CheckoutOptions } from '../components/CheckoutOptions'
+import OrderSummary from '../../components/OrderSummary'
+import ErrorAlert from '../../components/ErrorAlert'
+import { getProducts, getTotals } from '../../utils/products'
+import { ProductFlow } from "../../types/types"
+import { CheckoutOptions } from '../../components/CheckoutOptions'
 
 declare global {
   interface Window {
+    initializeSlope: any
+    Slope: any
     SlopeJs: any
   }
 }
 
 const Checkout: React.FC<{
-  appData: AppData
+  appData: any
   updateAppData: any
 }> = ({ appData, updateAppData }) => {
-  const { customerForm, productFlow, mode, primaryColor, accessToken } = appData
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -27,27 +28,37 @@ const Checkout: React.FC<{
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
 
+  const { customerForm, productFlow } = appData
+  const { localeSelector, guestMode, isLegacySDK } = customerForm
+
   const onPay = async () => {
     setLoading(true)
-    if (mode !== 'redirect') {
+    if (!isLegacySDK && customerForm.mode !== 'redirect') {
       window.SlopeJs.open()
     }
 
-    const orderRes = await fetch('/api/v4-create-order', {
+    let customerJson
+    if (!guestMode) {
+      const customerResp = await fetch('/api/create-customer', {
+        method: 'POST',
+        body: JSON.stringify(customerForm),
+      })
+
+      customerJson = await customerResp.json()
+
+      if (!customerJson.customer) {
+        setLoading(false)
+        setError(customerJson)
+        return
+      }
+    }
+
+    const orderRes = await fetch('/api/create-order', {
       method: 'POST',
       body: JSON.stringify({
+        ...customerForm,
+        customerId: guestMode ? undefined : customerJson.customer.id,
         total,
-        currency: 'usd',
-        contactBusinessName: customerForm.businessName,
-        contactEmail: customerForm.email,
-        contactPhone: customerForm.phone,
-        billingAddress: {
-          line1: customerForm.line1,
-          city: customerForm.city,
-          state: customerForm.state,
-          postalCode: customerForm.postalCode,
-          country: customerForm.country,
-        },
         items: products.map((p) => ({
           sku: p.sku,
           name: p.name,
@@ -60,13 +71,13 @@ const Checkout: React.FC<{
       }),
     })
 
-    const { order } = await orderRes.json()
+    const { secret, order } = await orderRes.json()
 
     let offerType
-    switch (appData.productFlow) {
+    switch (productFlow) {
       case ProductFlow.BNPL_ONLY:
       case ProductFlow.PAY_NOW_ONLY:
-        offerType = appData.productFlow
+        offerType = productFlow
         break
       default:
         break
@@ -74,22 +85,28 @@ const Checkout: React.FC<{
 
     const successPath = `/success?orderNumber=${order.number}`
 
-    if (mode === 'redirect') {
+    if (customerForm.mode === 'redirect') {
       // NOTE: The redirect API is still private and should not be used by developers.
       // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
       const urlParams = new URLSearchParams({
+        localeSelector,
+        secret,
+        mode: 'redirect',
         cancelUrl: `${baseHost}/`,
         successUrl: `${baseHost}${successPath}`,
       })
-      window.location.href = `${order.checkoutUrl}&${urlParams.toString()}`
+      window.location.href = `${
+        process.env.NEXT_PUBLIC_CHECKOUT_HOST
+      }/en/pay?${urlParams.toString()}`
       return
     }
 
     const slopeParams = {
-      primaryColor: (primaryColor as string) || undefined,
-      code: order.checkoutCode,
-      accessToken,
+      primaryColor: appData.primaryColor,
+      localeSelector,
+      flow: 'checkout',
+      intentSecret: secret,
       offerType,
       onSuccess: async () => {
         router.push(successPath)
@@ -106,7 +123,12 @@ const Checkout: React.FC<{
       onEvent: console.log,
     }
 
-    window.SlopeJs.start(slopeParams)
+    if (isLegacySDK) {
+      window.initializeSlope(slopeParams)
+      window.Slope.open()
+    } else {
+      window.SlopeJs.start(slopeParams)
+    }
   }
 
   const slopeButton = (
@@ -126,25 +148,23 @@ const Checkout: React.FC<{
       <Title order={2} mb="xl">
         <Group spacing="xs">
           <IconShoppingCart />
-          <Text span>Checkout</Text>
+          <Text span>Checkout V3 API (DEPRECATED)</Text>
         </Group>
       </Title>
 
       <Grid gutter="xl">
         <Grid.Col md={12} lg={4}>
-          <CheckoutOptions appData={appData} updateAppData={updateAppData} />
+          <CheckoutOptions appData={appData} updateAppData={updateAppData} isV3 />
         </Grid.Col>
         <Grid.Col md={12} lg={8}>
           <ErrorAlert error={error} setError={setError} />
-
           <OrderSummary
             product={product}
             setProduct={setProduct}
             total={total}
             setTotal={setTotal}
           />
-
-          <Title order={3} mb="sm" mt="lg">
+          <Title order={3} mb="sm">
             Payment
           </Title>
           {productFlow !== ProductFlow.BNPL_ONLY ? (
