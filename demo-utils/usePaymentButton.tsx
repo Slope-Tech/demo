@@ -11,12 +11,15 @@ export function usePaymentButton({
   total,
   customerType = undefined,
   draggable = false,
-  withIcon = false,
+  withIcon = true,
   label = 'Pay with Slope',
   width = 320,
   height = 40,
   left = 0,
   top = 0,
+  bg = '#FF6600',
+  fz = 'md',
+  color = 'orange.7',
   ...buttonProps
 }: {
   total: number
@@ -148,6 +151,9 @@ export function usePaymentButton({
           {...buttonProps}
           w={width}
           h={height}
+          bg={bg}
+          fz={fz}
+          color={color}
           loading={loading}
           onClick={() => {
             if (prevMoveActive) {
@@ -171,17 +177,7 @@ export function usePaymentButton({
           )}
         </Button>
         {draggable && (
-          <Text
-            pos="absolute"
-            left={2}
-            top={2}
-            ff="monospace"
-            c="black"
-            fz="xs"
-            lh={1}
-            // bg="white"
-            // ta="end"
-          >
+          <Text pos="absolute" left={2} top={2} ff="monospace" c="black" fz="xs" lh={1}>
             left: {position.left}
             <br />
             top: {position.top}

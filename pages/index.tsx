@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Image, Select } from '@mantine/core'
-import { usePaymentButton } from '../demo-utils/order-payment'
+import { usePaymentButton } from '../demo-utils/usePaymentButton'
 import { CustomerType } from '../utils/email'
 
 const Orders = () => {
@@ -8,16 +8,11 @@ const Orders = () => {
   const { viewportRef, rendered: paymentButton } = usePaymentButton({
     total: 9_259_65,
     customerType,
-    // draggable: true,
-    label: 'Pay with Slope',
-    withIcon: true,
+    draggable: false,
     width: 360,
     height: 38,
     left: 916,
     top: 780,
-    color: 'orange.7',
-    bg: '#FF6600',
-    fz: 'md',
   })
   return (
     <Box pos="relative" h="100vh" sx={{ flexShrink: 0, overflow: 'auto' }}>
