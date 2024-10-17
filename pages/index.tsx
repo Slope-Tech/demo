@@ -1,38 +1,43 @@
-import React from 'react'
-import {
-  Button,
-  Box,
-  Center,
-  Image,
-} from '@mantine/core'
-import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { Box, Image, Select } from '@mantine/core'
+import { usePaymentButton } from '../demo-utils/order-payment'
+import { CustomerType } from '../utils/email'
 
 const Orders = () => {
-  const router = useRouter()
-  const handleClick = () => {
-    router.push('/order_details')
-  }
-  const handleClickPayments = () => {
-    router.push('/manage_pay_later')
-  }
-  const handleClickPayLaterSignup = () => {
-    router.push('/pay_later_signup')
-  }
-  const handleClickCompanyProfile = () => {
-    router.push('/company_profile')
-  }
+  const [customerType, setCustomerType] = useState(CustomerType.SKIP_PRE_QUALIFY)
+  const { viewportRef, rendered: paymentButton } = usePaymentButton({
+    total: 9_259_65,
+    customerType,
+    // draggable: true,
+    label: 'Pay with Slope',
+    withIcon: true,
+    width: 360,
+    height: 38,
+    left: 916,
+    top: 780,
+    color: 'orange.7',
+    bg: '#FF6600',
+    fz: 'md',
+  })
   return (
-    <Center w='100%' h='100%'>
-      <Box pos='relative' w={1400} h={800} sx={{ flexShrink: 0 }}>
-        <Image pos='absolute' width='100%' height='100%' src='/images/alibaba_orders.png' alt='Alibaba Orders' />
-        <Box pos='relative' w='100%' h='100%'>
-          <Button pos='absolute' top={218} right={53} w={240} h={48} color='orange.7' bg='#FF6600' radius='xl' fz='lg' onClick={handleClick}>Make Payment</Button>
-          <Button pos='absolute' left={0} top={358} w={60} h={54} sx={{ opacity: 0, ':hover': { opacity: 0.2 } }} onClick={handleClickPayments} />
-          <Button pos='absolute' left={0} top={523} w={60} h={67} sx={{ opacity: 0, ':hover': { opacity: 0.2 } }} onClick={handleClickPayLaterSignup} />
-          <Button pos='absolute' right={236} top={8} w={70} h={60} sx={{ opacity: 0.1, ':hover': { opacity: 0.1 } }} onClick={handleClickCompanyProfile} />
-        </Box>
+    <Box pos="relative" h="100vh" sx={{ flexShrink: 0, overflow: 'auto' }}>
+      <Box pos="relative" ref={viewportRef} w={1400} mx='auto' >
+        <Image src="/images/dell_checkout.png" alt="Dell Checkout" />
+        <Select
+          pos='absolute'
+          left={1080}
+          top={1040}
+          w={200}
+          onChange={val => setCustomerType(val as CustomerType)}
+          value={customerType}
+          data={[
+            { value: CustomerType.NEW, label: 'New customer' },
+            { value: CustomerType.SKIP_PRE_QUALIFY, label: 'Pre-qualified customer' },
+          ]}
+        />
+        {paymentButton}
       </Box>
-    </Center>
+    </Box>
   )
 }
 

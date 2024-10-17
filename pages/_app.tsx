@@ -44,7 +44,7 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     qualified: true,
     product: 'Soda',
     kyb: {
-      entityType: 'LLC'
+      entityType: 'LLC',
     },
     kybQuestionnaire: {
       transactionVolumeEstimate: 15000_00,
@@ -59,8 +59,8 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
         isApplicant: true,
         isOwner: false,
         isController: false,
-      }
-    ]
+      },
+    ],
   })
 
   return (
@@ -69,15 +69,16 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
         <title>Slope Checkout Demo</title>
         <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js?v=2`} />
+        <style>
+          {`body {
+            background-color: #ddd;
+          }`}
+        </style>
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
-          <Box m={0} p={0} w='100vw' h='100vh' bg='gray.4'>
-            <Component
-              {...pageProps}
-              customerForm={customerForm}
-              setCustomerForm={setCustomerForm}
-            />
-          </Box>
+        <Box m={0} p={0} w="100vw" h="100vh" bg="gray.4">
+          <Component {...pageProps} customerForm={customerForm} setCustomerForm={setCustomerForm} />
+        </Box>
       </MantineProvider>
     </div>
   )
