@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Box, Image, Select } from '@mantine/core'
+import { Select } from '@mantine/core'
 import { usePaymentButton } from '../demo-utils/usePaymentButton'
 import { CustomerType } from '../utils/email'
+import MerchantDemoPage from '../components/MerchantDemoPage'
 
 const Orders = () => {
   const [customerType, setCustomerType] = useState(CustomerType.SKIP_PRE_QUALIFY)
@@ -15,24 +16,21 @@ const Orders = () => {
     top: 780,
   })
   return (
-    <Box pos="relative" h="100vh" sx={{ flexShrink: 0, overflow: 'auto' }}>
-      <Box pos="relative" ref={viewportRef} w={1400} mx='auto' >
-        <Image src="/images/dell_checkout.png" alt="Dell Checkout" />
-        <Select
-          pos='absolute'
-          left={1080}
-          top={1040}
-          w={200}
-          onChange={val => setCustomerType(val as CustomerType)}
-          value={customerType}
-          data={[
-            { value: CustomerType.NEW, label: 'New customer' },
-            { value: CustomerType.SKIP_PRE_QUALIFY, label: 'Pre-qualified customer' },
-          ]}
-        />
-        {paymentButton}
-      </Box>
-    </Box>
+    <MerchantDemoPage screenshotSrc='/images/dell_checkout.png' viewportRef={viewportRef}>
+      <Select
+        pos='absolute'
+        left={1080}
+        top={1040}
+        w={200}
+        onChange={val => setCustomerType(val as CustomerType)}
+        value={customerType}
+        data={[
+          { value: CustomerType.NEW, label: 'New customer' },
+          { value: CustomerType.SKIP_PRE_QUALIFY, label: 'Pre-qualified customer' },
+        ]}
+      />
+      {paymentButton}
+    </MerchantDemoPage>
   )
 }
 
