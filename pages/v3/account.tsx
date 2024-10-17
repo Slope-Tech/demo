@@ -2,20 +2,35 @@ import { Button, Title, Group, Card, Text } from '@mantine/core'
 import { IconBuildingBank, IconCreditCard, IconWallet } from '@tabler/icons'
 import React, { useState } from 'react'
 import ErrorAlert from '../../components/ErrorAlert'
+import { formatCurrency } from '../../utils/products'
+import { AppData } from '../../types/types'
 
-const PaymentMethods: React.FC<any> = ({ accessToken = undefined}) => {
+const PaymentMethods: React.FC<{ appData: AppData }> = ({ appData }) => {
   const [loading, setLoading] = useState(false)
+  const [limits, setLimits] = useState<Record<string, any> | null>(null)
   const [error, setError] = useState(null)
 
   const onPreQualify = async () => {
     setLoading(true)
 
-    window.SlopeJs.start({
-      publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
-      accessToken,
+    const customerResp = await fetch('/api/create-customer', {
+      method: 'POST',
+      body: JSON.stringify(appData.customerForm),
+    })
+
+    const jsonResp = await customerResp.json()
+    if (!jsonResp.customer) {
+      setError(jsonResp)
+      setLoading(false)
+      return
+    }
+
+    // @ts-ignore
+    window.initializeSlope({
+      intentSecret: jsonResp.secret,
       flow: 'pre_qualify',
-      onSuccess: (resp) => {
-        console.log('onSuccess slope', resp)
+      onSuccess: ({ customer }) => {
+        setLimits(customer.limits)
         setLoading(false)
       },
       onFailure: (err) => {
@@ -23,10 +38,17 @@ const PaymentMethods: React.FC<any> = ({ accessToken = undefined}) => {
       },
       onClose: () => {
         setLoading(false)
+        setLimits(null)
       },
       onEvent: console.log,
     })
+    // @ts-ignore
+    window.Slope.open()
   }
+
+  const slopeButtonText = limits
+    ? `Qualified for ${formatCurrency(limits.customerBalance)}`
+    : 'Pre Qualify with Slope'
 
   return (
     <>
@@ -62,7 +84,7 @@ const PaymentMethods: React.FC<any> = ({ accessToken = undefined}) => {
               color="orange"
               onClick={onPreQualify}
             >
-              Pre Qualify with Slope
+              {slopeButtonText}
             </Button>
           </Group>
         </Card.Section>

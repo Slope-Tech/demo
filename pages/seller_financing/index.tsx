@@ -5,10 +5,6 @@ import {
   Title,
   Text,
   Group,
-  Checkbox,
-  Container,
-  ColorPicker,
-  TextInput,
   Table,
   Card,
   Space,
@@ -20,7 +16,8 @@ import { IconShoppingCart } from '@tabler/icons'
 import OrderSummary from '../../components/OrderSummary'
 import ErrorAlert from '../../components/ErrorAlert'
 import { formatCurrency, getProducts, getTotals } from '../../utils/products'
-import { CustomerType } from '../../utils/email'
+import { AppData, CustomerType } from '../../types/types'
+import { CheckoutOptions } from '../../components/CheckoutOptions'
 
 declare global {
   interface Window {
@@ -37,18 +34,18 @@ const toTermKeyLabel = (termKey: string) => {
 }
 
 const Checkout: React.FC<{
-  customerForm: Record<string, any>
-  setCustomerForm: any
-}> = ({ customerForm, setCustomerForm }) => {
+  appData: AppData
+  updateAppData: any
+}> = ({ appData, updateAppData }) => {
+  const { customerForm } = appData
+
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [primaryColor, setPrimaryColor] = useState('')
   const [product, setProduct] = useState('Soda')
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
-  const [isLegacySDK, setIsLegacySDK] = useState(false)
   const [customer, setCustomer] = useState<any>(null)
   const [customerSecret, setCustomerSecret] = useState<string | null>()
   const [financingTerm, setFinancingTerm] = useState<string | null>(null)
@@ -59,10 +56,6 @@ const Checkout: React.FC<{
   )
 
   const localeSelector = ''
-
-  const onChangeRedirect = (event) => {
-    setCustomerForm({ ...customerForm, mode: event.currentTarget.checked ? 'redirect' : null })
-  }
   const guestMode = false
 
   const fetchEstimatedDiscountedPayout = async (
@@ -117,7 +110,7 @@ const Checkout: React.FC<{
     }
 
     setLoading(true)
-    if (!isLegacySDK && customerForm.mode !== 'redirect') {
+    if (customerForm.mode !== 'redirect') {
       window.SlopeJs.open()
     }
 
@@ -175,12 +168,8 @@ const Checkout: React.FC<{
       return
     }
 
-    const primaryColorObject = primaryColor
-      ? { primaryColor: (primaryColor as string).slice(1) }
-      : {}
-
     const slopeParams = {
-      ...primaryColorObject,
+      primaryColor: appData.primaryColor,
       localeSelector,
       flow: 'checkout',
       intentSecret: secret,
@@ -199,12 +188,7 @@ const Checkout: React.FC<{
       onEvent: console.log,
     }
 
-    if (isLegacySDK) {
-      window.initializeSlope(slopeParams)
-      window.Slope.open()
-    } else {
-      window.SlopeJs.start(slopeParams)
-    }
+    window.SlopeJs.start(slopeParams)
   }
 
   const slopeButton = (
@@ -231,63 +215,17 @@ const Checkout: React.FC<{
 
       <Grid gutter="xl">
         <Grid.Col md={12} lg={4}>
+          <CheckoutOptions appData={appData} updateAppData={updateAppData} />
+        </Grid.Col>
+        <Grid.Col md={12} lg={8}>
+          <ErrorAlert error={error} setError={setError} />
+
           <OrderSummary
             product={product}
             setProduct={setProduct}
             total={total}
             setTotal={setTotal}
           />
-          <Container bg="gray.1" py="xs" mt="sm">
-            <Title mt="lg" mb="sm" order={4}>
-              Slope Options
-            </Title>
-
-            <Checkbox
-              onChange={onChangeRedirect}
-              checked={customerForm.mode === 'redirect'}
-              label="Perform a full-screen redirect"
-              mb="xs"
-            />
-            <Checkbox
-              onChange={(e) => setIsLegacySDK(e.currentTarget.checked)}
-              checked={isLegacySDK}
-              disabled={customerForm.mode === 'redirect'}
-              label="Use old V3 SlopeJS"
-              mb="xs"
-            />
-
-            {customerForm.mode !== 'redirect' && (
-              <>
-                <TextInput
-                  value={primaryColor}
-                  label="Widget theme"
-                  mb="xs"
-                  labelProps={{
-                    style: { backgroundColor: primaryColor, padding: '3px', borderRadius: '3px' },
-                  }}
-                  readOnly
-                />
-                <ColorPicker
-                  mb="xs"
-                  format="hex"
-                  swatches={[
-                    '#FD611A',
-                    '#868e96',
-                    '#be4bdb',
-                    '#4c6ef5',
-                    '#228be6',
-                    '#12b886',
-                    '#fab005',
-                  ]}
-                  value={primaryColor}
-                  onChange={setPrimaryColor}
-                />
-              </>
-            )}
-          </Container>
-        </Grid.Col>
-        <Grid.Col md={12} lg={8}>
-          <ErrorAlert error={error} setError={setError} />
 
           <Title order={3} mb="sm">
             Financing Options
@@ -333,14 +271,6 @@ const Checkout: React.FC<{
                       <td>{selectedDiscountedPayout.discountFeePct.toFixed(2)}%</td>
                     </tr>
                   )}
-                  {/* {estimatedDiscountedPayout?.map((dp) => (
-                  <tr key={dp.termKey}>
-                    <td>{dp.termKey.replace('_', ' ')}</td>
-                    <td>{formatCurrency(dp.principal)}</td>
-                    <td>{formatCurrency(dp.financingFee)}</td>
-                    <td>{dp.discountFeePct.toFixed(2)}%</td>
-                  </tr>
-                ))} */}
                 </tbody>
               </Table>
             </Card>
