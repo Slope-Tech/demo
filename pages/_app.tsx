@@ -3,26 +3,33 @@ import Head from 'next/head'
 import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { useState } from 'react'
 import MainFooter from '../components/MainFooter'
-import MainHeader from '../components/MainHeader'
-import { CustomerType, ProductFlow, generateDemoEmail } from '../utils/email'
+import { MainHeader } from '../components/MainHeader'
+import { generateDemoEmail } from '../utils/email'
+import { AppData, CustomerType, ProductFlow } from '../types/types'
+import CustomerForm from '../components/CustomerForm'
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
-  const [customerForm, setCustomerForm] = useState({
-    businessName: 'Slope Demo Customer',
-    customerType: CustomerType.NEW,
-    email: generateDemoEmail({ customerType: CustomerType.NEW }),
-    phone: '+16175551212',
-    line1: '123 California St',
-    city: 'San Francisco',
-    state: 'CA',
-    postalCode: '94105',
-    country: 'US',
-    currency: 'usd',
-    qualified: true,
-    product: 'Soda',
+  const [appData, setAppData] = useState({
+    customerForm: {
+      businessName: 'Slope Demo Customer',
+      customerType: CustomerType.SKIP_PRE_QUALIFY,
+      email: generateDemoEmail({ customerType: CustomerType.SKIP_PRE_QUALIFY }),
+      phone: '+16175551212',
+      line1: '123 California St',
+      city: 'San Francisco',
+      state: 'CA',
+      postalCode: '94105',
+      country: 'US',
+      currency: 'usd',
+      product: 'Soda',
+      isLinked: true,
+    },
+    productFlow: ProductFlow.BNPL_ONLY,
   })
 
-  const [productFlow, setProductFlow] = useState<ProductFlow>(ProductFlow.BNPL_AND_PAY_NOW)
+  const updateAppData = (newData: AppData) => {
+    setAppData({ ...appData, ...newData })
+  }
 
   const providerTheme: MantineThemeOverride = {
     colors: {
@@ -58,25 +65,10 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
         <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js?v=2`} />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
-        <AppShell
-          padding="xl"
-          header={
-            <MainHeader
-              customerForm={customerForm}
-              setCustomerForm={setCustomerForm}
-              productFlow={productFlow}
-              setProductFlow={setProductFlow}
-            />
-          }
-          footer={<MainFooter />}
-        >
-          <Container pb={20}>
-            <Component
-              customerForm={customerForm}
-              setCustomerForm={setCustomerForm}
-              productFlow={productFlow}
-              {...pageProps}
-            />
+        <AppShell padding={0} header={<MainHeader />} footer={<MainFooter />}>
+          <CustomerForm appData={appData} updateAppData={updateAppData} />
+          <Container py={20}>
+            <Component appData={appData} updateAppData={updateAppData} {...pageProps} />
           </Container>
         </AppShell>
       </MantineProvider>
