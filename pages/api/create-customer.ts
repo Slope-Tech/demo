@@ -14,8 +14,19 @@ export default async function handler(
     return
   }
 
-  const { businessName, email, phone, line1, city, state, postalCode, country } =
-    JSON.parse(req.body)
+  const {
+    businessName,
+    email,
+    phone,
+    line1,
+    city,
+    state,
+    postalCode,
+    country,
+    kyb,
+    kybQuestionnaire,
+    persons,
+  } = JSON.parse(req.body)
 
   const customerRes = await fetch(`${getApiHost()}/v3/customers`, {
     method: 'post',
@@ -26,9 +37,10 @@ export default async function handler(
       phone,
       externalId: (Math.random() + 1).toString(36),
       kyb: {
+        ...kyb,
         taxId: generateRandomTaxId(),
       },
-      address: {
+      address: line1 && {
         line1,
         city,
         state,
@@ -37,8 +49,8 @@ export default async function handler(
       },
     }),
   })
-
   const customer = await customerRes.json()
+
   if (!customer.id) {
     res.status(500).json(customer)
     return
@@ -49,6 +61,34 @@ export default async function handler(
     headers: getAuthHeaders(),
   })
   const { secret } = await customerIntentRes.json()
+
+  if (kybQuestionnaire) {
+    // set Estimated Spend
+    await fetch(`${getApiHost()}/internal/customers/${customer.id}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${secret}`,
+      },
+      body: JSON.stringify({
+        kybQuestionnaire,
+      }),
+    })
+  }
+
+  // Pre-fill control persons
+  if (persons) {
+    await fetch(`${getApiHost()}/internal/person/create`, {
+      headers: {
+        authorization: `bearer ${secret}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        persons,
+      }),
+      method: 'POST',
+    })
+  }
 
   res.status(200).json({
     customer,

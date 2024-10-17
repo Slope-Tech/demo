@@ -32,7 +32,7 @@ export default async function handler(
         testing: 1,
         ...additionalData
       },
-      billingAddress: {
+      billingAddress: line1 && {
         line1,
         city,
         state,
