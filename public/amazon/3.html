@@ -42,7 +42,7 @@
               method: 'POST',
               body: JSON.stringify({
                 customerId: customerJson.customer.id,
-                total: 8085050,
+                total: 1985050,
                 currency: 'usd',
                 line1: '600 Harrison St',
                 line2: 'Ste 250',
@@ -58,7 +58,7 @@
             console.log('orderData', orderData)
             const { secret, order } = orderData
             const offerType = 'bnpl'
-            const successPath = `/amazon/4.html?orderNumber=${order.number}`
+            const successPath = `/4.html?orderNumber=${order.number}`
 
             const slopeParams = {
               primaryColor: '#146eb4',
