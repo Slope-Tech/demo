@@ -58,7 +58,7 @@
             console.log('orderData', orderData)
             const { secret, order } = orderData
             const offerType = 'bnpl'
-            const successPath = `/4.html?orderNumber=${order.number}`
+            const successPath = `/amazon/4.html?orderNumber=${order.number}`
 
             const slopeParams = {
               primaryColor: '#146eb4',
@@ -73,7 +73,7 @@
                 alert(`Error: ${err.message}`)
               },
               onClose: () => {
-                console.log('Slope order open', payload)
+                console.log('Slope order open')
               },
               onEvent: console.log,
             }
