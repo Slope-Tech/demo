@@ -41,6 +41,7 @@
             return fetch('/api/create-order', {
               method: 'POST',
               body: JSON.stringify({
+                contactEmail: email,
                 customerId: customerJson.customer.id,
                 total: 1585050,
                 currency: 'usd',
