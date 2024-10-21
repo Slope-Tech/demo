@@ -1,5 +1,5 @@
-import { createStyles, Text, Container, Group, Footer } from '@mantine/core'
-import { IconBrandGithub, IconCode } from '@tabler/icons'
+import { createStyles, Container, Group, Footer, Anchor } from '@mantine/core'
+import { IconBrandGithub, IconCode, IconHome } from '@tabler/icons'
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -39,22 +39,32 @@ const MainFooter = () => {
   return (
     <Footer height={120} className={classes.footer}>
       <Container className={classes.afterFooter}>
-        <Text<'a'>
+        <Anchor
           target="_blank"
-          component="a"
-          href="https://slope.so"
+          href="https://slopepay.com"
           className={classes.link}
           color="dimmed"
           size="sm"
         >
           © {new Date().getFullYear()} - Slope Tech, Inc.
-        </Text>
+        </Anchor>
 
         <Group spacing="lg" position="right" noWrap>
-          <Text<'a'>
+          <Anchor
             target="_blank"
-            component="a"
-            href="https://developers.slope.so"
+            href="https://pay.sandbox.slopepay.com"
+            className={classes.link}
+            color="dimmed"
+            size="sm"
+          >
+            <Group spacing={5}>
+              Buyer Portal <IconHome size={16} />
+            </Group>
+          </Anchor>
+
+          <Anchor
+            target="_blank"
+            href="https://developers.slopepay.com"
             className={classes.link}
             color="dimmed"
             size="sm"
@@ -62,10 +72,9 @@ const MainFooter = () => {
             <Group spacing={5}>
               Developer Hub <IconCode size={16} />
             </Group>
-          </Text>
-          <Text<'a'>
+          </Anchor>
+          <Anchor
             target="_blank"
-            component="a"
             href="https://github.com/Slope-Tech/demo"
             className={classes.link}
             color="dimmed"
@@ -74,7 +83,7 @@ const MainFooter = () => {
             <Group spacing={5}>
               GitHub <IconBrandGithub size={16} />
             </Group>
-          </Text>
+          </Anchor>
         </Group>
       </Container>
     </Footer>
