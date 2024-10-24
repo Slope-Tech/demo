@@ -1,34 +1,34 @@
 import { useRouter } from 'next/router'
 import React, { MutableRefObject, ReactNode, useState } from 'react'
-import { Box, Button, ButtonProps, Group, Text } from '@mantine/core'
+import { Box, Button, ButtonProps, Group, MantineSize, Text, useMantineTheme } from '@mantine/core'
 import { useMove, usePrevious } from '@mantine/hooks'
-import { CustomerType } from '../email'
+import { CustomerType, ProductFlow } from '../../types/types'
+import { useAppData } from '../../pages/_app'
+import { getProducts, getTotals } from '../products'
 
-const MERCHANT_NAME = 'dell'
+const DEFAULT_COLOR = '#FFA500'
 
 export default function usePaymentButton({
   total,
-  customerType = undefined,
   draggable = false,
   withIcon = true,
   label = 'Pay with Slope',
-  width = 320,
+  width = '100%',
   height = 40,
-  left = 0,
-  top = 0,
-  bg = '#FF6600',
+  left,
+  top,
   fz = 'md',
-  color = 'orange.7',
+  color,
   ...buttonProps
 }: {
-  total: number
+  total?: number
   customerType?: CustomerType
   draggable?: boolean
   withIcon?: boolean
   label?: ReactNode
-  width?: number
-  height?: number
-} & ButtonProps): {
+  width?: ButtonProps['w']
+  height?: ButtonProps['h']
+} & ButtonProps = {}): {
   viewportRef: MutableRefObject<HTMLDivElement> | null
   rendered: ReactNode
 } {
@@ -56,62 +56,80 @@ export default function usePaymentButton({
     : { active: false, ref: null }
   const prevMoveActive = usePrevious(move.active)
   const viewportRef = draggable ? move.ref : null
+
+  const [{ customerForm, productFlow, mode, primaryColor, accessToken }] = useAppData()
+  const products = getProducts(customerForm.product)
+  const totals = getTotals(products)
+
+  const theme = useMantineTheme()
+  const bgColor = color || primaryColor || DEFAULT_COLOR
+  const bgColorHover = theme.fn.darken(bgColor, 0.2)
+  const bgColorActive = theme.fn.darken(bgColor, 0.3)
+
   const handleClick = async () => {
-    const isLegacySDK = true
-    const guestMode = false
-    const customerForm = {
-      businessName: 'Slope Demo Customer',
-      email: `hannah+demo-${MERCHANT_NAME}${customerType || ''}@slopepay.com`,
-      phone: '+16175551212',
-      line1: '123 California St',
-      city: 'San Francisco',
-      state: 'CA',
-      postalCode: '94105',
-      country: 'US',
-      currency: 'usd',
-      qualified: true,
-      product: 'Soda',
-    }
     setLoading(true)
-    if (!isLegacySDK) {
+    if (mode !== 'redirect') {
       window.SlopeJs.open()
     }
 
-    let customerJson
-    if (!guestMode) {
-      const customerResp = await fetch('/api/create-customer', {
-        method: 'POST',
-        body: JSON.stringify(customerForm),
-      })
-
-      customerJson = await customerResp.json()
-
-      if (!customerJson.customer) {
-        setLoading(false)
-        window.alert(`Error: ${JSON.stringify(customerJson)}`)
-        return
-      }
-    }
-
-    const orderRes = await fetch('/api/create-order', {
+    const orderRes = await fetch('/api/v4-create-order', {
       method: 'POST',
       body: JSON.stringify({
-        ...customerForm,
-        customerId: guestMode ? undefined : customerJson.customer.id,
-        total,
+        total: total || totals.total,
+        currency: 'usd',
+        contactBusinessName: customerForm.businessName,
+        contactEmail: customerForm.email,
+        contactPhone: customerForm.phone,
+        billingAddress: {
+          line1: customerForm.line1,
+          city: customerForm.city,
+          state: customerForm.state,
+          postalCode: customerForm.postalCode,
+          country: customerForm.country,
+        },
+        items: products.map((p) => ({
+          sku: p.sku,
+          name: p.name,
+          description: p.name,
+          unitPrice: p.price,
+          price: p.price * p.quantity,
+          type: 'lineItem',
+          quantity: p.quantity,
+        })),
       }),
     })
 
     const { secret, order } = await orderRes.json()
 
-    const offerType = 'bnpl'
+    let offerType
+    switch (productFlow) {
+      case ProductFlow.BNPL_ONLY:
+      case ProductFlow.PAY_NOW_ONLY:
+        offerType = productFlow
+        break
+      default:
+        break
+    }
 
     const successPath = `/success?orderNumber=${order.number}`
 
+    if (mode === 'redirect') {
+      // NOTE: The redirect API is still private and should not be used by developers.
+      // Contact the Slope team if you're interested in using the redirect API.
+      const baseHost = `${window.location.protocol}//${window.location.host}`
+      const urlParams = new URLSearchParams({
+        cancelUrl: `${baseHost}/`,
+        successUrl: `${baseHost}${successPath}`,
+      })
+      window.location.href = `${order.checkoutUrl}&${urlParams.toString()}`
+      return
+    }
+
     const slopeParams = {
-      primaryColor: null,
-      flow: 'checkout',
+      primaryColor,
+      code: order.checkoutCode,
       intentSecret: secret,
+      accessToken,
       offerType,
       onSuccess: async () => {
         router.push(successPath)
@@ -128,15 +146,14 @@ export default function usePaymentButton({
       onEvent: console.log,
     }
 
-    window.initializeSlope(slopeParams)
-    window.Slope.open()
+    window.SlopeJs.start(slopeParams)
   }
 
   return {
     viewportRef,
     rendered: (
       <Box
-        pos="absolute"
+        pos={(Number.isFinite(left) || Number.isFinite(top)) ? "absolute" : 'unset'}
         left={left}
         top={top}
         {...(draggable
@@ -150,9 +167,16 @@ export default function usePaymentButton({
           {...buttonProps}
           w={width}
           h={height}
-          bg={bg}
           fz={fz}
-          color={color}
+          sx={{
+            backgroundColor: bgColor,
+            ':hover': {
+              backgroundColor: bgColorHover
+            },
+            ':active': {
+              backgroundColor: bgColorActive
+            }
+          }}
           loading={loading}
           onClick={() => {
             if (prevMoveActive) {
@@ -166,8 +190,8 @@ export default function usePaymentButton({
               <img
                 alt="slope logo"
                 src="/images/icon_white.svg"
-                height={height * 0.8}
-                width={height * 0.8}
+                height={height * 0.65}
+                width={height * 0.65}
               />
               {label}
             </Group>

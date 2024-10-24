@@ -80,7 +80,7 @@ export const CheckoutOptions: React.FC<{
 
       {mode !== 'redirect' && (
         <>
-          <TextInput value={primaryColor} label="Custom color" mb="xs" readOnly />
+          <TextInput value={primaryColor} onChange={ev => onChangePrimaryColor(ev.target.value)} label="Custom color" mb="xs" />
           <ColorPicker
             fullWidth
             mb="xs"

@@ -167,7 +167,7 @@ const CustomerForm: React.FC<{
         <Accordion value={showCustomerForm} onChange={setShowCustomerForm}>
           <Accordion.Item value="customer">
             <Accordion.Control>
-              <Text fw="bold">Create customer</Text>
+              <Text fw="bold">New Slope customer</Text>
             </Accordion.Control>
 
             <Accordion.Panel>

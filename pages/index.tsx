@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Grid, Title, Text, Group } from '@mantine/core'
-import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
 import ErrorAlert from '../components/ErrorAlert'
 import OrderSummary from '../components/OrderSummary'
 import { AppData, ProductFlow } from '../types/types'
 import { getProducts, getTotals } from '../utils/products'
 import { CheckoutOptions } from '../components/CheckoutOptions'
+import usePaymentButton from '../utils/custom-demos/usePaymentButton'
 
 declare global {
   interface Window {
@@ -18,108 +18,13 @@ const Checkout: React.FC<{
   appData: AppData
   updateAppData: any
 }> = ({ appData, updateAppData }) => {
-  const { customerForm, productFlow, mode, primaryColor, accessToken } = appData
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const { productFlow } = appData
   const [error, setError] = useState(null)
   const [product, setProduct] = useState('Soda')
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
-
-  const onPay = async () => {
-    setLoading(true)
-    if (mode !== 'redirect') {
-      window.SlopeJs.open()
-    }
-
-    const orderRes = await fetch('/api/v4-create-order', {
-      method: 'POST',
-      body: JSON.stringify({
-        total,
-        currency: 'usd',
-        contactBusinessName: customerForm.businessName,
-        contactEmail: customerForm.email,
-        contactPhone: customerForm.phone,
-        billingAddress: {
-          line1: customerForm.line1,
-          city: customerForm.city,
-          state: customerForm.state,
-          postalCode: customerForm.postalCode,
-          country: customerForm.country,
-        },
-        items: products.map((p) => ({
-          sku: p.sku,
-          name: p.name,
-          description: p.name,
-          unitPrice: p.price,
-          price: p.price * p.quantity,
-          type: 'lineItem',
-          quantity: p.quantity,
-        })),
-      }),
-    })
-
-    const { order } = await orderRes.json()
-
-    let offerType
-    switch (appData.productFlow) {
-      case ProductFlow.BNPL_ONLY:
-      case ProductFlow.PAY_NOW_ONLY:
-        offerType = appData.productFlow
-        break
-      default:
-        break
-    }
-
-    const successPath = `/success?orderNumber=${order.number}`
-
-    if (mode === 'redirect') {
-      // NOTE: The redirect API is still private and should not be used by developers.
-      // Contact the Slope team if you're interested in using the redirect API.
-      const baseHost = `${window.location.protocol}//${window.location.host}`
-      const urlParams = new URLSearchParams({
-        cancelUrl: `${baseHost}/`,
-        successUrl: `${baseHost}${successPath}`,
-      })
-      window.location.href = `${order.checkoutUrl}&${urlParams.toString()}`
-      return
-    }
-
-    const slopeParams = {
-      primaryColor: (primaryColor as string) || undefined,
-      code: order.checkoutCode,
-      accessToken,
-      offerType,
-      onSuccess: async () => {
-        router.push(successPath)
-      },
-      onFailure: (err) => {
-        console.error(err)
-      },
-      onClose: () => {
-        setLoading(false)
-      },
-      onOrderOpen: (payload) => {
-        console.log('Slope order open', payload)
-      },
-      onEvent: console.log,
-    }
-
-    window.SlopeJs.start(slopeParams)
-  }
-
-  const slopeButton = (
-    <Button
-      leftIcon={<img alt="Slope Logo" src="/images/icon_white.svg" height={22} />}
-      fullWidth
-      color="orange"
-      loading={loading}
-      onClick={onPay}
-    >
-      {productFlow === ProductFlow.BNPL_ONLY ? 'Pay later with Slope' : 'Pay with Slope'}
-    </Button>
-  )
+  const paymentButton = usePaymentButton()
 
   return (
     <>
@@ -148,7 +53,7 @@ const Checkout: React.FC<{
             Payment
           </Title>
           {productFlow !== ProductFlow.BNPL_ONLY ? (
-            slopeButton
+            paymentButton.rendered
           ) : (
             <Grid align="center" gutter="xs" columns={11}>
               <Grid.Col md={11} lg={5}>
@@ -166,7 +71,7 @@ const Checkout: React.FC<{
                 </Text>
               </Grid.Col>
               <Grid.Col md={11} lg={5}>
-                {slopeButton}
+                {paymentButton.rendered}
               </Grid.Col>
             </Grid>
           )}
