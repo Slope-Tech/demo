@@ -50,7 +50,7 @@ const Checkout: React.FC<{
           />
 
           <Space h="lg" />
-          <Title order={3}>Payment options by</Title>
+          <Title order={3}>Payment options</Title>
           <Group align="center" spacing='.5rem' mt={-4}>
             <Text lh={1}>powered by</Text>
             <Image src="/images/fiserv-logo.svg" alt="Fiserv logo" width="3rem" />
