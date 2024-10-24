@@ -27,7 +27,7 @@ export default function usePaymentButton({
   withIcon?: boolean
   label?: ReactNode
   width?: ButtonProps['w']
-  height?: ButtonProps['h']
+  height?: number
 } & ButtonProps = {}): {
   viewportRef: MutableRefObject<HTMLDivElement> | null
   rendered: ReactNode
@@ -50,7 +50,7 @@ export default function usePaymentButton({
         }
         setPosition({
           left: Math.round(viewport.w * newPos.x - (width as any) / 2),
-          top: Math.round(viewport.h * newPos.y - (height as any) / 2),
+          top: Math.round(viewport.h * newPos.y - height / 2),
         })
       })
     : { active: false, ref: null }
