@@ -35,7 +35,6 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       isLinked: true,
     },
     productFlow: ProductFlow.BNPL_ONLY,
-    primaryColor: '#FE0102',
   })
 
   const updateAppData = (newData: Partial<AppData>) => {
