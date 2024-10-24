@@ -6,7 +6,7 @@ import { CustomerType, ProductFlow } from '../../types/types'
 import { useAppData } from '../../pages/_app'
 import { getProducts, getTotals } from '../products'
 
-const DEFAULT_COLOR = '#FFA500'
+const DEFAULT_COLOR = '#FD7E14'
 
 export default function usePaymentButton({
   total,

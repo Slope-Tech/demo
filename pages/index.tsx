@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Grid, Title, Text, Group } from '@mantine/core'
+import { Button, Grid, Title, Text, Group, Image, Space } from '@mantine/core'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
 import ErrorAlert from '../components/ErrorAlert'
 import OrderSummary from '../components/OrderSummary'
@@ -49,9 +49,13 @@ const Checkout: React.FC<{
             setTotal={setTotal}
           />
 
-          <Title order={3} mb="sm" mt="lg">
-            Payment
-          </Title>
+          <Space h="lg" />
+          <Title order={3}>Payment options by</Title>
+          <Group align="center" spacing='.5rem' mt={-4}>
+            <Text lh={1}>powered by</Text>
+            <Image src="/images/fiserv-logo.svg" alt="Fiserv logo" width="3rem" />
+          </Group>
+          <Space h="lg" />
           {productFlow !== ProductFlow.BNPL_ONLY ? (
             paymentButton.rendered
           ) : (
