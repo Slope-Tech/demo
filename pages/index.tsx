@@ -53,7 +53,7 @@ const Checkout: React.FC<{
           <Title order={3}>Payment options</Title>
           <Group align="center" spacing={8} mt={-4}>
             <Text lh={1}>powered by</Text>
-            <Image src="/images/fiserv-logo.svg" alt="Fiserv logo" width="3rem" />
+            <Image src="/images/fiserv-logo.svg" alt="Fiserv logo" width="3rem" pb={4} />
           </Group>
           <Space h="lg" />
           {productFlow !== ProductFlow.BNPL_ONLY ? (
