@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { MutableRefObject, ReactNode, useState } from 'react'
-import { Box, Button, ButtonProps, Group, MantineSize, Text, useMantineTheme } from '@mantine/core'
+import { Box, Button, ButtonProps, Group, Text, useMantineTheme } from '@mantine/core'
 import { useMove, usePrevious } from '@mantine/hooks'
 import { CustomerType, ProductFlow } from '../../types/types'
 import { useAppData } from '../../pages/_app'
@@ -49,8 +49,8 @@ export default function usePaymentButton({
           h: move.ref?.current.clientHeight || 0,
         }
         setPosition({
-          left: Math.round(viewport.w * newPos.x - width / 2),
-          top: Math.round(viewport.h * newPos.y - height / 2),
+          left: Math.round(viewport.w * newPos.x - (width as any) / 2),
+          top: Math.round(viewport.h * newPos.y - (height as any) / 2),
         })
       })
     : { active: false, ref: null }
@@ -153,7 +153,7 @@ export default function usePaymentButton({
     viewportRef,
     rendered: (
       <Box
-        pos={(Number.isFinite(left) || Number.isFinite(top)) ? "absolute" : 'unset'}
+        pos={Number.isFinite(left) || Number.isFinite(top) ? 'absolute' : 'unset'}
         left={left}
         top={top}
         {...(draggable
@@ -171,11 +171,11 @@ export default function usePaymentButton({
           sx={{
             backgroundColor: bgColor,
             ':hover': {
-              backgroundColor: bgColorHover
+              backgroundColor: bgColorHover,
             },
             ':active': {
-              backgroundColor: bgColorActive
-            }
+              backgroundColor: bgColorActive,
+            },
           }}
           loading={loading}
           onClick={() => {
