@@ -16,7 +16,7 @@ import { IconShoppingCart } from '@tabler/icons'
 import OrderSummary from '../../components/OrderSummary'
 import ErrorAlert from '../../components/ErrorAlert'
 import { formatCurrency, getProducts, getTotals } from '../../utils/products'
-import { AppData, CustomerType } from '../../types/types'
+import { AppData, CustomerType, ProductFlow } from '../../types/types'
 import { CheckoutOptions } from '../../components/CheckoutOptions'
 
 declare global {
@@ -172,6 +172,7 @@ const Checkout: React.FC<{
       primaryColor: appData.primaryColor,
       localeSelector,
       flow: 'checkout',
+      offerType: ProductFlow.BNPL_ONLY,
       intentSecret: secret,
       onSuccess: async () => {
         router.push(successPath)
