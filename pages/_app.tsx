@@ -1,12 +1,9 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@mantine/core'
+import { AppShell, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import React, { useContext, useMemo, useState } from 'react'
-import MainFooter from '../components/MainFooter'
-import { MainHeader } from '../components/MainHeader'
 import { generateDemoEmail } from '../utils/email'
 import { AppData, CustomerType, ProductFlow } from '../types/types'
-import CustomerForm from '../components/CustomerForm'
 
 const AppDataContext = React.createContext<{
   appData: AppData
@@ -78,11 +75,8 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
         <AppDataContext.Provider value={appDataContext}>
-          <AppShell padding={0} header={<MainHeader />} footer={<MainFooter />}>
-            <CustomerForm appData={appData} updateAppData={updateAppData} />
-            <Container py={20}>
-              <Component appData={appData} updateAppData={updateAppData} {...pageProps} />
-            </Container>
+          <AppShell padding={0}>
+            <Component appData={appData} updateAppData={updateAppData} {...pageProps} />
           </AppShell>
         </AppDataContext.Provider>
       </MantineProvider>

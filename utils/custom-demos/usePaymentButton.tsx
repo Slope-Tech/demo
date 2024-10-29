@@ -18,10 +18,12 @@ export default function usePaymentButton({
   left,
   top,
   fz = 'md',
+  productFlow: propsProductFlow,
   color,
   ...buttonProps
 }: {
   total?: number
+  productFlow?: ProductFlow
   customerType?: CustomerType
   draggable?: boolean
   withIcon?: boolean
@@ -57,7 +59,7 @@ export default function usePaymentButton({
   const prevMoveActive = usePrevious(move.active)
   const viewportRef = draggable ? move.ref : null
 
-  const [{ customerForm, productFlow, mode, primaryColor, accessToken }] = useAppData()
+  const [{ customerForm, productFlow: appProductFlow, mode, primaryColor, accessToken }] = useAppData()
   const products = getProducts(customerForm.product)
   const totals = getTotals(products)
 
@@ -87,21 +89,24 @@ export default function usePaymentButton({
           postalCode: customerForm.postalCode,
           country: customerForm.country,
         },
-        items: products.map((p) => ({
-          sku: p.sku,
-          name: p.name,
-          description: p.name,
-          unitPrice: p.price,
-          price: p.price * p.quantity,
-          type: 'lineItem',
-          quantity: p.quantity,
-        })),
+        items: total
+          ? [{ name: 'Invoice', price: total, unitPrice: total, quantity: 1 }]
+          : products.map((p) => ({
+              sku: p.sku,
+              name: p.name,
+              description: p.name,
+              unitPrice: p.price,
+              price: p.price * p.quantity,
+              type: 'lineItem',
+              quantity: p.quantity,
+            })),
       }),
     })
 
     const { secret, order } = await orderRes.json()
 
     let offerType
+    const productFlow = propsProductFlow || appProductFlow
     switch (productFlow) {
       case ProductFlow.BNPL_ONLY:
       case ProductFlow.PAY_NOW_ONLY:

@@ -16,14 +16,22 @@ const IndexPage: React.FC<{
 }> = () => {
   const router = useRouter()
   return (
-      <MerchantDemoPage screenshotSrc="/images/uline_checkout_1_address.png">
+    <MerchantDemoPage screenshotSrc="/images/uline_checkout_3_payment.png">
       <UnstyledButton
         pos="absolute"
         w={106}
         h={38}
-        bottom={109}
-        left={374}
-        onClick={() => router.push('/shipping')}
+        top={240}
+        right={395}
+        onClick={() => router.push('/checkout')}
+      />
+      <UnstyledButton
+        pos="absolute"
+        w={106}
+        h={38}
+        top={825}
+        right={396}
+        onClick={() => router.push('/checkout')}
       />
     </MerchantDemoPage>
   )
