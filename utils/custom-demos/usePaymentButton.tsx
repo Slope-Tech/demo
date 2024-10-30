@@ -5,11 +5,13 @@ import { useMove, usePrevious } from '@mantine/hooks'
 import { CustomerType, ProductFlow } from '../../types/types'
 import { useAppData } from '../../pages/_app'
 import { getProducts, getTotals } from '../products'
+import { customerTypeToShortcutTypes } from '../email'
 
 const DEFAULT_COLOR = '#FD7E14'
 
 export default function usePaymentButton({
   total,
+  customerType,
   draggable = false,
   withIcon = true,
   label = 'Pay with Slope',
@@ -59,7 +61,8 @@ export default function usePaymentButton({
   const prevMoveActive = usePrevious(move.active)
   const viewportRef = draggable ? move.ref : null
 
-  const [{ customerForm, productFlow: appProductFlow, mode, primaryColor, accessToken }] = useAppData()
+  const [{ customerForm, productFlow: appProductFlow, mode, primaryColor, accessToken }] =
+    useAppData()
   const products = getProducts(customerForm.product)
   const totals = getTotals(products)
 
@@ -73,6 +76,46 @@ export default function usePaymentButton({
     if (mode !== 'redirect') {
       window.SlopeJs.open()
     }
+
+    let localAccessToken: string = ''
+    if (accessToken) {
+      localAccessToken = accessToken
+    }
+
+    if (customerType !== undefined) {
+      const response = await fetch('/api/v4-create-customer', {
+        method: 'POST',
+        body: JSON.stringify({
+          shortcutTypes: customerTypeToShortcutTypes(customerType),
+          businessName: customerForm.businessName,
+          phone: customerForm.phone,
+          address: {
+            line1: customerForm.line1,
+            city: customerForm.city,
+            state: customerForm.state,
+            postalCode: customerForm.postalCode,
+            country: customerForm.country,
+          },
+          taxId: Math.round((Math.random() * 9 + 1) * 1e8),
+          isLinked: true,
+        }),
+      })
+
+      const body = await response.json()
+
+      if (body.linkToken) {
+        const userLinksResponse = await fetch('/api/v4-user-links', {
+          method: 'POST',
+          body: JSON.stringify({
+            linkToken: body.linkToken,
+          }),
+        })
+
+        const userLinks = await userLinksResponse.json()
+      localAccessToken = userLinks.accessToken
+      }
+    }
+
 
     const orderRes = await fetch('/api/v4-create-order', {
       method: 'POST',
@@ -134,7 +177,7 @@ export default function usePaymentButton({
       primaryColor,
       code: order.checkoutCode,
       intentSecret: secret,
-      accessToken,
+      accessToken: localAccessToken,
       offerType,
       onSuccess: async () => {
         router.push(successPath)
