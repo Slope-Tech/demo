@@ -178,7 +178,7 @@ export default function usePaymentButton({
       intentSecret: secret,
       accessToken: localAccessToken,
       offerType,
-      flowType: 'checkout',
+      flow: 'checkout',
       onSuccess: async () => {
         router.push(successPath)
       },
