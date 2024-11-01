@@ -25,10 +25,12 @@ import React, { useState } from 'react'
 import { customerTypeToShortcutTypes, generateDemoEmail, parseTaxIdFromEmail } from '../utils/email'
 import { CustomerType } from '../types/types'
 
-const CustomerForm: React.FC<{
-  appData: any
-  updateAppData: any
-} & BoxProps> = ({ appData, updateAppData, ...boxProps }) => {
+const CustomerForm: React.FC<
+  {
+    appData: any
+    updateAppData: any
+  } & BoxProps
+> = ({ appData, updateAppData, ...boxProps }) => {
   const { customerForm } = appData
   const [loadingUser, setLoadingUser] = useState(false)
   const [createCustomerResponse, setCreateCustomerResponse] = useState<any>(undefined)
@@ -83,17 +85,22 @@ const CustomerForm: React.FC<{
       value: CustomerType.SKIP_COMPLIANCE_AND_BANKING,
       group: '',
     },
-    { label: 'Skip Consumer Credit', value: CustomerType.SKIP_CONSUMER_CREDIT, group: '' },
+    {
+      label: 'Skip Consumer Credit',
+      value: CustomerType.SKIP_CONSUMER_CREDIT,
+      group: '',
+    },
     {
       label: 'Skip Compliance & Consumer Credit',
       value: CustomerType.SKIP_COMPLIANCE_AND_CONSUMER_CREDIT,
       group: '',
     },
-    {
-      label: 'Skip Compliance & Banking & Consumer Credit',
-      value: CustomerType.SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT,
-      group: '',
-    },
+    // TODO - @aliceslin91 this shortcut does not work, have not dug into why
+    // {
+    //   label: 'Skip Compliance & Banking & Consumer Credit',
+    //   value: CustomerType.SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT as string,
+    //   group: '',
+    // },
   ]
 
   const renderFormField = (field: string, label: string) => {
