@@ -91,6 +91,7 @@ const Checkout: React.FC<{
       code: order.checkoutCode,
       accessToken,
       offerType,
+      flow: 'checkout',
       onSuccess: async () => {
         router.push(successPath)
       },
