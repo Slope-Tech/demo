@@ -18,7 +18,9 @@ export default function usePaymentButton({
   width = '100%',
   height = 40,
   left,
+  right,
   top,
+  bottom,
   fz = 'md',
   productFlow: propsProductFlow,
   color,
@@ -201,9 +203,11 @@ export default function usePaymentButton({
     viewportRef,
     rendered: (
       <Box
-        pos={Number.isFinite(left) || Number.isFinite(top) ? 'absolute' : 'unset'}
+        pos={(Number.isFinite(left) || Number.isFinite(top) || Number.isFinite(right) || Number.isFinite(bottom)) ? 'absolute' : 'unset'}
         left={left}
+        right={right}
         top={top}
+        bottom={bottom}
         {...(draggable
           ? {
               left: position.left || left,

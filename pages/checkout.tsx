@@ -10,38 +10,30 @@ declare global {
   }
 }
 
-const IndexPage: React.FC<{
+const CheckoutPage: React.FC<{
   appData: AppData
   updateAppData: any
 }> = () => {
   const [customerType, setCustomerType] = useState(CustomerType.SKIP_PRE_QUALIFY)
-  const paymentButton1 = usePaymentButton({
-    total: 4813449,
-    width: 200,
-    height: 42,
-    left: 1064,
-    top: 255,
+  const paymentButton = usePaymentButton({
+    total: 10_313_94,
+    width: 393,
+    height: 50,
+    top: 439,
+    right: 130,
+    radius: 25,
     customerType,
-    productFlow: ProductFlow.BNPL_AND_PAY_NOW,
-  })
-  const paymentButton2 = usePaymentButton({
-    total: 4813449,
-    width: 200,
-    height: 42,
-    left: 1067,
-    top: 1085,
-    customerType,
+    label: 'Pay Later with Slope',
     productFlow: ProductFlow.BNPL_AND_PAY_NOW,
   })
   return (
-    <MerchantDemoPage screenshotSrc="/images/uline_checkout_4_checkout.png">
-      {paymentButton1.rendered}
-      {paymentButton2.rendered}
+    <MerchantDemoPage screenshotSrc="/images/ebay_checkout.png">
+      {paymentButton.rendered}
       <Select
         pos='absolute'
-        w={240}
-        top={120}
-        right={138}
+        w={390}
+        top={540}
+        right={134}
         label='Slope customer'
         data={[
           { label: 'Pre-Qualified', value: CustomerType.SKIP_PRE_QUALIFY },
@@ -54,4 +46,4 @@ const IndexPage: React.FC<{
   )
 }
 
-export default IndexPage
+export default CheckoutPage
