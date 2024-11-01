@@ -16,7 +16,7 @@ const IndexPage: React.FC<{
 }> = () => {
   const router = useRouter()
   return (
-      <MerchantDemoPage screenshotSrc="/images/ebay_item.png">
+    <MerchantDemoPage screenshotSrc="/images/ebay_item.png">
       <UnstyledButton
         pos="absolute"
         w={463}

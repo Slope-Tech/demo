@@ -114,10 +114,9 @@ export default function usePaymentButton({
         })
 
         const userLinks = await userLinksResponse.json()
-      localAccessToken = userLinks.accessToken
+        localAccessToken = userLinks.accessToken
       }
     }
-
 
     const orderRes = await fetch('/api/v4-create-order', {
       method: 'POST',
@@ -181,6 +180,7 @@ export default function usePaymentButton({
       intentSecret: secret,
       accessToken: localAccessToken,
       offerType,
+      flow: 'checkout',
       onSuccess: async () => {
         router.push(successPath)
       },
