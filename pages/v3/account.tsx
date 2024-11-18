@@ -63,7 +63,7 @@ const PaymentMethods: React.FC<{ appData: AppData }> = ({ appData }) => {
           <Group position="apart">
             <Group>
               <IconCreditCard />
-              <Title order={5}> Visa: Credit Card (1234)</Title>
+              <Title order={5}> Visa: Credit Card (4321)</Title>
             </Group>
             <Button leftIcon={<IconCreditCard />} onClick={() => alert('Not supported in demo')}>
               Update
