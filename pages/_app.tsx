@@ -1,15 +1,22 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { AppShell, Container, MantineProvider, MantineThemeOverride } from '@mantine/core'
-import { useState } from 'react'
-import MainFooter from '../components/MainFooter'
-import { MainHeader } from '../components/MainHeader'
+import { AppShell, MantineProvider, MantineThemeOverride } from '@mantine/core'
+import React, { useContext, useMemo, useState } from 'react'
 import { generateDemoEmail } from '../utils/email'
 import { AppData, CustomerType, ProductFlow } from '../types/types'
-import CustomerForm from '../components/CustomerForm'
+
+const AppDataContext = React.createContext<{
+  appData: AppData
+  updateAppData: (newData: Partial<AppData>) => void
+}>({} as any)
+
+export function useAppData() {
+  const { appData, updateAppData } = useContext(AppDataContext)
+  return [appData, updateAppData] as const
+}
 
 const SlopeDemo = ({ Component, pageProps }: AppProps) => {
-  const [appData, setAppData] = useState({
+  const [appData, setAppData] = useState<AppData>({
     customerForm: {
       businessName: 'Slope Demo Customer',
       customerType: CustomerType.SKIP_PRE_QUALIFY,
@@ -27,7 +34,7 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     productFlow: ProductFlow.BNPL_ONLY,
   })
 
-  const updateAppData = (newData: AppData) => {
+  const updateAppData = (newData: Partial<AppData>) => {
     setAppData({ ...appData, ...newData })
   }
 
@@ -57,6 +64,8 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
     }),
   }
 
+  const appDataContext = useMemo(() => ({ appData, updateAppData }), [appData])
+
   return (
     <div>
       <Head>
@@ -65,12 +74,11 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
         <script async src={`${process.env.NEXT_PUBLIC_CHECKOUT_HOST}/slope.min.js?v=2`} />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={providerTheme}>
-        <AppShell padding={0} header={<MainHeader />} footer={<MainFooter />}>
-          <CustomerForm appData={appData} updateAppData={updateAppData} />
-          <Container py={20}>
+        <AppDataContext.Provider value={appDataContext}>
+          <AppShell padding={0}>
             <Component appData={appData} updateAppData={updateAppData} {...pageProps} />
-          </Container>
-        </AppShell>
+          </AppShell>
+        </AppDataContext.Provider>
       </MantineProvider>
     </div>
   )

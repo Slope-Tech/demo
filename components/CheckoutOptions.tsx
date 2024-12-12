@@ -80,12 +80,12 @@ export const CheckoutOptions: React.FC<{
 
       {mode !== 'redirect' && (
         <>
-          <TextInput value={primaryColor} label="Custom color" mb="xs" readOnly />
+          <TextInput value={primaryColor} onChange={ev => onChangePrimaryColor(ev.target.value)} label="Custom color" mb="xs" />
           <ColorPicker
             fullWidth
             mb="xs"
             format="hex"
-            swatches={['#FD611A', '#868e96', '#be4bdb', '#4c6ef5', '#228be6', '#12b886', '#fab005']}
+            swatches={['#FE0102', '#FD611A', '#868e96', '#be4bdb', '#4c6ef5', '#228be6', '#12b886', '#fab005']}
             value={primaryColor}
             onChange={onChangePrimaryColor}
           />

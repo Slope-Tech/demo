@@ -21,10 +21,18 @@ export enum CustomerType {
 export interface AppData {
   customerForm: any
   productFlow: ProductFlow
-  mode: string
-  localeSelector: boolean
-  guestMode: boolean
-  primaryColor: string
-  linkToken: string
-  accessToken: string
+  mode?: string
+  localeSelector?: boolean
+  guestMode?: boolean
+  primaryColor?: string
+  linkToken?: string
+  accessToken?: string
+}
+
+export interface Product {
+  quantity: number,
+  name: string,
+  price: number,
+  imageSrc: string,
+  sku: string,
 }

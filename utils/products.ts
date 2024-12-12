@@ -1,3 +1,5 @@
+import { Product } from '../types/types'
+
 const unusedProducts = {
   Beer: [
     {
@@ -17,21 +19,21 @@ const unusedProducts = {
   ],
 }
 
-const products = {
+const productPresets: Record<string, Product[]> = {
   Soda: [
     {
       quantity: 150,
-      name: 'Nitro Pepsi - Variety Pack',
+      name: 'Coca-Cola Zero - 330ml, 24ct',
       price: 999,
-      imageSrc: '/images/products/nitro-pepsi.png',
-      sku: 'pepsi-sku-1',
+      imageSrc: '/images/products/coke.avif',
+      sku: 'coke-sku-1',
     },
     {
       quantity: 1440,
-      name: 'Mtn Dew Major Melon Watermelon -  12 Count',
-      price: 799,
-      imageSrc: '/images/products/mtn-dew-major-melon.jpeg',
-      sku: 'mtn-dew-sku-1',
+      name: 'Powerade ION 4 - Mountain Blast/Cherry Ice, 8ct',
+      price: 1199,
+      imageSrc: '/images/products/powerade.avif',
+      sku: 'powerade-sku-1',
     },
   ],
   Socks: [
@@ -45,14 +47,10 @@ const products = {
   ],
 }
 
-export const getProducts = (product) => {
-  return products[product]
-}
+export const getProducts = (product) => productPresets[product]
 
-export const getTotals = (products) => {
-  const subtotal = products.reduce((acc, curr) => {
-    return acc + curr.price * curr.quantity
-  }, 0)
+export const getTotals = (products: Product[]) => {
+  const subtotal = products.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
 
   const total = subtotal
 
@@ -62,8 +60,7 @@ export const getTotals = (products) => {
   }
 }
 
-export const formatCurrency = (number) => {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+export const formatCurrency = (number) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
     .format(number / 100.0)
     .toString()
-}
