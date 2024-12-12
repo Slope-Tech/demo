@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import { Select, UnstyledButton } from '@mantine/core'
-import { AppData, CustomerType, ProductFlow } from '../types/types'
-import MerchantDemoPage from '../components/custom-demos/MerchantDemoPage'
-import usePaymentButton from '../utils/custom-demos/usePaymentButton'
+import React from 'react'
+import { UnstyledButton } from '@mantine/core'
 import { useRouter } from 'next/router'
+import { AppData } from '../types/types'
+import MerchantDemoPage from '../components/custom-demos/MerchantDemoPage'
 
 declare global {
   interface Window {
