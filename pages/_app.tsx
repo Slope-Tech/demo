@@ -12,8 +12,8 @@ const SlopeDemo = ({ Component, pageProps }: AppProps) => {
   const [appData, setAppData] = useState({
     customerForm: {
       businessName: 'Slope Demo Customer',
-      customerType: CustomerType.SKIP_PRE_QUALIFY,
-      email: generateDemoEmail({ customerType: CustomerType.SKIP_PRE_QUALIFY }),
+      customerType: CustomerType.NEW,
+      email: generateDemoEmail({ customerType: CustomerType.NEW }),
       phone: '+16175551212',
       line1: '123 California St',
       city: 'San Francisco',
