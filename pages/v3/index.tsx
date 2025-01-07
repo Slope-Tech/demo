@@ -28,12 +28,12 @@ const Checkout: React.FC<{
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
 
-  const { customerForm, productFlow } = appData
+  const { customerForm, productFlow, mode } = appData
   const { localeSelector, guestMode, isLegacySDK } = customerForm
 
   const onPay = async () => {
     setLoading(true)
-    if (!isLegacySDK && customerForm.mode !== 'redirect') {
+    if (!isLegacySDK && mode !== 'redirect') {
       window.SlopeJs.open()
     }
 
@@ -85,7 +85,7 @@ const Checkout: React.FC<{
 
     const successPath = `/success?orderNumber=${order.number}`
 
-    if (customerForm.mode === 'redirect') {
+    if (mode === 'redirect') {
       // NOTE: The redirect API is still private and should not be used by developers.
       // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
