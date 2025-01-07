@@ -37,7 +37,7 @@ const Checkout: React.FC<{
   appData: AppData
   updateAppData: any
 }> = ({ appData, updateAppData }) => {
-  const { customerForm } = appData
+  const { customerForm, mode } = appData
 
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -110,7 +110,7 @@ const Checkout: React.FC<{
     }
 
     setLoading(true)
-    if (customerForm.mode !== 'redirect') {
+    if (mode !== 'redirect') {
       window.SlopeJs.open()
     }
 
@@ -151,7 +151,7 @@ const Checkout: React.FC<{
 
     const successPath = `/seller_financing/success?orderNumber=${order.number}`
 
-    if (customerForm.mode === 'redirect') {
+    if (mode === 'redirect') {
       // NOTE: The redirect API is still private and should not be used by developers.
       // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
