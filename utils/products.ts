@@ -20,14 +20,14 @@ const unusedProducts = {
 const products = {
   Soda: [
     {
-      quantity: 150,
+      quantity: 110,
       name: 'Nitro Pepsi - Variety Pack',
       price: 999,
       imageSrc: '/images/products/nitro-pepsi.png',
       sku: 'pepsi-sku-1',
     },
     {
-      quantity: 1440,
+      quantity: 1110,
       name: 'Mtn Dew Major Melon Watermelon -  12 Count',
       price: 799,
       imageSrc: '/images/products/mtn-dew-major-melon.jpeg',
