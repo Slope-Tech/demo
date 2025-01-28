@@ -2108,6 +2108,77 @@ Payments are due within 15 days after Customer receives the invoice.</p>
                             enable: (getCode() == getQuotePaymentMethod())" title="Place Order">
                     <span data-bind="i18n: &#39;Place Order&#39;">Place Order</span>
                 </button>
+
+                <!-- For production -->
+                <button id="slope-pay-btn" onclick="openSlope()" >
+                            <div class="slope-btn-icon"></div>
+                            <span>Pay with Slope</span>
+                        </button>
+                        <div style="margin-top: 16px;">
+                            <label for="slope-customer-email">Slope customer type:</label>
+                            <select id="slope-customer-email">
+                                <option value="demo+skip-pre_qualify@slope.so">Pre-qualified</option>
+                                <option value="demo@slope.so">New</option>
+                                <option value="demo+skip-compliance@slope.so">Skip Compliance</option>
+                            </select>
+                        </div>
+                        <script type="text/javascript" src="https://checkout.sandbox.slope.so/slope.min.js"></script>
+                        <script type="text/javascript">
+                        window.openSlope = async () => {
+                            const orderTotal = 5_404_80
+                            document.querySelector('.slope-btn-icon')?.classList.add('slope-btn-icon-loader')
+                            const customerEmail = document.querySelector('#slope-customer-email').value
+                            const customerData = {
+                                "businessName": "Slope Demo Customer",
+                                "email": customerEmail,
+                                "phone": "+16175551212",
+                                "line1": "123 California St",
+                                "city": "San Francisco",
+                                "state": "CA",
+                                "postalCode": "94105",
+                                "country": "US",
+                                "currency": "usd"
+                            }
+                            const customerResponse = await fetch('/api/create-customer', {
+                                method: 'POST',
+                                body: JSON.stringify(customerData)
+                            })
+                            const { customer } = await customerResponse.json()
+                            const orderRes = await fetch('/api/create-order', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                customerId: customer.id,
+                                currency: 'usd',
+                                total: orderTotal
+                            }),
+                            })
+
+                            const { secret, order } = await orderRes.json()
+
+                            setTimeout(() => document.querySelector('.slope-btn-icon')?.classList.remove('slope-btn-icon-loader'), 1000)
+                            window.initializeSlope({
+                                primaryColor: '#012169',
+                                intentSecret: secret,
+                                onSuccess: async () => {
+                                    console.log('slope done')
+                                    window.location.href = '/lowes/complete.html'
+                                },
+                                onFailure: (err) => {
+                                    console.error(err)
+                                },
+                                onClose: () => {
+                                    setLoading(false)
+                                },
+                                onOrderOpen: (payload) => {
+                                    console.log('Slope order open', payload)
+                                },
+                                onEvent: console.log,
+                            })
+
+                            window.Slope.open()
+
+                        }
+                        </script>
                 <!--/ko-->
             </div>
         </div>
