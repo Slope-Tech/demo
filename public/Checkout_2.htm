@@ -1333,6 +1333,8 @@ line-height: 1.4rem !important;
     <div class="billing-address-same-as-shipping-block field choice" data-bind="visible: canUseShippingAddress()">
         <input type="checkbox" name="billing-address-same-as-shipping" data-bind="checked: isAddressSameAsShipping, click: useShippingAddress, attr: {id: &#39;billing-address-same-as-shipping-&#39; + getCode($parent)}" id="billing-address-same-as-shipping-cashondelivery">
         <label data-bind="attr: {for: &#39;billing-address-same-as-shipping-&#39; + getCode($parent)}" for="billing-address-same-as-shipping-cashondelivery"><span data-bind="i18n: &#39;My billing and shipping address are the same&#39;">My billing and shipping address are the same</span></label>
+
+        
     </div>
     <!-- ko template: detailsTemplate -->
 <!-- ko if: isAddressDetailsVisible() && currentBillingAddress() --><div class="billing-address-details">
@@ -2109,76 +2111,77 @@ Payments are due within 15 days after Customer receives the invoice.</p>
                     <span data-bind="i18n: &#39;Place Order&#39;">Place Order</span>
                 </button>
 
-                <!-- For production -->
-                <button id="slope-pay-btn" onclick="openSlope()" >
-                            <div class="slope-btn-icon"></div>
-                            <span>Pay with Slope</span>
-                        </button>
-                        <div style="margin-top: 16px;">
-                            <label for="slope-customer-email">Slope customer type:</label>
-                            <select id="slope-customer-email">
-                                <option value="demo+skip-pre_qualify@slope.so">Pre-qualified</option>
-                                <option value="demo@slope.so">New</option>
-                                <option value="demo+skip-compliance@slope.so">Skip Compliance</option>
-                            </select>
-                        </div>
-                        <script type="text/javascript" src="https://checkout.sandbox.slope.so/slope.min.js"></script>
-                        <script type="text/javascript">
-                        window.openSlope = async () => {
-                            const orderTotal = 5_404_80
-                            document.querySelector('.slope-btn-icon')?.classList.add('slope-btn-icon-loader')
-                            const customerEmail = document.querySelector('#slope-customer-email').value
-                            const customerData = {
-                                "businessName": "Slope Demo Customer",
-                                "email": customerEmail,
-                                "phone": "+16175551212",
-                                "line1": "123 California St",
-                                "city": "San Francisco",
-                                "state": "CA",
-                                "postalCode": "94105",
-                                "country": "US",
-                                "currency": "usd"
-                            }
-                            const customerResponse = await fetch('/api/create-customer', {
-                                method: 'POST',
-                                body: JSON.stringify(customerData)
-                            })
-                            const { customer } = await customerResponse.json()
-                            const orderRes = await fetch('/api/create-order', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                customerId: customer.id,
-                                currency: 'usd',
-                                total: orderTotal
-                            }),
-                            })
+<button id="slope-pay-btn" onclick="openSlope()" >
+    <div class="slope-btn-icon"></div>
+    <span>Pay with Slope</span>
+</button>
+<div style="margin-top: 16px;">
+    <label for="slope-customer-email">Slope customer type:</label>
+    <select id="slope-customer-email">
+        <option value="demo+skip-pre_qualify@slope.so">Pre-qualified</option>
+        <option value="demo@slope.so">New</option>
+        <option value="demo+skip-compliance@slope.so">Skip Compliance</option>
+    </select>
+</div>
+<script type="text/javascript" src="https://checkout.sandbox.slope.so/slope.min.js"></script>
+<script type="text/javascript">
+window.openSlope = async () => {
+    const orderTotal = 5_404_80
+    document.querySelector('.slope-btn-icon')?.classList.add('slope-btn-icon-loader')
+    const customerEmail = document.querySelector('#slope-customer-email').value
+    const customerData = {
+        "businessName": "Slope Demo Customer",
+        "email": customerEmail,
+        "phone": "+16175551212",
+        "line1": "123 California St",
+        "city": "San Francisco",
+        "state": "CA",
+        "postalCode": "94105",
+        "country": "US",
+        "currency": "usd"
+    }
+    const customerResponse = await fetch('/api/create-customer', {
+        method: 'POST',
+        body: JSON.stringify(customerData)
+    })
+    const { customer } = await customerResponse.json()
+    const orderRes = await fetch('/api/create-order', {
+    method: 'POST',
+    body: JSON.stringify({
+        customerId: customer.id,
+        currency: 'usd',
+        total: orderTotal
+    }),
+    })
 
-                            const { secret, order } = await orderRes.json()
+    const { secret, order } = await orderRes.json();
+    console.log('Secret:', secret);
+    console.log('Order:', order);
 
-                            setTimeout(() => document.querySelector('.slope-btn-icon')?.classList.remove('slope-btn-icon-loader'), 1000)
-                            window.initializeSlope({
-                                primaryColor: '#012169',
-                                intentSecret: secret,
-                                onSuccess: async () => {
-                                    console.log('slope done')
-                                    window.location.href = '/lowes/complete.html'
-                                },
-                                onFailure: (err) => {
-                                    console.error(err)
-                                },
-                                onClose: () => {
-                                    setLoading(false)
-                                },
-                                onOrderOpen: (payload) => {
-                                    console.log('Slope order open', payload)
-                                },
-                                onEvent: console.log,
-                            })
+    setTimeout(() => document.querySelector('.slope-btn-icon')?.classList.remove('slope-btn-icon-loader'), 1000)
+    window.initializeSlope({
+        primaryColor: '#012169',
+        intentSecret: secret,
+        onSuccess: async () => {
+            console.log('slope done')
+            window.location.href = '/lowes/complete.html'
+        },
+        onFailure: (err) => {
+            console.error(err)
+        },
+        onClose: () => {
+            setLoading(false)
+        },
+        onOrderOpen: (payload) => {
+            console.log('Slope order open', payload)
+        },
+        onEvent: console.log,
+    })
 
-                            window.Slope.open()
+    window.Slope.open()
 
-                        }
-                        </script>
+}
+</script>
                 <!--/ko-->
             </div>
         </div>
