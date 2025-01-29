@@ -7112,9 +7112,6 @@
                                             <!-- ko template: getTemplate() -->
                                             <!-- ko foreach: {data: elems, as: 'element'} -->
                                             <!-- ko if: hasTemplate() --><!-- ko template: getTemplate() -->
-                                            <div>
-                                                <!-- ko foreach: {data: getRegion('place-order-recaptcha'), as: 'recaptcha'} --><!-- /ko -->
-                                            </div>
                                             <hr>
                                             <!-- /ko --><!-- /ko -->
                                             <!-- /ko -->
@@ -7140,7 +7137,54 @@
                                                                     data-bind="attr: {&#39;id&#39;: getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"
                                                                     id="cashondelivery" value="cashondelivery"
                                                                     style="display: none;">
+                                                                    <div class="leo-payment-container">
+                                                                        <form id="payment-form">
+                                                                            <label class="leo-payment-option">
+                                                                                <input type="radio" name="payment-method" value="credit-card" checked class="leo-payment-radio">
+                                                                                Credit/Debit Card
+                                                                                <img src="/Checkout_2_files/credit_card_logos.png" alt="Credit Card Logos" class="leo-payment-logo">
+                                                                            </label>
+                                                                            <br>
+                                                                            <label class="leo-payment-option">
+                                                                                <input type="radio" name="payment-method" value="paypal" class="leo-payment-radio">
+                                                                                PayPal
+                                                                                <img src="/Checkout_2_files/paypal_logo.svg" alt="PayPal Logo" class="leo-payment-logo">
+                                                                            </label>
+                                                                            <br>
+                                                                            <label class="leo-payment-option">
+                                                                                <input type="radio" name="payment-method" value="slope" class="leo-payment-radio">
+                                                                                Pay with Slope
+                                                                            </label>
+                                                                        </form>
+                                                                    </div>
 
+                                                                    <style>
+                                                                        .leo-payment-container {
+                                                                            font-family: Arial, sans-serif;
+                                                                            margin: 20px;
+                                                                        }
+
+                                                                        .leo-payment-title {
+                                                                            margin-bottom: 10px;
+                                                                        }
+
+                                                                        .leo-payment-option {
+                                                                            display: flex;
+                                                                            align-items: center;
+                                                                            gap: 10px; /* Space between radio button, text, and image */
+                                                                            margin-bottom: 7px; /* Space between each payment option */
+                                                                        }
+
+                                                                        .leo-payment-radio {
+                                                                            margin-right: 10px; /* Space between radio button and text */
+                                                                        }
+
+                                                                        .leo-payment-logo {
+                                                                            height: 24px; /* Adjust as needed */
+                                                                            margin-left: 10px;
+                                                                        }
+                                                                    </style>
+                                                                    
                                                                 <!-- /ko THIS IS WHERE THE PAYMENT OPTIONS SHOULD BE SLOPE SLOPE SLOPE-->
                                                             </div>
                                                             <!-- /ko THIS IS WHERE THE PAYMENT OPTIONS SHOULD BE SLOPE SLOPE SLOPE-->
@@ -9526,43 +9570,41 @@
                                                                 </div>
                                                                 <div class="actions-toolbar">
                                                                     <div class="primary">
-                                                                        <!-- ko if: isPoNew --><!--/ko-->
-                                                                        <!-- ko if: isOrder -->
                                                                         <button class="action primary checkout"
                                                                             type="submit" data-bind="
-                            click: placeOrder,
-                            attr: {title: $t(&#39;Place Order&#39;)},
-                            css: {disabled: !isPlaceOrderActionAllowed()},
-                            enable: (getCode() == getQuotePaymentMethod())" title="Place Order">
-                                                                            <span
-                                                                                data-bind="i18n: &#39;Place Order&#39;">Place
-                                                                                Order</span>
+                                                                                click: placeOrder,
+                                                                                attr: {title: $t('Place Order')},
+                                                                                css: {disabled: !isPlaceOrderActionAllowed()},
+                                                                                enable: (getCode() == getQuotePaymentMethod())" title="Place Order">
+                                                                            <span data-bind="i18n: 'Place Order'">Place Order</span>
                                                                         </button>
 
-                                                                        <button id="slope-pay-btn"
-                                                                            onclick="openSlope()">
+                                                                        <button id="slope-pay-btn" class="action primary checkout" onclick="openSlope()">
                                                                             <div class="slope-btn-icon"></div>
                                                                             <span>Pay with Slope</span>
                                                                         </button>
-                                                                        <div style="margin-top: 16px;">
-                                                                            <label for="slope-customer-email">Slope
-                                                                                customer type:</label>
-                                                                            <select id="slope-customer-email">
-                                                                                <option
-                                                                                    value="demo+skip-pre_qualify@slope.so">
-                                                                                    Pre-qualified</option>
-                                                                                <option value="demo@slope.so">New
-                                                                                </option>
-                                                                                <option
-                                                                                    value="demo+skip-compliance@slope.so">
-                                                                                    Skip Compliance</option>
-                                                                            </select>
-                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <style>
+                                                                    .primary > #slope-pay-btn {
+                                                                        margin-left: 15px;
+                                                                    }
+                                                                </style>
+
+                                                                <div class="leo-customer-type-container">
+                                                                    <label for="slope-customer-email">Slope customer type:</label>
+                                                                    <select id="slope-customer-email">
+                                                                        <option value="demo+skip-pre_qualify@slope.so">Pre-qualified</option>
+                                                                        <option value="demo@slope.so">New</option>
+                                                                        <option value="demo+skip-compliance@slope.so">Skip Compliance</option>
+                                                                    </select>
+                                                                </div>
                                                                         <script type="text/javascript"
                                                                             src="https://checkout.sandbox.slope.so/slope.min.js"></script>
                                                                         <script type="text/javascript">
                                                                             window.openSlope = async () => {
-                                                                                const orderTotal = 5_404_80
+                                                                                const orderTotal = 2_680_00
                                                                                 document.querySelector('.slope-btn-icon')?.classList.add('slope-btn-icon-loader')
                                                                                 const customerEmail = document.querySelector('#slope-customer-email').value
                                                                                 const customerData = {
