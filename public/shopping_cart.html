@@ -476,7 +476,7 @@ line-height: 1.4rem !important;
 
     <span class="price-excluding-tax" data-label="Excl. Tax">
             <span class="minicart-price">
-            <span class="price">€1,050.00</span>        </span>
+            <span class="price">$1,050.00</span>        </span>
 
         </span>
 </span>
@@ -563,7 +563,7 @@ line-height: 1.4rem !important;
 
     <span class="price-excluding-tax" data-label="Excl. Tax">
             <span class="minicart-price">
-            <span class="price">€35.00</span>        </span>
+            <span class="price">$35.00</span>        </span>
 
         </span>
 </span>
@@ -650,7 +650,7 @@ line-height: 1.4rem !important;
 
     <span class="price-excluding-tax" data-label="Excl. Tax">
             <span class="minicart-price">
-            <span class="price">€110.00</span>        </span>
+            <span class="price">$110.00</span>        </span>
 
         </span>
 </span>
@@ -712,7 +712,7 @@ line-height: 1.4rem !important;
 <div class="amount price-container">
     <!-- ko if: displaySubtotal() -->
         <!-- ko if: display_cart_subtotal_excl_tax -->
-            <span class="price-wrapper" data-bind="html: cart().subtotal_excl_tax"><span class="price">€2,680.00</span></span>
+            <span class="price-wrapper" data-bind="html: cart().subtotal_excl_tax"><span class="price">$2,680.00</span></span>
         <!-- /ko -->
 
         <!-- ko if: !display_cart_subtotal_excl_tax && display_cart_subtotal_incl_tax --><!-- /ko -->
@@ -1030,7 +1030,7 @@ line-height: 1.4rem !important;
                         <!-- ko text: $data.method_title -->Please announce your carrier of Choice (UPS, DHL, etc) and account number thereof.<!-- /ko -->
                         <!-- ko foreach: element.getRegion('price') --><!-- ko template: getTemplate() -->
 <!-- ko if:  isDisplayShippingPriceExclTax -->
-<span class="price"><span class="price" data-bind="text: getFormattedPrice(method.price_excl_tax)">€0.00</span></span>
+<span class="price"><span class="price" data-bind="text: getFormattedPrice(method.price_excl_tax)">$0.00</span></span>
 <!-- /ko -->
 <!-- ko ifnot: isDisplayShippingPriceExclTax --><!-- /ko -->
 <!-- ko if:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))--><!-- /ko -->
@@ -1074,7 +1074,7 @@ line-height: 1.4rem !important;
 <tr class="totals sub">
     <th data-bind="i18n: title" class="mark" scope="row">Subtotal</th>
     <td class="amount">
-        <span class="price" data-bind="text: getValue(), attr: {&#39;data-th&#39;: title}" data-th="Subtotal">€2,680.00</span>
+        <span class="price" data-bind="text: getValue(), attr: {&#39;data-th&#39;: title}" data-th="Subtotal">$2,680.00</span>
     </td>
 </tr>
 <!-- /ko -->
@@ -1120,7 +1120,7 @@ line-height: 1.4rem !important;
             <span class="value" data-bind="text: getShippingMethodTitle()">(Free Carrier - Please announce your carrier of Choice (UPS, DHL, etc) and account number thereof.)</span>
         </th>
         <td class="amount">
-            <span class="price" data-bind="text: getValue(), attr: {&#39;data-th&#39;: title}" data-th="Shipping">€0.00</span>
+            <span class="price" data-bind="text: getValue(), attr: {&#39;data-th&#39;: title}" data-th="Shipping">$0.00</span>
         </td>
     </tr>
     <!-- /ko -->
@@ -1136,7 +1136,7 @@ line-height: 1.4rem !important;
 <tr class="totals-tax">
     <th data-bind="text: getTotalTaxTitle()" class="mark" colspan="1" scope="row">Tax</th>
     <td data-bind="attr: {&#39;data-th&#39;: getTotalTaxTitle()}" class="amount" data-th="Tax">
-        <span class="price" data-bind="text: getValue()">€0.00</span>
+        <span class="price" data-bind="text: getValue()">$0.00</span>
     </td>
 </tr>
 <!-- /ko -->
@@ -1154,7 +1154,7 @@ line-height: 1.4rem !important;
         <strong data-bind="i18n: inclTaxLabel">Order Total Incl. Tax</strong>
     </th>
     <td data-bind="attr: {&#39;data-th&#39;: inclTaxLabel}" class="amount" data-th="Order Total Incl. Tax">
-        <strong><span class="price" data-bind="text: getValue()">€2,680.00</span></strong>
+        <strong><span class="price" data-bind="text: getValue()">$2,680.00</span></strong>
     </td>
 </tr>
 <tr class="grand totals excl">
@@ -1162,7 +1162,7 @@ line-height: 1.4rem !important;
         <strong data-bind="i18n: exclTaxLabel">Order Total Excl. Tax</strong>
     </th>
     <td data-bind="attr: {&#39;data-th&#39;: exclTaxLabel}" class="amount" data-th="Order Total Excl. Tax">
-        <strong><span class="price" data-bind="text: getGrandTotalExclTax()">€2,680.00</span></strong>
+        <strong><span class="price" data-bind="text: getGrandTotalExclTax()">$2,680.00</span></strong>
     </td>
 </tr>
 <!-- /ko -->
@@ -1240,7 +1240,7 @@ for (var i = 0; i < prodImageContainersWrappers.length; i++) {
                 
     <span class="price-excluding-tax" data-label="Excl. Tax">
                     <span class="cart-price">
-                        <span class="price">€110.00</span>            </span>
+                        <span class="price">$110.00</span>            </span>
 
             </span>
             </td>
@@ -1259,7 +1259,7 @@ for (var i = 0; i < prodImageContainersWrappers.length; i++) {
                             
     <span class="price-excluding-tax" data-label="Excl. Tax">
                     <span class="cart-price">
-                        <span class="price">€440.00</span>            </span>
+                        <span class="price">$440.00</span>            </span>
 
             </span>
                     </td>
@@ -1343,7 +1343,7 @@ for (var i = 0; i < prodImageContainersWrappers.length; i++) {
                 
     <span class="price-excluding-tax" data-label="Excl. Tax">
                     <span class="cart-price">
-                        <span class="price">€35.00</span>            </span>
+                        <span class="price">$35.00</span>            </span>
 
             </span>
             </td>
@@ -1362,7 +1362,7 @@ for (var i = 0; i < prodImageContainersWrappers.length; i++) {
                             
     <span class="price-excluding-tax" data-label="Excl. Tax">
                     <span class="cart-price">
-                        <span class="price">€140.00</span>            </span>
+                        <span class="price">$140.00</span>            </span>
 
             </span>
                     </td>
@@ -1446,7 +1446,7 @@ for (var i = 0; i < prodImageContainersWrappers.length; i++) {
                 
     <span class="price-excluding-tax" data-label="Excl. Tax">
                     <span class="cart-price">
-                        <span class="price">€1,050.00</span>            </span>
+                        <span class="price">$1,050.00</span>            </span>
 
             </span>
             </td>
@@ -1465,7 +1465,7 @@ for (var i = 0; i < prodImageContainersWrappers.length; i++) {
                             
     <span class="price-excluding-tax" data-label="Excl. Tax">
                     <span class="cart-price">
-                        <span class="price">€2,100.00</span>            </span>
+                        <span class="price">$2,100.00</span>            </span>
 
             </span>
                     </td>

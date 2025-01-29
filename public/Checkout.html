@@ -430,7 +430,7 @@ line-height: 1.4rem !important;
 <div class="opc-estimated-wrapper" data-bind="blockLoader: isLoading">
     <div class="estimated-block">
         <span class="estimated-label" data-bind="i18n: &#39;Estimated Total&#39;">Estimated Total</span>
-        <span class="estimated-price" data-bind="text: getValue()">€2,680.00</span>
+        <span class="estimated-price" data-bind="text: getValue()">$2,680.00</span>
     </div>
     <div class="minicart-wrapper">
         <button type="button" class="action showcart" data-toggle="opc-summary" data-bind="click: showSidebar">
@@ -1244,7 +1244,7 @@ line-height: 1.4rem !important;
     <td class="col col-price">
         <!-- ko foreach: element.getRegion('price') --><!-- ko template: getTemplate() -->
 <!-- ko if:  isDisplayShippingPriceExclTax -->
-<span class="price"><span class="price" data-bind="text: getFormattedPrice(method.price_excl_tax)">€0.00</span></span>
+<span class="price"><span class="price" data-bind="text: getFormattedPrice(method.price_excl_tax)">$0.00</span></span>
 <!-- /ko -->
 <!-- ko ifnot: isDisplayShippingPriceExclTax --><!-- /ko -->
 <!-- ko if:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))--><!-- /ko -->
@@ -1485,7 +1485,7 @@ line-height: 1.4rem !important;
 
 <!-- ko ifnot: (isDisplayPriceWithWeeeDetails($parents[2])) -->
     <span class="cart-price">
-        <span class="price" data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">€440.00</span>
+        <span class="price" data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">$440.00</span>
     </span>
 <!-- /ko -->
 
@@ -1549,7 +1549,7 @@ line-height: 1.4rem !important;
 
 <!-- ko ifnot: (isDisplayPriceWithWeeeDetails($parents[2])) -->
     <span class="cart-price">
-        <span class="price" data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">€140.00</span>
+        <span class="price" data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">$140.00</span>
     </span>
 <!-- /ko -->
 
@@ -1613,7 +1613,7 @@ line-height: 1.4rem !important;
 
 <!-- ko ifnot: (isDisplayPriceWithWeeeDetails($parents[2])) -->
     <span class="cart-price">
-        <span class="price" data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">€2,100.00</span>
+        <span class="price" data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">$2,100.00</span>
     </span>
 <!-- /ko -->
 

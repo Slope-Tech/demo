@@ -5636,7 +5636,7 @@
                             <div class="estimated-block">
                                 <span class="estimated-label" data-bind="i18n: &#39;Estimated Total&#39;">Estimated
                                     Total</span>
-                                <span class="estimated-price" data-bind="text: getValue()">€2,680.00</span>
+                                <span class="estimated-price" data-bind="text: getValue()">$2,680.00</span>
                             </div>
                             <div class="minicart-wrapper">
                                 <button type="button" class="action showcart" data-toggle="opc-summary"
@@ -7043,7 +7043,7 @@
                                                                     <!-- ko foreach: element.getRegion('price') --><!-- ko template: getTemplate() -->
                                                                     <!-- ko if:  isDisplayShippingPriceExclTax -->
                                                                     <span class="price"><span class="price"
-                                                                            data-bind="text: getFormattedPrice(method.price_excl_tax)">€0.00</span></span>
+                                                                            data-bind="text: getFormattedPrice(method.price_excl_tax)">$0.00</span></span>
                                                                     <!-- /ko -->
                                                                     <!-- ko ifnot: isDisplayShippingPriceExclTax --><!-- /ko -->
                                                                     <!-- ko if:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))--><!-- /ko -->
@@ -9772,7 +9772,7 @@
                                                         <td class="amount">
                                                             <span class="price"
                                                                 data-bind="text: getValue(), attr: {&#39;data-th&#39;: title}"
-                                                                data-th="Cart Subtotal">€2,680.00</span>
+                                                                data-th="Cart Subtotal">$2,680.00</span>
                                                         </td>
                                                     </tr>
                                                     <!-- /ko -->
@@ -9824,7 +9824,7 @@
                                                             <!-- ko if: isCalculated() -->
                                                             <span class="price"
                                                                 data-bind="text: getValue(), attr: {&#39;data-th&#39;: title}"
-                                                                data-th="Shipping">€0.00</span>
+                                                                data-th="Shipping">$0.00</span>
                                                             <!-- /ko -->
                                                             <!-- ko ifnot: isCalculated() --><!-- /ko -->
                                                         </td>
@@ -9846,7 +9846,7 @@
                                                             class="amount" data-th="Tax">
                                                             <!-- ko if: isCalculated() -->
                                                             <span class="price"
-                                                                data-bind="text: getValue()">€0.00</span>
+                                                                data-bind="text: getValue()">$0.00</span>
                                                             <!-- /ko -->
                                                             <!-- ko ifnot: isCalculated() --><!-- /ko -->
                                                         </td>
@@ -9875,7 +9875,7 @@
                                                         <td data-bind="attr: {&#39;data-th&#39;: inclTaxLabel}"
                                                             class="amount" data-th="Order Total Incl. Tax">
                                                             <strong><span class="price"
-                                                                    data-bind="text: getValue()">€2,680.00</span></strong>
+                                                                    data-bind="text: getValue()">$2,680.00</span></strong>
                                                         </td>
                                                     </tr>
                                                     <tr class="grand totals excl">
@@ -9886,7 +9886,7 @@
                                                         <td data-bind="attr: {&#39;data-th&#39;: exclTaxLabel}"
                                                             class="amount" data-th="Order Total Excl. Tax">
                                                             <strong><span class="price"
-                                                                    data-bind="text: getGrandTotalExclTax()">€2,680.00</span></strong>
+                                                                    data-bind="text: getGrandTotalExclTax()">$2,680.00</span></strong>
                                                         </td>
                                                     </tr>
                                                     <!-- /ko -->
@@ -9990,7 +9990,7 @@
                                                                                     <!-- ko ifnot: (isDisplayPriceWithWeeeDetails($parents[2])) -->
                                                                                     <span class="cart-price">
                                                                                         <span class="price"
-                                                                                            data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">€440.00</span>
+                                                                                            data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">$440.00</span>
                                                                                     </span>
                                                                                     <!-- /ko -->
 
@@ -10068,7 +10068,7 @@
                                                                                     <!-- ko ifnot: (isDisplayPriceWithWeeeDetails($parents[2])) -->
                                                                                     <span class="cart-price">
                                                                                         <span class="price"
-                                                                                            data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">€140.00</span>
+                                                                                            data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">$140.00</span>
                                                                                     </span>
                                                                                     <!-- /ko -->
 
@@ -10146,7 +10146,7 @@
                                                                                     <!-- ko ifnot: (isDisplayPriceWithWeeeDetails($parents[2])) -->
                                                                                     <span class="cart-price">
                                                                                         <span class="price"
-                                                                                            data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">€2,100.00</span>
+                                                                                            data-bind="text: getFormattedPrice(getRowDisplayPriceExclTax($parents[2]))">$2,100.00</span>
                                                                                     </span>
                                                                                     <!-- /ko -->
 
