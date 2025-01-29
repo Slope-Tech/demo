@@ -7112,6 +7112,9 @@
                                             <!-- ko template: getTemplate() -->
                                             <!-- ko foreach: {data: elems, as: 'element'} -->
                                             <!-- ko if: hasTemplate() --><!-- ko template: getTemplate() -->
+                                            <div>
+                                                <!-- ko foreach: {data: getRegion('place-order-recaptcha'), as: 'recaptcha'} --><!-- /ko -->
+                                            </div>
                                             <hr>
                                             <!-- /ko --><!-- /ko -->
                                             <!-- /ko -->
@@ -9570,6 +9573,7 @@
                                                                 </div>
                                                                 <div class="actions-toolbar">
                                                                     <div class="primary">
+                                                                        <!-- Place Order button -->
                                                                         <button class="action primary checkout"
                                                                             type="submit" data-bind="
                                                                                 click: placeOrder,
@@ -9578,28 +9582,28 @@
                                                                                 enable: (getCode() == getQuotePaymentMethod())" title="Place Order">
                                                                             <span data-bind="i18n: 'Place Order'">Place Order</span>
                                                                         </button>
-
+                                                                        
+                                                                        <!-- Pay with Slope button -->
                                                                         <button id="slope-pay-btn" class="action primary checkout" onclick="openSlope()">
                                                                             <div class="slope-btn-icon"></div>
                                                                             <span>Pay with Slope</span>
                                                                         </button>
-                                                                    </div>
-                                                                </div>
-
-                                                                <style>
-                                                                    .primary > #slope-pay-btn {
-                                                                        margin-left: 15px;
-                                                                    }
-                                                                </style>
-
-                                                                <div class="leo-customer-type-container">
-                                                                    <label for="slope-customer-email">Slope customer type:</label>
-                                                                    <select id="slope-customer-email">
-                                                                        <option value="demo+skip-pre_qualify@slope.so">Pre-qualified</option>
-                                                                        <option value="demo@slope.so">New</option>
-                                                                        <option value="demo+skip-compliance@slope.so">Skip Compliance</option>
-                                                                    </select>
-                                                                </div>
+                                                                        <br>
+                                                                        <br>
+                                                                        <div style="margin-top: 16px;">
+                                                                            <label for="slope-customer-email">Slope
+                                                                                customer type:</label>
+                                                                            <select id="slope-customer-email">
+                                                                                <option
+                                                                                    value="demo+skip-pre_qualify@slope.so">
+                                                                                    Pre-qualified</option>
+                                                                                <option value="demo@slope.so">New
+                                                                                </option>
+                                                                                <option
+                                                                                    value="demo+skip-compliance@slope.so">
+                                                                                    Skip Compliance</option>
+                                                                            </select>
+                                                                        </div>
                                                                         <script type="text/javascript"
                                                                             src="https://checkout.sandbox.slope.so/slope.min.js"></script>
                                                                         <script type="text/javascript">
