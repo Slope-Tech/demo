@@ -97,7 +97,7 @@ const Checkout: React.FC<{
         router.push(successPath)
       },
       onFailure: (err) => {
-        console.log('Slope onFailure callback: ', payload)
+        console.log('Slope onFailure callback: ', err)
         console.error(err)
       },
       onClose: () => {
