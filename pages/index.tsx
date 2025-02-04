@@ -93,18 +93,22 @@ const Checkout: React.FC<{
       offerType,
       flow: 'checkout',
       onSuccess: async () => {
+        console.log('Slope onSuccess callback: ', payload)
         router.push(successPath)
       },
       onFailure: (err) => {
+        console.log('Slope onFailure callback: ', payload)
         console.error(err)
       },
       onClose: () => {
         setLoading(false)
       },
       onOrderOpen: (payload) => {
-        console.log('Slope order open', payload)
+        console.log('Slope onOrderOpen callback: ', payload)
       },
-      onEvent: console.log,
+      onEvent: (payload) => {
+        console.log('Slope onEvent callback: ', payload)
+      },
     }
 
     window.SlopeJs.start(slopeParams)
