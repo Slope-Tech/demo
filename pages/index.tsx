@@ -92,7 +92,7 @@ const Checkout: React.FC<{
       accessToken,
       offerType,
       flow: 'checkout',
-      onSuccess: async () => {
+      onSuccess: async (payload) => {
         console.log('Slope onSuccess callback: ', payload)
         router.push(successPath)
       },
