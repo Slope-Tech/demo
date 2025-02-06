@@ -6,7 +6,7 @@ import {
   IconPlugConnected,
   IconWallet,
 } from '@tabler/icons'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ErrorAlert from '../components/ErrorAlert'
 import { AppData } from '../types/types'
 import { CardRow } from '../components/CardRow'
@@ -73,6 +73,7 @@ export default function Account({
     const slopeParams = {
       publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
       flow: 'link',
+      customerExternalId: (Math.random() + 1).toString(36),
       onSuccess: async (resp) => {
         updateAppData({ linkToken: resp.linkToken })
         const linkResp = await fetch('/api/v4-user-links', {
@@ -81,7 +82,6 @@ export default function Account({
             linkToken: resp.linkToken,
           }),
         })
-    
         const data = await linkResp.json()
         updateAppData({ accessToken: data.accessToken })
       },
