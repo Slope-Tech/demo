@@ -82,7 +82,6 @@ export default function Account({
             linkToken: resp.linkToken,
           }),
         })
-
         const data = await linkResp.json()
         updateAppData({ accessToken: data.accessToken })
       },
