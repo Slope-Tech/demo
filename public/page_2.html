@@ -2,37 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Demo Page for Amazon RFP</title>
+  <title>Responsive Background Demo</title>
   <style>
-    /* Reset margin/padding */
+    /* Page setup */
     * {
       margin: 0;
       padding: 0;
     }
-
-    /* Make sure the page fills the entire browser window */
     html, body {
       height: 100%;
       font-family: Arial, sans-serif;
     }
 
-    /* Body background: use your screenshot as the background image */
-    body {
-      background: url("background.png") no-repeat center center fixed;
-      background-size: cover; /* Ensures image fills the viewport */
-      position: relative; /* So overlays can be absolutely positioned within body */
+    /* A container for the background image and all overlays */
+    .container {
+      position: relative; 
+      /* You can limit the container width if desired, e.g.: */
+      /* max-width: 1200px; */
+      margin: 0 auto;
+      /* This keeps things centered if using max-width. */
     }
 
-    /* Semi-transparent overlay positioned absolutely */
+    /* The background image is a regular <img>, set to be responsive */
+    .bg-image {
+      width: 100%;     /* Scales with container width */
+      height: auto;    /* Maintains aspect ratio */
+      display: block; 
+    }
+
+    /*
+      Now we position overlays (the white boxes, text overlay, any top images)
+      absolutely within .container. 
+      The container’s top-left corner is (0,0). 
+      We use percentages for top/left/width so it scales with the image.
+    */
+
+    /* Example: White "cover" box #1 */
+
+    /* Example: White "cover" box #2 */
+    .white-cover-2 {
+      position: absolute;
+      top: 80%;
+      left: 30%;
+      width: 25%;
+      height: 10%;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    /* Another image placed on top (like "powered_by.png") */
+    .top-image {
+      position: absolute;
+      top: 13%;
+      left: 46%;
+      width: 20%;       /* 20% of container’s width */
+      z-index: 20;      /* Above the white covers */
+    }
+    /* Make the top image also responsive within that 20% width */
+    .top-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* The text overlay with bullet points, etc. */
     .overlay {
       position: absolute;
-      top: 200px;    /* Adjust to move overlay down */
-      left: 350px;   /* Adjust to move overlay horizontally */
-      max-width: 850px;
+      top: 20%;         /* e.g. place it 60% down the container */
+      left: 19.5%;        /* 15% from the left edge */
+      width: 44%;       /* 70% of container’s width */
       background-color: rgba(255, 255, 255, 1);
-      padding: 30px;
-      /* border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); optional shadow */
+      padding: 20px;
+      z-index: 30;      /* Highest so it’s on top */
     }
 
     h1 {
@@ -48,7 +89,7 @@
 
     ul {
       margin-bottom: 10px;
-      padding-left: 18px; /* Some indentation for bullets */
+      padding-left: 20px; /* Some indentation for bullets */
     }
 
     li {
@@ -64,93 +105,51 @@
       border-radius: 4px;
       font-size: 14px;
       transition: background 0.3s ease;
-      margin-top: 20px; /* Add some space above the button */
+      margin-top: 20px; 
     }
-
     .demo-button:hover {
       background-color: #008397;
     }
-
-    /* Placeholder image container on top of everything else */
-    .top-image {
-      position: absolute;
-      top: 130px;    /* Adjust as needed */
-      left: 970px;   /* Adjust as needed */
-      z-index: 999;  /* Ensure it's on top */
-    }
-
-    .top-image img {
-      width: 300px; /* Adjust as needed */
-      height: auto;
-      display: block;
-    }
-
-    /* 
-      Two placeholder "white box" SVGs to cover parts of the background.
-      Adjust positions (top/left) and size (width/height in the <svg> itself)
-      as you see fit.
-    */
-    .white-cover-1, .white-cover-2 {
-      position: absolute;
-      z-index: 900; /* Stays behind .top-image but in front of background */
-    }
-
-    /* Example positions (adjust to your needs) */
-    .white-cover-1 {
-      top: 650px;
-      left: 550px;
-    }
-    /* .white-cover-2 {
-      top: 400px;
-      left: 100px;
-    } */
   </style>
 </head>
 <body>
 
-  <!-- 1st white box (SVG) -->
-  <div class="white-cover-1">
-    <svg width="500" height="150" xmlns="http://www.w3.org/2000/svg">
-      <rect width="500" height="150" fill="#ffffff" />
-    </svg>
-  </div>
+  <div class="container">
 
-  <!-- 2nd white box (SVG) -->
-  <!-- <div class="white-cover-2">
-    <svg width="300" height="80" xmlns="http://www.w3.org/2000/svg">
-      <rect width="300" height="80" fill="#ffffff" />
-    </svg>
-  </div> -->
+    <!-- 1) The responsive background image -->
+    <img src="background.png" alt="Background" class="bg-image"/>
 
-  <!-- Placeholder image on top of all content -->
-  <div class="top-image">
-    <img src="powered_by.png" alt="Placeholder Image">
-  </div>
+    <!-- 2) White boxes to cover parts of the background -->
+    <div class="white-cover-2"></div>
 
-  <div class="overlay">
-    <h1>Slope Finance Program</h1>
-    <p>
-      Amazon is now partnering with Slope to offer merchants a flexible line of credit 
-      that you can draw on at any time, empowering you to grow with ease.
-    </p>
+    <!-- 3) Top image "powered_by.png" -->
+    <div class="top-image">
+      <img src="powered_by.png" alt="Powered by">
+    </div>
 
-    <ul>
-      <li>Get the online application in less than 5 minutes</li>
-      <li>Get approved up to $250k instantly and up to millions as soon as 2 business days</li>
-      <li>Use secured funds however your business needs</li>
-    </ul>
+    <!-- 4) Text overlay block -->
+    <div class="overlay">
+      <h1>Slope Finance Program</h1>
+      <p>
+        Amazon is now partnering with Slope to offer merchants a flexible line of 
+        credit that you can draw on at any time, empowering you to grow with ease.
+      </p>
+      <ul>
+        <li>Get the online application in less than 5 minutes</li>
+        <li>Get approved up to $250k instantly and up to millions as soon as 2 business days</li>
+        <li>Use secured funds however your business needs</li>
+      </ul>
+      <p>To be eligible, you must be a registered business in the US with an EIN.</p>
+      <p>Amazon will additionally provide Slope with business information to aid Slope in loan application.</p>
+      <p>
+        <a href="https://slopepay.com/faqs" target="_blank" rel="noopener noreferrer">Click here</a> 
+        for more information
+      </p>
+      <a class="demo-button" href="https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE">
+        Get started with Slope
+      </a>
+    </div>
 
-    <p>To be eligible, you must be a registered business in the US with an EIN.</p>
-    <p>Amazon will additionally provide Slope with business information to aid Slope in loan application</p>
-    <p>
-      <a href="https://slopepay.com/faqs" target="_blank" rel="noopener noreferrer">
-        Click here
-      </a> for more information
-    </p>
-    
-    <a class="demo-button" href="https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE">
-      Get started with Slope
-    </a>
   </div>
 
 </body>
