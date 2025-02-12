@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo Page for Amazon RFP</title>
+  <style>
+    /* Reset margin/padding */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Make sure the page fills the entire browser window */
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Body background: use your screenshot as the background image */
+    body {
+      background: url("background.png") no-repeat center center fixed;
+      background-size: cover; /* Ensures image fills the viewport */
+      position: relative; /* So overlays can be absolutely positioned within body */
+    }
+
+    /* Semi-transparent overlay positioned absolutely */
+    .overlay {
+      position: absolute;
+      top: 200px;    /* Adjust to move overlay down */
+      left: 350px;   /* Adjust to move overlay horizontally */
+      max-width: 850px;
+      background-color: rgba(255, 255, 255, 1);
+      padding: 30px;
+      /* border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); optional shadow */
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    p {
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-bottom: 10px;
+      padding-left: 18px; /* Some indentation for bullets */
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    .demo-button {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #007185;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: background 0.3s ease;
+      margin-top: 20px; /* Add some space above the button */
+    }
+
+    .demo-button:hover {
+      background-color: #008397;
+    }
+
+    /* Placeholder image container on top of everything else */
+    .top-image {
+      position: absolute;
+      top: 130px;    /* Adjust as needed */
+      left: 970px;   /* Adjust as needed */
+      z-index: 999;  /* Ensure it's on top */
+    }
+
+    .top-image img {
+      width: 300px; /* Adjust as needed */
+      height: auto;
+      display: block;
+    }
+
+    /* 
+      Two placeholder "white box" SVGs to cover parts of the background.
+      Adjust positions (top/left) and size (width/height in the <svg> itself)
+      as you see fit.
+    */
+    .white-cover-1, .white-cover-2 {
+      position: absolute;
+      z-index: 900; /* Stays behind .top-image but in front of background */
+    }
+
+    /* Example positions (adjust to your needs) */
+    .white-cover-1 {
+      top: 650px;
+      left: 550px;
+    }
+    /* .white-cover-2 {
+      top: 400px;
+      left: 100px;
+    } */
+  </style>
+</head>
+<body>
+
+  <!-- 1st white box (SVG) -->
+  <div class="white-cover-1">
+    <svg width="500" height="150" xmlns="http://www.w3.org/2000/svg">
+      <rect width="500" height="150" fill="#ffffff" />
+    </svg>
+  </div>
+
+  <!-- 2nd white box (SVG) -->
+  <!-- <div class="white-cover-2">
+    <svg width="300" height="80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="80" fill="#ffffff" />
+    </svg>
+  </div> -->
+
+  <!-- Placeholder image on top of all content -->
+  <div class="top-image">
+    <img src="powered_by.png" alt="Placeholder Image">
+  </div>
+
+  <div class="overlay">
+    <h1>Slope Finance Program</h1>
+    <p>
+      Amazon is now partnering with Slope to offer merchants a flexible line of credit 
+      that you can draw on at any time, empowering you to grow with ease.
+    </p>
+
+    <ul>
+      <li>Get the online application in less than 5 minutes</li>
+      <li>Get approved up to $250k instantly and up to millions as soon as 2 business days</li>
+      <li>Use secured funds however your business needs</li>
+    </ul>
+
+    <p>To be eligible, you must be a registered business in the US with an EIN.</p>
+    <p>Amazon will additionally provide Slope with business information to aid Slope in loan application</p>
+    <p>
+      <a href="https://slopepay.com/faqs" target="_blank" rel="noopener noreferrer">
+        Click here
+      </a> for more information
+    </p>
+    
+    <a class="demo-button" href="https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE">
+      Get started with Slope
+    </a>
+  </div>
+
+</body>
+</html>
