@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SVG ViewBox Demo</title>
+  <style>
+    /* Ensure SVG scales responsibly in the layout */
+    .svg-wrapper {
+      width: 80%;         /* scale up to 80% of parent container’s width */
+      max-width: 1600px;  /* or any max you desire */
+      margin: 0 auto;     /* center it */
+      border: 1px solid #ccc;
+    }
+    svg {
+      width: 100%;
+      height: auto;   /* Let the height follow the width for correct aspect ratio */
+      display: block;
+    }
+
+    /* Some optional text styling in the foreignObject content */
+    .overlay-text {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      background: rgba(255,255,255,1);
+      padding: 10px;
+    }
+
+    .demo-button {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #ffffff;
+      background-color: #338fa0;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+    .demo-button:hover {
+      background-color: #008397;
+    }
+  </style>
+</head>
+<body>
+
+<div class="svg-wrapper">
+  <!-- 
+    1) The key: use a viewBox that matches the actual pixel size of the screenshot
+    2) preserveAspectRatio can be set to "xMidYMid meet" or "none", depending on needs
+  -->
+  <svg 
+      viewBox="0 0 1920 1080"
+      preserveAspectRatio="xMidYMid meet"
+  >
+    <!-- 2) Place the screenshot in the SVG at x=0, y=0 -->
+    <image 
+      href="background.png"
+      x="0" 
+      y="0"
+      width="1920" 
+      height="1080"
+    />
+
+    <!-- 3) Overlay a rectangle to cover some original text from the screenshot 
+         We'll place this rectangle at (600,300), size 500x150 just as an example. -->
+    <rect
+      x="500"
+      y="740"
+      width="600"
+      height="150"
+      fill="#ffffff"
+      fill-opacity="1"
+    />
+
+    <!-- 4) Use a foreignObject if you want real HTML (text, bullet points, links) on top -->
+    <foreignObject
+      x="300"
+      y="500"
+      width="600"
+      height="450"
+    >
+      <!-- 
+        The <body> tag inside foreignObject must be in the XHTML namespace.
+        We'll just include a simple content snippet for demonstration.
+      -->
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <div class="overlay-text">
+          <h1>Slope Finance Program</h1>
+          <p>
+            Amazon is now partnering with Slope to offer merchants a flexible line of credit...
+          </p>
+          <ul>
+            <li>Get approved up to $250k instantly...</li>
+            <li>Use secured funds however your business needs...</li>
+          </ul>
+          <a href="#" class="demo-button">Get Started</a>
+        </div>
+      </body>
+    </foreignObject>
+
+  </svg>
+</div>
+
+</body>
+</html>
