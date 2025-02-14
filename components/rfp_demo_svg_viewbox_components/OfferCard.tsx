@@ -15,14 +15,14 @@ interface OfferCardProps {
   columnTitleSize?: string;
   valueColor?: string;
   valueSize?: string;
-  columnWidths?: string[];
-  statusColumnWidth?: number;
-  cardWidth?: number;
-  cardHeight?: number;
-  logoWidth?: number;
-  logoHeight?: string;
-  logoContainerWidth?: number;
-  companyColumnWidth?: string;
+  columnWidths?: string[] | number[];
+  statusColumnWidth?: string | number;
+  cardWidth?: string | number;
+  cardHeight?: string | number;
+  logoWidth?: string | number;
+  logoHeight?: string | number;
+  logoContainerWidth?: string | number;
+  companyColumnWidth?: string | number;
   href?: string;
   openInNewTab?: boolean;
 }
