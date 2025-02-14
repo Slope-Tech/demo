@@ -3,7 +3,6 @@ import OfferCard from './OfferCard';
 import { List } from '@mantine/core';
 import { Text } from '@mantine/core';
 
-
 interface OverlayProps {
   children: React.ReactNode;
 }
@@ -57,7 +56,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       cardHeight="190px"
       logoWidth="150px"
       logoHeight="auto"
-      logoContainerWidth="250px"
+      logoContainerWidth="300px"
       statusContent={
         <List mt="md" spacing="xs">
           <List.Item>Get the online application in less than 5 minutes</List.Item>
@@ -67,8 +66,9 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
           <List.Item>Use secured funds however your business needs</List.Item>
         </List>
       }
-      statusColumnWidth="600px" // Keep this the same across all cards
+      statusColumnWidth="350px" // Keep this the same across all cards
       statusAlignment="left"
+      statusPaddingRight="50px"
     />
       <p></p>
       <OfferCard
@@ -89,36 +89,37 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         cardHeight="90px"
         logoWidth="150px"
         logoHeight="auto"
-        logoContainerWidth="600px" // EXPAND SPACE FOR LOGO + BRAND NAME
-        onClick={() => alert('Offer Clicked!')}
+        logoContainerWidth="300px" // EXPAND SPACE FOR LOGO + BRAND NAME
+        statusColumnWidth="350px" // Keep this the same across all cards
+        statusAlignment="left"
       />
       <p></p>
       <OfferCard
         logoSrc="logo-generic.png"
-        companyName="Capital by Walmart"
+        companyName="Example Finance Company"
         cashAdvance="$100,000"
         repaymentTime="12 weeks"
         reducedFee="3%"
         status="Pre-approved"
-        buttonColor="#148296"
-        brandColor="#1E40AF"
-        columnTitleColor="#4B5563"
-        columnTitleSize="sm"
-        valueColor="#111827"
-        valueSize="md"
-        columnWidths={['280px', '120px', '160px', '140px']}
+        buttonColor="#148296" // Custom button color
+        brandColor="#1E40AF" // Dark blue brand name
+        columnTitleColor="#4B5563" // Gray column titles
+        columnTitleSize="sm" // Slightly larger column labels
+        valueColor="#111827" // Darker values
+        valueSize="md" // Medium-sized values
+        columnWidths={['280px', '120px', '160px', '140px']} // Custom column widths
         cardWidth="1600px"
         cardHeight="90px"
         logoWidth="150px"
         logoHeight="auto"
-        logoContainerWidth="250px" // EXPAND SPACE FOR LOGO + BRAND NAME
-        onClick={() => alert('Offer Clicked!')}
+        logoContainerWidth="300px" // EXPAND SPACE FOR LOGO + BRAND NAME
+        statusColumnWidth="350px" // Keep this the same across all cards
+        statusAlignment="left"
       />
       <p></p>
       {children}
     </div>
   );
 };
-
 
 export default Overlay;

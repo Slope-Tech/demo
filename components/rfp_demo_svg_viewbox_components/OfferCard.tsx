@@ -7,7 +7,8 @@ interface OfferCardProps {
   repaymentTime: string;
   reducedFee: string;
   statusContent?: React.ReactNode;
-  statusAlignment?: 'left' | 'center' | 'right'; // NEW: Controls text alignment
+  statusAlignment?: 'left' | 'center' | 'right'; 
+  statusPaddingRight?: string; // NEW: Adds spacing between Status content and Button
   buttonColor?: string;
   brandColor?: string;
   columnTitleColor?: string;
@@ -33,7 +34,8 @@ const OfferCard: React.FC<OfferCardProps> = ({
   repaymentTime,
   reducedFee,
   statusContent = "Pre-approved",
-  statusAlignment = "center", // NEW: Defaults to center alignment
+  statusAlignment = "left",
+  statusPaddingRight = "16px", // NEW: Default padding to separate Status and Button
   buttonColor = '#148296',
   brandColor = '#000000',
   columnTitleColor = '#6b7280',
@@ -118,14 +120,15 @@ const OfferCard: React.FC<OfferCardProps> = ({
         ))}
       </Flex>
 
-      {/* Right: Status Column (Now allows left, center, or right alignment) */}
+      {/* Right: Status Column (Now allows padding between status and button) */}
       <Flex
         style={{
           minWidth: statusColumnWidth,
           maxWidth: statusColumnWidth,
           flexShrink: 0,
-          textAlign: statusAlignment, // Controls text alignment
+          textAlign: statusAlignment,
           justifyContent: statusAlignment === "left" ? "flex-start" : statusAlignment === "right" ? "flex-end" : "center",
+          paddingRight: statusPaddingRight, // NEW: Adds spacing between Status and Button
         }}
       >
         {typeof statusContent === 'string' ? (
@@ -133,7 +136,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
             {statusContent}
           </Text>
         ) : (
-          statusContent // Renders custom HTML content
+          statusContent
         )}
       </Flex>
 
