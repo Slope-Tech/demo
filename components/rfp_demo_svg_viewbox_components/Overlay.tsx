@@ -83,6 +83,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       statusColumnWidth="350px" // Keep this the same across all cards
       statusAlignment="left"
       statusPaddingRight="50px"
+      href='https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE' //unbranded register flow
     />
       <p></p>
       <OfferCard
@@ -120,6 +121,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         logoContainerWidth="300px" // EXPAND SPACE FOR LOGO + BRAND NAME
         statusColumnWidth="350px" // Keep this the same across all cards
         statusAlignment="left"
+        href='https://pay.sandbox.slopepay.com/signup/mch_2svMQ7QYj6cUalX4wAPjL9HHuFu' //unbranded register flow
       />
       <p></p>
       <OfferCard
