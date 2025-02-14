@@ -45,7 +45,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         ]}
         width="1500px"
         textSize="md"
-        spacing="16px"
+        spacing={16}
         textAlign="left"
       />
       <p></p>
@@ -64,11 +64,11 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       valueColor="#111827"
       valueSize="md"
       columnWidths={['280px', '120px', '160px', '140px']} // Standardize these for all cards
-      cardWidth="1600px"
-      cardHeight="190px"
-      logoWidth="150px"
+      cardWidth={1600}
+      cardHeight={190}
+      logoWidth={150}
       logoHeight="auto"
-      logoContainerWidth="300px"
+      logoContainerWidth={300}
       statusContent={
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
           <List spacing="xs" style={{ margin: 0, padding: 0 }}>
@@ -80,9 +80,9 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
           </List>
         </div>
       }
-      statusColumnWidth="350px" // Keep this the same across all cards
+      statusColumnWidth={350} // Keep this the same across all cards
       statusAlignment="left"
-      statusPaddingRight="50px"
+      statusPaddingRight={50}
       href='https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE' //unbranded register flow
     />
       <p></p>
@@ -114,12 +114,12 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         valueColor="#111827" // Darker values
         valueSize="md" // Medium-sized values
         columnWidths={['280px', '120px', '160px', '140px']} // Custom column widths
-        cardWidth="1600px"
-        cardHeight="90px"
-        logoWidth="150px"
+        cardWidth={1600}
+        cardHeight={90}
+        logoWidth={150}
         logoHeight="auto"
-        logoContainerWidth="300px" // EXPAND SPACE FOR LOGO + BRAND NAME
-        statusColumnWidth="350px" // Keep this the same across all cards
+        logoContainerWidth={300} // EXPAND SPACE FOR LOGO + BRAND NAME
+        statusColumnWidth={350} // Keep this the same across all cards
         statusAlignment="left"
         href='https://pay.sandbox.slopepay.com/signup/mch_2svMQ7QYj6cUalX4wAPjL9HHuFu' //Amazon branded register flow
       />
@@ -152,12 +152,12 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         valueColor="#111827" // Darker values
         valueSize="md" // Medium-sized values
         columnWidths={['280px', '120px', '160px', '140px']} // Custom column widths
-        cardWidth="1600px"
-        cardHeight="90px"
-        logoWidth="150px"
+        cardWidth={1600}
+        cardHeight={90}
+        logoWidth={150}
         logoHeight="auto"
-        logoContainerWidth="300px" // EXPAND SPACE FOR LOGO + BRAND NAME
-        statusColumnWidth="350px" // Keep this the same across all cards
+        logoContainerWidth={300} // EXPAND SPACE FOR LOGO + BRAND NAME
+        statusColumnWidth={350} // Keep this the same across all cards
         statusAlignment="left"
       />
       <p></p>

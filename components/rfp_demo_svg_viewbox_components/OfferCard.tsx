@@ -8,7 +8,7 @@ interface OfferCardProps {
   reducedFee: string;
   statusContent?: React.ReactNode;
   statusAlignment?: 'left' | 'center' | 'right'; 
-  statusPaddingRight?: string; // NEW: Adds spacing between Status content and Button
+  statusPaddingRight?: number; // NEW: Adds spacing between Status content and Button
   buttonColor?: string;
   brandColor?: string;
   columnTitleColor?: string;
@@ -35,7 +35,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
   reducedFee,
   statusContent = "Pre-approved",
   statusAlignment = "left",
-  statusPaddingRight = "16px", // NEW: Default padding to separate Status and Button
+  statusPaddingRight = 16, //Default padding to space Status and Button
   buttonColor = '#148296',
   brandColor = '#000000',
   columnTitleColor = '#6b7280',
