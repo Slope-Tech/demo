@@ -112,7 +112,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
             <Text size={columnTitleSize as MantineNumberSize} style={{ color: columnTitleColor, whiteSpace: 'nowrap' }}>
               {item.label}
             </Text>
-            <Text size={valueSize} weight={500} style={{ color: valueColor }}>
+            <Text size={valueSize as MantineNumberSize} weight={500} style={{ color: valueColor }}>
               {item.value}
             </Text>
           </Stack>
@@ -131,7 +131,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
         }}
       >
         {typeof statusContent === 'string' ? (
-          <Text size={valueSize} weight={500} style={{ color: valueColor }}>
+          <Text size={valueSize as MantineNumberSize} weight={500} style={{ color: valueColor }}>
             {statusContent}
           </Text>
         ) : (
