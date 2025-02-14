@@ -4,7 +4,7 @@ const SlopeFinanceProgram = () => {
   return (
     <Card
       shadow="sm"
-      padding="lg"
+      p="lg"
       radius="md"
       withBorder
       style={{
