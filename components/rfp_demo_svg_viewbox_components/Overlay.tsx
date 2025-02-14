@@ -14,8 +14,8 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
     <div
       style={{
         position: 'absolute',
-        top: '48%', // Move it slightly up (adjust as needed)
-        left: '50%',
+        top: '49%', // Move it slightly up (adjust as needed)
+        left: '52%',
         transform: 'translate(-50%, -50%)',
 
         width: '100vw',  // Adjust width relative to the viewport
@@ -26,7 +26,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         overflowY: 'auto', // Allows scrolling if content overflows
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         zIndex: 10000,
-        padding: '25px',
+        padding: '18px',
         borderRadius: '12px',
         border: '0px solid #ccc',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.0)',

@@ -16,12 +16,12 @@ interface OfferCardProps {
   valueColor?: string;
   valueSize?: string;
   columnWidths?: string[];
-  statusColumnWidth?: string;
-  cardWidth?: string;
-  cardHeight?: string;
-  logoWidth?: string;
+  statusColumnWidth?: number;
+  cardWidth?: number;
+  cardHeight?: number;
+  logoWidth?: number;
   logoHeight?: string;
-  logoContainerWidth?: string;
+  logoContainerWidth?: number;
   companyColumnWidth?: string;
   href?: string;
   openInNewTab?: boolean;
@@ -43,13 +43,13 @@ const OfferCard: React.FC<OfferCardProps> = ({
   valueColor = '#000000',
   valueSize = 'sm',
   columnWidths = ['180px', '120px', '160px'],
-  statusColumnWidth = '250px',
-  cardWidth = '1200px',
-  cardHeight = '90px',
-  logoWidth = '150px',
+  statusColumnWidth = 250,
+  cardWidth = 1200,
+  cardHeight = 90,
+  logoWidth = 150,
   logoHeight = 'auto',
-  logoContainerWidth = '250px',
-  companyColumnWidth = '350px',
+  logoContainerWidth = 250,
+  companyColumnWidth = 350,
   href = '#',
   openInNewTab = true,
 }) => {
