@@ -1,4 +1,4 @@
-import { Card, Flex, Text, Button, Image, Stack, List } from '@mantine/core';
+import { Card, Flex, Text, Button, Image, Stack, List, MantineNumberSize } from '@mantine/core';
 
 interface OfferCardProps {
   logoSrc: string;
@@ -109,7 +109,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
           { label: 'Reduced Fee', value: reducedFee },
         ].map((item, index) => (
           <Stack key={index} spacing={0} align="center" style={{ minWidth: columnWidths[index], flexShrink: 0 }}>
-            <Text size={columnTitleSize} style={{ color: columnTitleColor, whiteSpace: 'nowrap' }}>
+            <Text size={columnTitleSize as MantineNumberSize} style={{ color: columnTitleColor, whiteSpace: 'nowrap' }}>
               {item.label}
             </Text>
             <Text size={valueSize} weight={500} style={{ color: valueColor }}>
