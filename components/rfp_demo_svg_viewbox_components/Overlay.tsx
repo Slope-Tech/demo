@@ -26,7 +26,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         overflowY: 'auto', // Allows scrolling if content overflows
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         zIndex: 10000,
-        padding: '20px',
+        padding: '25px',
         borderRadius: '12px',
         border: '0px solid #ccc',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.0)',
@@ -44,10 +44,11 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
           "Important information: You can apply for more than one financing option if they are issued by different lenders. However, once you accept a loan or lock your account with a lender, you will not be able to proceed with applications from other lenders.",
         ]}
         width="1500px"
-        textSize="lg"
+        textSize="md"
         spacing="12px"
         textAlign="left"
       />
+      <p></p>
 
       <OfferCard
       logoSrc="https://assets.slopepay.com/images/slope_logo.png"
@@ -69,13 +70,15 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       logoHeight="auto"
       logoContainerWidth="300px"
       statusContent={
-        <List mt="md" spacing="xs">
-          <List.Item>Get the online application in less than 5 minutes</List.Item>
-          <List.Item>
-            Get approved up to $250k instantly and up to millions as soon as 2 business days
-          </List.Item>
-          <List.Item>Use secured funds however your business needs</List.Item>
-        </List>
+        <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
+          <List spacing="xs" style={{ margin: 0, padding: 0 }}>
+            <List.Item>Get the online application in less than 5 minutes</List.Item>
+            <List.Item>
+              Get approved up to $250k instantly and up to millions as soon as 2 business days
+            </List.Item>
+            <List.Item>Use secured funds however your business needs</List.Item>
+          </List>
+        </div>
       }
       statusColumnWidth="350px" // Keep this the same across all cards
       statusAlignment="left"
@@ -89,6 +92,20 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         repaymentTime="12 weeks"
         reducedFee="3%"
         status="Pre-approved"
+        statusContent={
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "left",
+            height: "100%",
+            minHeight: "90px", // Ensures consistency with shorter cards
+            width: "100%",
+          }}>
+            <List spacing="xs" style={{ margin: 0, padding: 0 }}>
+              <List.Item>Example tagline</List.Item>
+            </List>
+          </div>
+        }
         buttonColor="#148296" // Custom button color
         brandColor="#1E40AF" // Dark blue brand name
         columnTitleColor="#4B5563" // Gray column titles
@@ -107,11 +124,25 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       <p></p>
       <OfferCard
         logoSrc="logo-generic.png"
-        companyName="Example Finance Company"
+        companyName="Another Finance Company"
         cashAdvance="$100,000"
         repaymentTime="12 weeks"
         reducedFee="3%"
         status="Pre-approved"
+        statusContent={
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "left",
+            height: "100%",
+            minHeight: "90px", // Ensures consistency with shorter cards
+            width: "100%",
+          }}>
+            <List spacing="xs" style={{ margin: 0, padding: 0 }}>
+              <List.Item>Another tagline</List.Item>
+            </List>
+          </div>
+        }
         buttonColor="#148296" // Custom button color
         brandColor="#1E40AF" // Dark blue brand name
         columnTitleColor="#4B5563" // Gray column titles
