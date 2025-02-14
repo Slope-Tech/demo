@@ -56,7 +56,6 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       cashAdvance="$100,000"
       repaymentTime="12 weeks"
       reducedFee="3%"
-      status="Pre-approved"
       buttonColor="#148296"
       brandColor="#1E40AF"
       columnTitleColor="#4B5563"
@@ -92,7 +91,6 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         cashAdvance="$100,000"
         repaymentTime="12 weeks"
         reducedFee="3%"
-        status="Pre-approved"
         statusContent={
           <div style={{
             display: "flex",
@@ -130,7 +128,6 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         cashAdvance="$100,000"
         repaymentTime="12 weeks"
         reducedFee="3%"
-        status="Pre-approved"
         statusContent={
           <div style={{
             display: "flex",
