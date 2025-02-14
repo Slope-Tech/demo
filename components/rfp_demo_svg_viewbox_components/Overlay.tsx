@@ -2,6 +2,8 @@ import React from 'react';
 import OfferCard from './OfferCard';
 import { List } from '@mantine/core';
 import { Text } from '@mantine/core';
+import IntroSection from './IntroSection';
+
 
 interface OverlayProps {
   children: React.ReactNode;
@@ -12,31 +14,40 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
     <div
       style={{
         position: 'absolute',
-        top: '49%', // Move it slightly up (adjust as needed)
+        top: '48%', // Move it slightly up (adjust as needed)
         left: '50%',
         transform: 'translate(-50%, -50%)',
 
         width: '100vw',  // Adjust width relative to the viewport
         maxWidth: '1800px', // Ensures it doesn't get too big
 
-        height: '40vw', // Auto size based on content height
+        height: '40xvw', // Auto size based on content height
         maxHeight: '170vh', // Ensures it doesn’t get too tall
         overflowY: 'auto', // Allows scrolling if content overflows
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         zIndex: 10000,
         padding: '20px',
         borderRadius: '12px',
-        border: '1px solid #ccc',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        border: '0px solid #ccc',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.0)',
       }}
     >
-      <h1>Amazon Sellers Finance</h1>
-      <h3>How it works</h3>
-      <p>Choose a financing option that meets your business's needs.</p>
-      <p>Select 'Start Application' next to the financing option.  For loans from third party lenders (ones not issued by Amazon Lending), you'll be redirected to the lender's site.</p>
-      <p>Fill out the application information. Note. A U.S. business bank account is required.</p>
-      <p>Completed applications can take up to 5 days for a decision</p>
-      <p>Important information: You can apply for more than one financing option if they are issued by different lenders. However, once you accept a loan or lock your account with a lender, you will not be able to proceed with applications from other</p>
+
+      <IntroSection
+        title="Amazon Sellers Finance"
+        subtitle="How it works"
+        paragraphs={[
+          "Choose a financing option that meets your business's needs.",
+          "Select 'Start Application' next to the financing option. For loans from third-party lenders (ones not issued by Amazon Lending), you'll be redirected to the lender's site.",
+          "Fill out the application information. Note: A U.S. business bank account is required.",
+          "Completed applications can take up to 5 days for a decision.",
+          "Important information: You can apply for more than one financing option if they are issued by different lenders. However, once you accept a loan or lock your account with a lender, you will not be able to proceed with applications from other lenders.",
+        ]}
+        width="1500px"
+        textSize="lg"
+        spacing="12px"
+        textAlign="left"
+      />
 
       <OfferCard
       logoSrc="https://assets.slopepay.com/images/slope_logo.png"
