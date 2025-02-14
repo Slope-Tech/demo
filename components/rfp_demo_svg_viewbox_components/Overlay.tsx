@@ -121,7 +121,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         logoContainerWidth="300px" // EXPAND SPACE FOR LOGO + BRAND NAME
         statusColumnWidth="350px" // Keep this the same across all cards
         statusAlignment="left"
-        href='https://pay.sandbox.slopepay.com/signup/mch_2svMQ7QYj6cUalX4wAPjL9HHuFu' //unbranded register flow
+        href='https://pay.sandbox.slopepay.com/signup/mch_2svMQ7QYj6cUalX4wAPjL9HHuFu' //Amazon branded register flow
       />
       <p></p>
       <OfferCard
