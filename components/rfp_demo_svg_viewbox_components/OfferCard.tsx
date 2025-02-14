@@ -58,7 +58,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
       shadow="sm"
       radius="md"
       withBorder
-      padding="md"
+      p="md"
       style={{
         maxWidth: cardWidth,
         width: '100%',
