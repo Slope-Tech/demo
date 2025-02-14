@@ -1,12 +1,45 @@
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react';
+import SvgComponent from '../components/rfp_demo_svg_viewbox_components/SvgComponent';
+import Overlay from '../components/rfp_demo_svg_viewbox_components/Overlay';
+import SlopeFinanceProgram from '../components/rfp_demo_svg_viewbox_components/SlopeFinanceProgram';
 
-const Checkout: React.FC = () => {
-  const router = useRouter()
+const OverlayPage: React.FC = () => {
+  const [showOverlay, setShowOverlay] = useState(false);
+
   useEffect(() => {
-    router.push('/amazon_sellers_homepage.html')
-  }, [])
-  return null
-}
+    setShowOverlay(true); // Show overlay immediately
+  }, []);
 
-export default Checkout
+  return (
+    <>
+      {showOverlay && (
+        <>
+          {/* Full-Screen Overlay */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              backgroundColor: '#FFFFFF', // Adjust background color
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <SvgComponent />
+          </div>
+
+          {/* Floating Overlay Content */}
+          <Overlay>
+            
+          </Overlay>
+        </>
+      )}
+    </>
+  );
+};
+
+export default OverlayPage;

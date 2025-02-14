@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SVG ViewBox Demo</title>
+  <style>
+    /* Ensure SVG scales responsibly in the layout */
+    .svg-wrapper {
+      width: 80%;         
+      max-width: 1600px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+    }
+    svg {
+      width: 100%;
+      height: auto;  
+      display: block;
+    }
+
+    .overlay-text {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      background: rgba(255,255,255,1);
+      padding: 10px;
+    }
+
+    .demo-button {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #ffffff;
+      background-color: #338fa0;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+    .demo-button:hover {
+      background-color: #008397;
+    }
+  </style>
+</head>
+<body>
+
+<div class="svg-wrapper">
+  <svg 
+      viewBox="0 0 1920 1080"
+      preserveAspectRatio="xMidYMid meet"
+  >
+    <image 
+      href="background.png"
+      x="0" 
+      y="0"
+      width="1920" 
+      height="1080"
+    />
+
+    <rect
+      x="00"
+      y="140"
+      width="1920"
+      height="750"
+      fill="#ffffff"
+      fill-opacity="1"
+    />
+
+    <foreignObject
+      x="300"
+      y="500"
+      width="600"
+      height="450"
+    >
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <div class="overlay-text">
+            <h1>Slope Finance Program</h1>
+            <p>
+              Amazon is now partnering with Slope to offer merchants a flexible line of 
+              credit that you can draw on at any time, empowering you to grow with ease.
+            </p>
+            <ul>
+              <li>Get the online application in less than 5 minutes</li>
+              <li>Get approved up to $250k instantly and up to millions as soon as 2 business days</li>
+              <li>Use secured funds however your business needs</li>
+            </ul>
+            <p>To be eligible, you must be a registered business in the US with an EIN.</p>
+            <p>Amazon will additionally provide Slope with business information to aid Slope in loan application.</p>
+            <p>
+              <a href="https://slopepay.com/faqs" target="_blank" rel="noopener noreferrer">Click here</a> 
+              for more information
+            </p>
+            <a class="demo-button" href="https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE">
+              Get started with Slope
+            </a>
+      </body>
+    </foreignObject>
+
+  </svg>
+</div>
+</body>
+</html>
