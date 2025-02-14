@@ -1,13 +1,13 @@
 import React from 'react';
-import { Title, Text } from '@mantine/core';
+import { Title, Text, MantineNumberSize } from '@mantine/core';
 
 interface IntroSectionProps {
   title: string;
   subtitle?: string;
   paragraphs: string[];
   width?: string;
-  textSize?: string;
-  spacing?: string;
+  textSize?: MantineNumberSize;
+  spacing?: number;
   textAlign?: 'left' | 'center' | 'right';
   align?: 'left' | 'center'; // NEW: Controls section alignment
 }
@@ -34,7 +34,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({
       <Title order={1} style={{ marginBottom: spacing }}>{title}</Title>
       {subtitle && <Title order={3} style={{ marginBottom: spacing }}>{subtitle}</Title>}
       {paragraphs.map((para, index) => (
-        <Text key={index} size={textSize} style={{ marginBottom: spacing }}>
+        <Text key={index} size={textSize as MantineNumberSize} style={{ marginBottom: Number(spacing) }}>
           {para}
         </Text>
       ))}

@@ -45,7 +45,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         ]}
         width="1500px"
         textSize="md"
-        spacing="12px"
+        spacing="16px"
         textAlign="left"
       />
       <p></p>
