@@ -104,7 +104,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
       {/* Middle: Columns (Cash Advance, Repayment Time, Reduced Fee) */}
       <Flex gap="lg" style={{ flexGrow: 1, justifyContent: 'center' }}>
         {[
-          { label: 'Cash Advance', value: cashAdvance },
+          { label: 'Line of Credit', value: cashAdvance },
           { label: 'Repayment Time', value: repaymentTime },
           { label: 'Reduced Fee', value: reducedFee },
         ].map((item, index) => (
