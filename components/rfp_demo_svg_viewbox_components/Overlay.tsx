@@ -14,7 +14,7 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
     <div
       style={{
         position: 'absolute',
-        top: '49%', // Move it slightly up (adjust as needed)
+        top: '48.75%', // Move it slightly up (adjust as needed)
         left: '52%',
         transform: 'translate(-50%, -50%)',
 
@@ -38,13 +38,12 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         subtitle="How it works"
         paragraphs={[
           "Choose a financing option that meets your business's needs.",
-          "Select 'Start Application' next to the financing option. For loans from third-party lenders (ones not issued by Amazon Lending), you'll be redirected to the lender's site.",
-          "Fill out the application information. Note: A U.S. business bank account is required.",
-          "Completed applications can take up to 5 days for a decision.",
-          "Important information: You can apply for more than one financing option if they are issued by different lenders. However, once you accept a loan or lock your account with a lender, you will not be able to proceed with applications from other lenders.",
+          "Select 'Start Application' next to the financing option.",
+          "For loans from third party lenders (ones not issued by Amazon Lending), you'll be redirected to the lender's site.",
+          "Fill out the application information."
         ]}
         width="1500px"
-        textSize="md"
+        textSize="lg"
         spacing={16}
         textAlign="left"
       />
@@ -53,33 +52,35 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
       <OfferCard
       logoSrc="https://assets.slopepay.com/images/slope_logo.png"
       companyName="Capital by Slope"
-      cashAdvance="$100,000"
-      repaymentTime="12 weeks"
-      reducedFee="3%"
+      cashAdvance="Up to $250,000 Instantly"
+      repaymentTime="Up to 180 days"
+      reducedFee="As low as 0.75%"
       buttonColor="#148296"
       brandColor="#1E40AF"
       columnTitleColor="#4B5563"
       columnTitleSize="sm"
       valueColor="#111827"
       valueSize="md"
-      columnWidths={['280px', '120px', '160px', '140px']} // Standardize these for all cards
-      cardWidth={1600}
-      cardHeight={190}
+      columnWidths={['280px', '120px', '180px', '160px']} // Standardize these for all cards
+      cardWidth={1660}
+      cardHeight={250}
       logoWidth={150}
       logoHeight="auto"
       logoContainerWidth={300}
       statusContent={
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
           <List spacing="xs" style={{ margin: 0, padding: 0 }}>
-            <List.Item>Get the online application in less than 5 minutes</List.Item>
+            <List.Item>Apply in 5 minutes</List.Item>
             <List.Item>
               Get approved up to $250k instantly and up to millions as soon as 2 business days
             </List.Item>
+            <List.Item>No up front commitments</List.Item>
             <List.Item>Use secured funds however your business needs</List.Item>
+            <List.Item>No impact on your personal credit score for applying</List.Item>
           </List>
         </div>
       }
-      statusColumnWidth={350} // Keep this the same across all cards
+      statusColumnWidth={370} // Keep this the same across all cards
       statusAlignment="left"
       statusPaddingRight={50}
       href='https://pay.sandbox.slopepay.com/signup/mch_2svMQ7QYj6cUalX4wAPjL9HHuFu' //Amazon branded register flow
@@ -111,13 +112,13 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         columnTitleSize="sm" // Slightly larger column labels
         valueColor="#111827" // Darker values
         valueSize="md" // Medium-sized values
-        columnWidths={['280px', '120px', '160px', '140px']} // Custom column widths
-        cardWidth={1600}
+        columnWidths={['280px', '120px', '180px', '160px']} // Custom column widths
+        cardWidth={1660}
         cardHeight={90}
         logoWidth={150}
         logoHeight="auto"
         logoContainerWidth={300} // EXPAND SPACE FOR LOGO + BRAND NAME
-        statusColumnWidth={350} // Keep this the same across all cards
+        statusColumnWidth={370} // Keep this the same across all cards
         statusAlignment="left"
         href='https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE' //unbranded register flow
       />
@@ -148,13 +149,13 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         columnTitleSize="sm" // Slightly larger column labels
         valueColor="#111827" // Darker values
         valueSize="md" // Medium-sized values
-        columnWidths={['280px', '120px', '160px', '140px']} // Custom column widths
-        cardWidth={1600}
+        columnWidths={['280px', '120px', '180px', '160px']} // Custom column widths
+        cardWidth={1660}
         cardHeight={90}
         logoWidth={150}
         logoHeight="auto"
         logoContainerWidth={300} // EXPAND SPACE FOR LOGO + BRAND NAME
-        statusColumnWidth={350} // Keep this the same across all cards
+        statusColumnWidth={370} // Keep this the same across all cards
         statusAlignment="left"
         href='https://pay.sandbox.slopepay.com/signup/mch_2svM16cZdSq3pKVIyjH0aBcB3vE' //unbranded register flow
       />
