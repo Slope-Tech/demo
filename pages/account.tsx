@@ -3,10 +3,11 @@ import {
   IconAlertCircle,
   IconBuildingBank,
   IconCreditCard,
+  IconMoneybag,
   IconPlugConnected,
   IconWallet,
 } from '@tabler/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ErrorAlert from '../components/ErrorAlert'
 import { AppData } from '../types/types'
 import { CardRow } from '../components/CardRow'
@@ -22,6 +23,7 @@ export default function Account({
   const [error, setError] = useState(null)
   const [activeTab, setActiveTab] = useState<string | null>('integrations')
   const { accessToken } = appData
+  const [iframeUrl, setIframeUrl] = useState<string | null>(null)
 
   const onPreQualify = async () => {
     setLoading(true)
@@ -44,13 +46,28 @@ export default function Account({
     })
   }
 
+  const getIframeUrl = async () => {
+    const linkResp = await fetch('/api/v4-iframe-url', {
+      method: 'POST',
+      body: JSON.stringify({
+        linkToken: appData.linkToken,
+      }),
+    })
+    const data = await linkResp.json()
+    setIframeUrl(data.iframeUrl)
+  }
+
+  useEffect(() => {
+    getIframeUrl()
+  }, [appData.linkToken])
+
   const onClickPaymentMethods = async () => {
     setLoading(true)
 
     window.SlopeJs.start({
       publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
       accessToken,
-      flow: 'payment_methods',
+      flow: 'create_drawdown',
       onSuccess: (resp) => {
         console.log('onSuccess slope', resp)
         setLoading(false)
@@ -115,6 +132,9 @@ export default function Account({
           </Tabs.Tab>
           <Tabs.Tab value="financing" icon={<IconBuildingBank />}>
             <Title order={5}>Financing</Title>
+          </Tabs.Tab>
+          <Tabs.Tab value="payments" icon={<IconMoneybag />}>
+            <Title order={5}>Payments</Title>
           </Tabs.Tab>
           <Tabs.Tab value="paymentMethods" icon={<IconCreditCard />}>
             <Title order={5}>Payment Methods</Title>
@@ -227,6 +247,29 @@ export default function Account({
               <Title order={5}>Slope Payment Methods</Title>
             </Group>
           </CardRow>
+        </Tabs.Panel>
+
+        <Tabs.Panel value="payments">
+          <Alert icon={<IconAlertCircle />} color="blue" mb="lg" title="About Embedded Payments">
+            <Text>
+              This embedded payments view allows you to seamlessly integrate payment information
+              directly into your website. Customers can view both their upcoming and completed
+              payments without leaving your platform, providing a streamlined experience for
+              managing their financial obligations.
+            </Text>
+          </Alert>
+
+          {iframeUrl ? (
+            <iframe
+              style={{ border: 'none' }}
+              width={800}
+              height={600}
+              src={iframeUrl}
+              title="Slope Payments"
+            />
+          ) : (
+            <Text color="dimmed">Please link your account first</Text>
+          )}
         </Tabs.Panel>
       </Tabs>
     </>
