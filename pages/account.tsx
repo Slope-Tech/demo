@@ -255,7 +255,7 @@ export default function Account({
               This embedded payments view allows you to seamlessly integrate payment information
               directly into your website. Customers can view both their upcoming and completed
               payments without leaving your platform, providing a streamlined experience for
-              managing their financial obligations.
+              managing their loan payments.
             </Text>
           </Alert>
 
