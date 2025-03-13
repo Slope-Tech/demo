@@ -118,7 +118,7 @@ const CustomerForm: React.FC<
         onChange={(event) => {
           const newForm = { ...customerForm }
           newForm[field] = event.currentTarget.value
-          updateAppData({ customer: newForm })
+          updateAppData({ customerForm: newForm })
         }}
         value={value}
         label={label}
