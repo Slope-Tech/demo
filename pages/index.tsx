@@ -75,8 +75,6 @@ const Checkout: React.FC<{
     const successPath = `/success?orderNumber=${order.number}`
 
     if (mode === 'redirect') {
-      // NOTE: The redirect API is still private and should not be used by developers.
-      // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
       const urlParams = new URLSearchParams({
         cancelUrl: `${baseHost}/`,
