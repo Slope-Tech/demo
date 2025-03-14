@@ -67,7 +67,7 @@ export default function Account({
     window.SlopeJs.start({
       publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
       accessToken,
-      flow: 'create_drawdown',
+      flow: 'payment_methods',
       onSuccess: (resp) => {
         console.log('onSuccess slope', resp)
         setLoading(false)
