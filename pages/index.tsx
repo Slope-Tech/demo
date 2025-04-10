@@ -91,7 +91,7 @@ const Checkout: React.FC<{
       offerType,
       flow: 'checkout',
       onSuccess: async (payload) => {
-        console.log('Slope onSuccess callback: ', payload)
+        console.log('SSlope onSuccess callback: ', payload)
         router.push(successPath)
       },
       onFailure: (err) => {
