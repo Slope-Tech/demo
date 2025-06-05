@@ -21,7 +21,7 @@ const Checkout: React.FC<{
   const { customerForm, productFlow, mode, primaryColor, accessToken } = appData
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   const [product, setProduct] = useState('Soda')
   const products = getProducts(product)
   const totals = getTotals(products)
@@ -60,7 +60,16 @@ const Checkout: React.FC<{
       }),
     })
 
-    const { order } = await orderRes.json()
+    const orderData = await orderRes.json()
+    console.log('Order API response:', orderData)
+    
+    if (!orderData.order) {
+      setError('Failed to create order: ' + JSON.stringify(orderData))
+      setLoading(false)
+      return
+    }
+    
+    const { order } = orderData
 
     let offerType
     switch (appData.productFlow) {
