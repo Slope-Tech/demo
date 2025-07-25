@@ -5,7 +5,7 @@ import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
 import OrderSummary from '../../components/OrderSummary'
 import ErrorAlert from '../../components/ErrorAlert'
 import { getProducts, getTotals } from '../../utils/products'
-import { ProductFlow } from "../../types/types"
+import { ProductFlow } from '../../types/types'
 import { CheckoutOptions } from '../../components/CheckoutOptions'
 
 declare global {
@@ -27,6 +27,7 @@ const Checkout: React.FC<{
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
+  const [currentProducts, setCurrentProducts] = useState(products)
 
   const { customerForm, productFlow, mode } = appData
   const { localeSelector, guestMode, isLegacySDK } = customerForm
@@ -59,7 +60,7 @@ const Checkout: React.FC<{
         ...customerForm,
         customerId: guestMode ? undefined : customerJson.customer.id,
         total,
-        items: products.map((p) => ({
+        items: currentProducts.map((p) => ({
           sku: p.sku,
           name: p.name,
           description: p.name,
@@ -163,6 +164,7 @@ const Checkout: React.FC<{
             setProduct={setProduct}
             total={total}
             setTotal={setTotal}
+            onProductsChange={setCurrentProducts}
           />
           <Title order={3} mb="sm">
             Payment
