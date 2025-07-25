@@ -8,7 +8,7 @@ import {
   Text,
   Title,
 } from '@mantine/core'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { formatCurrency, getProducts, getTotals } from '../utils/products'
 
 const OrderSummary: React.FC<{
@@ -16,21 +16,50 @@ const OrderSummary: React.FC<{
   setProduct: any
   total: number
   setTotal: any
-}> = ({ product, setProduct, total, setTotal }) => {
-  const products = getProducts(product)
-  const totals = getTotals(products)
+  onProductsChange?: (products: any[]) => void
+}> = ({ product, setProduct, total, setTotal, onProductsChange = () => {} }) => {
+  const [editableProducts, setEditableProducts] = useState(getProducts(product))
 
+  // Update editable products when product type changes
+  useEffect(() => {
+    setEditableProducts(getProducts(product))
+  }, [product])
+
+  // Recalculate totals when products change
+  useEffect(() => {
+    const totals = getTotals(editableProducts)
+    setTotal(totals.total)
+    // Pass updated products to parent component
+    if (onProductsChange) {
+      onProductsChange(editableProducts)
+    }
+  }, [editableProducts, setTotal, onProductsChange])
+
+  const updateProductQuantity = (sku: string, newQuantity: number) => {
+    setEditableProducts((prev) =>
+      prev.map((item) =>
+        item.sku === sku ? { ...item, quantity: Math.max(0, newQuantity) } : item
+      )
+    )
+  }
+
+  const updateProductPrice = (sku: string, newPrice: number) => {
+    setEditableProducts((prev) =>
+      prev.map((item) => (item.sku === sku ? { ...item, price: Math.max(0, newPrice) } : item))
+    )
+  }
+
+  const totals = getTotals(editableProducts)
+
+  console.log(total)
   return (
     <>
-      <Group position='apart' mb="md">
-        <Title order={3}>
-          Order
-        </Title>
+      <Group position="apart" mb="md">
+        <Title order={3}>Order</Title>
         <SegmentedControl
           data={['Soda', 'Socks']}
           value={product}
           onChange={(value) => {
-            setTotal(getTotals(getProducts(value)).total)
             setProduct(value)
           }}
           size="sm"
@@ -38,7 +67,7 @@ const OrderSummary: React.FC<{
       </Group>
 
       <List listStyleType="none" mb={20}>
-        {products.map((productItem) => (
+        {editableProducts.map((productItem) => (
           <List.Item key={productItem.sku} mb="md">
             <Grid>
               <Grid.Col span={3}>
@@ -46,18 +75,68 @@ const OrderSummary: React.FC<{
               </Grid.Col>
               <Grid.Col span={9}>
                 <Title order={5}>{productItem.name}</Title>
-                <Text size="sm" fw={700}>
-                  <Text span color="dimmed">
+                <Group spacing="xs" mb="xs">
+                  <Text size="sm" fw={700} color="dimmed">
                     Price:
-                  </Text>{' '}
-                  {formatCurrency(productItem.price)}
-                </Text>
-                <Text size="sm" fw={700}>
-                  <Text span color="dimmed">
+                  </Text>
+                  <NumberInput
+                    value={productItem.price / 100} // Convert cents to dollars for display
+                    onChange={(value) =>
+                      updateProductPrice(productItem.sku, Math.round((value || 0) * 100))
+                    }
+                    precision={2}
+                    step={0.01}
+                    min={0}
+                    decimalSeparator="."
+                    prefix="$"
+                    size="xs"
+                    hideControls
+                    styles={(theme) => ({
+                      input: {
+                        border: `1px solid ${theme.colors.gray[3]}`,
+                        borderRadius: theme.radius.sm,
+                        padding: '4px 8px',
+                        fontWeight: 700,
+                        minWidth: '80px',
+                        textAlign: 'center',
+                        '&:hover': {
+                          borderColor: theme.colors.blue[4],
+                        },
+                        '&:focus': {
+                          borderColor: theme.colors.blue[6],
+                        },
+                      },
+                    })}
+                  />
+                </Group>
+                <Group spacing="xs" mb="xs">
+                  <Text size="sm" fw={700} color="dimmed">
                     Quantity:
-                  </Text>{' '}
-                  {productItem.quantity}
-                </Text>
+                  </Text>
+                  <NumberInput
+                    value={productItem.quantity}
+                    onChange={(value) => updateProductQuantity(productItem.sku, value || 0)}
+                    min={0}
+                    size="xs"
+                    hideControls
+                    styles={(theme) => ({
+                      input: {
+                        border: `1px solid ${theme.colors.gray[3]}`,
+                        borderRadius: theme.radius.sm,
+                        padding: '4px 8px',
+                        fontWeight: 700,
+                        minWidth: '60px',
+                        textAlign: 'center',
+                        '&:hover': {
+                          borderColor: theme.colors.blue[4],
+                        },
+                        '&:focus': {
+                          borderColor: theme.colors.blue[6],
+                        },
+                      },
+                    })}
+                  />
+                </Group>
                 <Text size="sm" fw={700}>
                   <Text span color="dimmed">
                     SKU:
@@ -92,13 +171,7 @@ const OrderSummary: React.FC<{
           Total
         </Text>
         <Text size="sm" fw={700}>
-          <NumberInput
-            hideControls
-            value={total}
-            onChange={setTotal}
-            parser={(str) => parseInt((str || '').replace(/\D/g, ''), 10).toString()}
-            formatter={formatCurrency}
-          />
+          {formatCurrency(totals.total)}
         </Text>
       </Group>
     </>

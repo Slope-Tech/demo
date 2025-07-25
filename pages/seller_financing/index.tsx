@@ -46,6 +46,7 @@ const Checkout: React.FC<{
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
+  const [currentProducts, setCurrentProducts] = useState(products)
   const [customer, setCustomer] = useState<any>(null)
   const [customerSecret, setCustomerSecret] = useState<string | null>()
   const [financingTerm, setFinancingTerm] = useState<string | null>(null)
@@ -127,7 +128,7 @@ const Checkout: React.FC<{
           selectPayoutAtCheckout: true,
         },
         items: [
-          ...products.map((p) => ({
+          ...currentProducts.map((p) => ({
             sku: p.sku,
             name: p.name,
             description: p.name,
@@ -226,6 +227,7 @@ const Checkout: React.FC<{
             setProduct={setProduct}
             total={total}
             setTotal={setTotal}
+            onProductsChange={setCurrentProducts}
           />
 
           <Title order={3} mb="sm">
