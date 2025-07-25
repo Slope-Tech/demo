@@ -26,6 +26,7 @@ const Checkout: React.FC<{
   const products = getProducts(product)
   const totals = getTotals(products)
   const [total, setTotal] = useState(totals.total)
+  const [currentProducts, setCurrentProducts] = useState(products)
 
   const onPay = async () => {
     setLoading(true)
@@ -48,7 +49,7 @@ const Checkout: React.FC<{
           postalCode: customerForm.postalCode,
           country: customerForm.country,
         },
-        items: products.map((p) => ({
+        items: currentProducts.map((p) => ({
           sku: p.sku,
           name: p.name,
           description: p.name,
@@ -145,6 +146,7 @@ const Checkout: React.FC<{
             setProduct={setProduct}
             total={total}
             setTotal={setTotal}
+            onProductsChange={setCurrentProducts}
           />
 
           <Title order={3} mb="sm" mt="lg">
