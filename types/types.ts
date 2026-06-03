@@ -18,10 +18,16 @@ export enum CustomerType {
   SKIP_COMPLIANCE_AND_BANKING_AND_CONSUMER_CREDIT = '+skip-compliance+skip-banking+skip-consumer_credit',
 }
 
+export type CheckoutMode = 'redirect' | 'inline'
+
+// Both checkout modes navigate the full page to Slope rather than opening the embedded SDK.
+export const isRedirectMode = (mode?: CheckoutMode | null): mode is CheckoutMode =>
+  mode === 'redirect' || mode === 'inline'
+
 export interface AppData {
   customerForm: any
   productFlow: ProductFlow
-  mode: string
+  mode: CheckoutMode | null
   localeSelector: boolean
   guestMode: boolean
   primaryColor: string
