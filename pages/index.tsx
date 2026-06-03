@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { IconCreditCard, IconShoppingCart } from '@tabler/icons'
 import ErrorAlert from '../components/ErrorAlert'
 import OrderSummary from '../components/OrderSummary'
-import { AppData, ProductFlow } from '../types/types'
+import { AppData, ProductFlow, isRedirectMode } from '../types/types'
 import { getProducts, getTotals } from '../utils/products'
 import { CheckoutOptions } from '../components/CheckoutOptions'
 
@@ -30,7 +30,7 @@ const Checkout: React.FC<{
 
   const onPay = async () => {
     setLoading(true)
-    if (mode !== 'redirect') {
+    if (!isRedirectMode(mode)) {
       window.SlopeJs.open()
     }
 
@@ -75,9 +75,10 @@ const Checkout: React.FC<{
 
     const successPath = `/success?orderNumber=${order.number}`
 
-    if (mode === 'redirect') {
+    if (isRedirectMode(mode)) {
       const baseHost = `${window.location.protocol}//${window.location.host}`
       const urlParams = new URLSearchParams({
+        mode,
         cancelUrl: `${baseHost}/`,
         successUrl: `${baseHost}${successPath}`,
       })

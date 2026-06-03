@@ -1,6 +1,6 @@
 import React from 'react'
 import { Checkbox, ColorPicker, Container, SegmentedControl, TextInput, Title } from '@mantine/core'
-import { AppData, ProductFlow } from '../types/types'
+import { AppData, CheckoutMode, ProductFlow } from '../types/types'
 
 export const CheckoutOptions: React.FC<{
   appData: AppData
@@ -9,10 +9,8 @@ export const CheckoutOptions: React.FC<{
 }> = ({ appData, updateAppData, isV3 = false }) => {
   const { productFlow, mode, localeSelector, guestMode, primaryColor } = appData
 
-  const onChangeRedirect = (event) => {
-    updateAppData({
-      mode: event.currentTarget.checked ? 'redirect' : null,
-    })
+  const onChangeMode = (value: CheckoutMode) => (event) => {
+    updateAppData({ mode: event.currentTarget.checked ? value : null })
   }
 
   const onChangeLocaleSelector = (event) => {
@@ -53,9 +51,16 @@ export const CheckoutOptions: React.FC<{
       />
 
       <Checkbox
-        onChange={onChangeRedirect}
+        onChange={onChangeMode('redirect')}
         checked={mode === 'redirect'}
         label="Perform a full-screen redirect"
+        mb="xs"
+      />
+
+      <Checkbox
+        onChange={onChangeMode('inline')}
+        checked={mode === 'inline'}
+        label="Perform a full inline screen redirect"
         mb="xs"
       />
 
@@ -78,7 +83,7 @@ export const CheckoutOptions: React.FC<{
         </>
       )}
 
-      {mode !== 'redirect' && (
+      {!mode && (
         <>
           <TextInput value={primaryColor} label="Custom color" mb="xs" readOnly />
           <ColorPicker

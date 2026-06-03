@@ -16,7 +16,7 @@ import { IconShoppingCart } from '@tabler/icons'
 import OrderSummary from '../../components/OrderSummary'
 import ErrorAlert from '../../components/ErrorAlert'
 import { formatCurrency, getProducts, getTotals } from '../../utils/products'
-import { AppData, CustomerType, ProductFlow } from '../../types/types'
+import { AppData, CustomerType, ProductFlow, isRedirectMode } from '../../types/types'
 import { CheckoutOptions } from '../../components/CheckoutOptions'
 
 declare global {
@@ -111,7 +111,7 @@ const Checkout: React.FC<{
     }
 
     setLoading(true)
-    if (mode !== 'redirect') {
+    if (!isRedirectMode(mode)) {
       window.SlopeJs.open()
     }
 
@@ -152,14 +152,14 @@ const Checkout: React.FC<{
 
     const successPath = `/seller_financing/success?orderNumber=${order.number}`
 
-    if (mode === 'redirect') {
+    if (isRedirectMode(mode)) {
       // NOTE: The redirect API is still private and should not be used by developers.
       // Contact the Slope team if you're interested in using the redirect API.
       const baseHost = `${window.location.protocol}//${window.location.host}`
       const urlParams = new URLSearchParams({
         localeSelector,
         secret,
-        mode: 'redirect',
+        mode,
         cancelUrl: `${baseHost}/`,
         successUrl: `${baseHost}${successPath}`,
       })
