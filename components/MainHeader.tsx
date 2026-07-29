@@ -1,15 +1,4 @@
-import {
-  createStyles,
-  Header,
-  Group,
-  Container,
-  Avatar,
-  Text,
-  Anchor,
-  Button,
-  Box,
-} from '@mantine/core'
-import { IconAlertCircle } from '@tabler/icons'
+import { createStyles, Header, Group, Container, Avatar, Text, Anchor, Box } from '@mantine/core'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -23,44 +12,9 @@ const useStyles = createStyles((theme) => ({
 export const MainHeader: React.FC = () => {
   const { classes } = useStyles()
   const router = useRouter()
-  let height = 60
-  let accountPath = '/account'
-  let homePath = '/'
-  let deprecationAlert
-  if (router.pathname.startsWith('/v3')) {
-    deprecationAlert = (
-      <Box bg="red.2">
-        <Container py="sm">
-          <Group position="apart" noWrap>
-            <Group>
-              <IconAlertCircle color="red" />
-              <Text size="sm" color="red.8" fw={600}>
-                This V3 API is now deprecated. Please use the new V4 API experience.
-              </Text>
-            </Group>
-
-            <Button
-              component="a"
-              color="red"
-              href="/"
-              onClick={(e) => {
-                e.preventDefault()
-                router.push('/')
-              }}
-            >
-              Use V4 API
-            </Button>
-          </Group>
-        </Container>
-      </Box>
-    )
-    height += 60
-    accountPath = '/v3/account'
-    homePath = '/v3'
-  }
 
   return (
-    <Header height={height}>
+    <Header height={60}>
       <Box bg="fog.8">
         <Container>
           <Group position="apart" py="xs">
@@ -69,7 +23,7 @@ export const MainHeader: React.FC = () => {
               href="/"
               onClick={(e) => {
                 e.preventDefault()
-                router.push(homePath)
+                router.push('/')
               }}
               color="white"
               size={25}
@@ -80,11 +34,11 @@ export const MainHeader: React.FC = () => {
             </Text>
 
             <Anchor
-              href={accountPath}
+              href="/account"
               className={classes.link}
               onClick={(e) => {
                 e.preventDefault()
-                router.push(accountPath)
+                router.push('/account')
               }}
             >
               <Group spacing="sm">
@@ -97,7 +51,6 @@ export const MainHeader: React.FC = () => {
           </Group>
         </Container>
       </Box>
-      {deprecationAlert}
     </Header>
   )
 }
