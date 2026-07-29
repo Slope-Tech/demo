@@ -28,8 +28,6 @@ export interface AppData {
   customerForm: any
   productFlow: ProductFlow
   mode: CheckoutMode | null
-  localeSelector: boolean
-  guestMode: boolean
   primaryColor: string
   linkToken: string
   accessToken: string

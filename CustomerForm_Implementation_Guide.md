@@ -367,7 +367,7 @@ const response = await fetch('https://api.slope.so/v4/customers', {
 
 ```typescript
 // ✅ Secure - API key stays on server
-// In your API route (e.g., /api/create-customer)
+// In your API route (e.g., /api/v4-create-customer)
 const response = await fetch('https://api.slope.so/v4/customers', {
   headers: {
     Authorization: `Bearer ${process.env.SLOPE_API_KEY}`,
