@@ -5,22 +5,11 @@ import { AppData, CheckoutMode, ProductFlow } from '../types/types'
 export const CheckoutOptions: React.FC<{
   appData: AppData
   updateAppData: any
-  isV3?: boolean
-}> = ({ appData, updateAppData, isV3 = false }) => {
-  const { productFlow, mode, localeSelector, guestMode, primaryColor } = appData
+}> = ({ appData, updateAppData }) => {
+  const { productFlow, mode, primaryColor } = appData
 
   const onChangeMode = (value: CheckoutMode) => (event) => {
     updateAppData({ mode: event.currentTarget.checked ? value : null })
-  }
-
-  const onChangeLocaleSelector = (event) => {
-    updateAppData({
-      localeSelector: event.currentTarget.checked,
-    })
-  }
-
-  const onChangeGuest = (event) => {
-    updateAppData({ guestMode: event.currentTarget.checked })
   }
 
   const onChangePrimaryColor = (color) => {
@@ -63,25 +52,6 @@ export const CheckoutOptions: React.FC<{
         label="Perform a full inline screen redirect"
         mb="xs"
       />
-
-      {isV3 && (
-        <>
-          <Checkbox
-            onChange={onChangeLocaleSelector}
-            checked={!!localeSelector}
-            disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-            label="Display language selector"
-            mb="xs"
-          />
-          <Checkbox
-            onChange={onChangeGuest}
-            checked={guestMode}
-            disabled={productFlow !== ProductFlow.PAY_NOW_ONLY}
-            label="Guest checkout mode"
-            mb="xs"
-          />
-        </>
-      )}
 
       {!mode && (
         <>
